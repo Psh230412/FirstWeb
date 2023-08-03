@@ -9,11 +9,12 @@ public class User {
 	private String nickname;
 	private Blob profile;
 
-	public User(int userno, String id, String password) {
+	public User(int userno, String id, String password, String nickname) {
 		super();
 		this.userno = userno;
 		this.id = id;
 		this.password = password;
+		this.nickname = nickname;
 	}
 
 	public User(int userno, String id, String password, String nickname, Blob profile) {
@@ -31,13 +32,15 @@ public class User {
 	public void setUserno(int userno) {
 		this.userno = userno;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getPassword() {
 		return password;
 	}

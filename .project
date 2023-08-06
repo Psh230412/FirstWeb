@@ -3,6 +3,7 @@
 	<name>ScreenSceneP</name>
 	<comment></comment>
 	<projects>
+		<project>_DBUtil</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

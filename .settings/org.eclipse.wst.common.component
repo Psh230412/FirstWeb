@@ -2,6 +2,9 @@
     <wb-module deploy-name="ScreenSceneP">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="_DBUtil.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/_DBUtil/_DBUtil">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="ScreenSceneP"/>
         <property name="java-output-path" value="/ScreenSceneP/build/classes"/>
     </wb-module>

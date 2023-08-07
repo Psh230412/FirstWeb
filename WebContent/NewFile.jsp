@@ -9,33 +9,40 @@
     <script>
     
     
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-        var mapDataElement = document.getElementById("mapData");
+    function initMap() {
+      
+   // 지도를 생성합니다.
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: {lat: 37.773972, lng: -122.431297}  // 예시로 샌프란시스코의 좌표를 사용
+      });
 
-        var locations = JSON.parse(mapDataElement.value);
-        
-        
-          var markers = locations.map(function(location) {
-            return new google.maps.Marker({
-              position: location
-              
-            });
-          });
+      // Polyline의 좌표 배열을 정의합니다.
+      var pathCoordinates = [
+        {lat: 33.7078170776367, lng: -118.286170959473},
+        {lat: 37.773, lng: -122.215},
+        {lat: 34.4656639099121, lng:-118.405334472656 },
+        {lat: 40.7260704040527, lng:-73.952278137207 }
+        // ... 여러 좌표들 ...
+      ];
 
-          var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-        	gridSize : 30
-      }
+      // Polyline 객체를 생성합니다.
+      var pathLine = new google.maps.Polyline({
+        path: pathCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      // Polyline을 지도에 추가합니다.
+      pathLine.setMap(map);
+    }
+      
     </script>
   </head>
   <body>
     <div id="map" style="height: 1000px; width: 1000px"></div>
-	<input type = "hidden" id = "mapData" value='${ mapList }'/>  
   </body>
 
 </html>

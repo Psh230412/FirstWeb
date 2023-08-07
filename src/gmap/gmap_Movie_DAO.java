@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class Movie_DAO {
+public class gmap_Movie_DAO {
 	public String getRequestBody( HttpServletRequest request) throws IOException {
 		StringBuilder requestBodyBuilder = new StringBuilder();
 

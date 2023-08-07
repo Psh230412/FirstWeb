@@ -38,11 +38,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class DistanceCalculator implements Runnable {
 	private String originLatitude;
 	private String originLongitude;
-	private Location destination;
+	private gmap_Location destination;
 	private String API_KEY;
 	private List<Distance> distances = new ArrayList();
 
-	public DistanceCalculator(Location destination, String originLatitude, String originLongitude, String API_KEY) {
+	public DistanceCalculator(gmap_Location destination, String originLatitude, String originLongitude, String API_KEY) {
 		this.originLatitude = originLatitude;
 		this.originLongitude = originLongitude;
 		this.destination = destination;
@@ -87,7 +87,7 @@ public class DistanceCalculator implements Runnable {
 					for (JsonNode element : elementsNode) {
 						String elementStatus = element.path("status").asText();
 
-						Test.counter.incrementAndGet();
+//						Test.counter.incrementAndGet();
 						if (elementStatus.equals("OK")) {
 
 							JsonNode distanceNode = element.path("distance");
@@ -111,7 +111,7 @@ public class DistanceCalculator implements Runnable {
 	}
 
 	public static List<Distance> distanceCalculate( String originLatitude,
-			String originLongitude,List<Location> entireSelectedList) {
+			String originLongitude,List<gmap_Location> entireSelectedList) {
 //		Location_DAO location_DAO = new Location_DAO();
 		ExecutorService executor = Executors.newFixedThreadPool(16);
 		String API_KEY = "AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ";
@@ -125,7 +125,7 @@ public class DistanceCalculator implements Runnable {
 		List<DistanceCalculator> workers = new ArrayList<>();
 
 		
-		for (Location destination : entireSelectedList) {
+		for (gmap_Location destination : entireSelectedList) {
 			DistanceCalculator worker = new DistanceCalculator(destination, originLatitude, originLongitude, API_KEY);
 			workers.add(worker);
 			executor.execute(worker);
@@ -156,9 +156,9 @@ public class DistanceCalculator implements Runnable {
 		return allDistances;
 
 	}
-	public static List<Location> getFirstLocation(){
+	public static List<gmap_Location> getFirstLocation(){
 //		가고싶은 여행지 4곳!!
-		List<Location> firstLocation = new ArrayList<Location>();
+		List<gmap_Location> firstLocation = new ArrayList<gmap_Location>();
 		
 		
 		
@@ -166,9 +166,9 @@ public class DistanceCalculator implements Runnable {
 		return firstLocation;
 	}
 	
-	public static List<Location> getSecondLocation(){
+	public static List<gmap_Location> getSecondLocation(){
 //		전체 관광지 몇십개
-		List<Location> entireSelectedList = new ArrayList<Location>();
+		List<gmap_Location> entireSelectedList = new ArrayList<gmap_Location>();
 		
 		entireSelectedList.removeAll(getFirstLocation());
 		
@@ -177,7 +177,7 @@ public class DistanceCalculator implements Runnable {
 		// 0부터 entireSelectedList.size() - 1 사이의 랜덤한 정수를 얻습니다.
 		int randomIndex = random.nextInt(entireSelectedList.size());
 
-		Location randomLocation = entireSelectedList.get(randomIndex);
+		gmap_Location randomLocation = entireSelectedList.get(randomIndex);
 		
 		Double originLatitude= randomLocation.getLat();
 		Double originLongitude = randomLocation.getLng();
@@ -185,32 +185,29 @@ public class DistanceCalculator implements Runnable {
 		
 		List<Distance> resultList= distanceCalculate(originLatitude.toString(),originLongitude.toString(),entireSelectedList);
 		
-		List<Location> secondLocation = new ArrayList<Location>();
+		List<gmap_Location> secondLocation = new ArrayList<gmap_Location>();
 		
 		for(int i=0;i<3;i++) {
 			Distance distance = resultList.get(i);
-			secondLocation.add(new Location(distance.getLatitude(), distance.getLongitude()));
+			secondLocation.add(new gmap_Location(distance.getLatitude(), distance.getLongitude()));
 			
 		}
-		secondLocation.add(new Location(originLatitude, originLongitude));
+		secondLocation.add(new gmap_Location(originLatitude, originLongitude));
 
-		
-		
 		return secondLocation;
 	}
 	
-	public static List<Location> getThirdLocation(){
-		List<Location> entireSelectedList = new ArrayList<Location>();
+	public static List<gmap_Location> getThirdLocation(){
+		List<gmap_Location> entireSelectedList = new ArrayList<gmap_Location>();
 		
 //		전체 관광지-가고싶은곳 4곳-랜덤 4곳
 		entireSelectedList.removeAll(getSecondLocation());
 		
 		Random random = new Random();
 
-		// 0부터 entireSelectedList.size() - 1 사이의 랜덤한 정수를 얻습니다.
 		int randomIndex = random.nextInt(entireSelectedList.size());
 
-		Location randomLocation = entireSelectedList.get(randomIndex);
+		gmap_Location randomLocation = entireSelectedList.get(randomIndex);
 		
 		Double originLatitude= randomLocation.getLat();
 		Double originLongitude = randomLocation.getLng();
@@ -218,17 +215,19 @@ public class DistanceCalculator implements Runnable {
 		
 		List<Distance> resultList= distanceCalculate(originLatitude.toString(),originLongitude.toString(),entireSelectedList);
 		
-		List<Location> thirdLocation = new ArrayList<Location>();
+		List<gmap_Location> thirdLocation = new ArrayList<gmap_Location>();
 		
 		for(int i=0;i<3;i++) {
 			Distance distance = resultList.get(i);
-			thirdLocation.add(new Location(distance.getLatitude(), distance.getLongitude()));
+			thirdLocation.add(new gmap_Location(distance.getLatitude(), distance.getLongitude()));
 			
 		}
-		thirdLocation.add(new Location(originLatitude, originLongitude));
+		thirdLocation.add(new gmap_Location(originLatitude, originLongitude));
 		
 		
 		return thirdLocation;
 	}
+	
+	
 
 }

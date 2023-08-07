@@ -1,7 +1,9 @@
 package gmap;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jsoup.Jsoup;
@@ -139,32 +141,39 @@ public class MovieMapsScraper {
 		return null;
 
 	}
-
-	public String getLocationURL() {
+//	영화 제목,포스터이미지,장소 이미지 
+	public String getPosterAndPlaceImage() {
 
 		try {
-			Map<String, String> MovieTitleAndURLMap = new HashMap();
+			List<String> keysToRemove = new ArrayList<>();
+
+			Map<String, String> MovieTitleAndURLMap = getMovieTitleAndURL();
 
 			for (Map.Entry<String, String> entry : MovieTitleAndURLMap.entrySet()) {
 				String title = entry.getKey();
 				String movieUrl = entry.getValue();
 
 				Document document = Jsoup.connect(movieUrl).get();
-				
-				Elements gallerylements = document.select("section.gallery");
-				
-				for (Element galleryElement : gallerylements) {
-		            Elements thumbnailElements = galleryElement.select("figure.tiny.thumbnail");
-		            if (thumbnailElements.size() >= 6) {
-		            	
-		            } else {
-		            	
-		            	continue;
-		            }
-				
+
+				Elements anchors = document.select("figure.location-map.gallery a");
+
+				if (anchors != null) {
+					if (anchors.size() >= 6) {
+						for(Element anchor : anchors) {
+							
+						}
+						
+					} else {
+						keysToRemove.add(title);
+					}
 				}
 
 			}
+			
+			for(int i=0;i<keysToRemove.size();i++) {
+				MovieTitleAndURLMap.remove(keysToRemove.get(i));
+			}
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();

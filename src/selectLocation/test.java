@@ -14,12 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import CRUD.MovieDAO;
+
 @WebServlet("/flow")
 public class test extends HttpServlet {
 
 	// 영화 3개의 title
 	private void MoviesTitle(HttpServletRequest req) {
-		movieDao movieDao = new movieDao(); // movieDao 객체 생성
+		MovieDAO movieDao = new MovieDAO(); // movieDao 객체 생성
 
 		List<String> titles = new ArrayList<>(); // 영화 제목을 담을 리스트
 
@@ -33,7 +35,7 @@ public class test extends HttpServlet {
 
 	// 각 영화당 촬영지,이미지
 	private void MoviesAddress(HttpServletRequest req) throws SQLException, IOException {
-		movieDao movieDao = new movieDao();
+		MovieDAO movieDao = new MovieDAO();
 		List<imgLocationObject> list = new ArrayList<>();
 
 		for (int i = 1; i <= 5; i++) {

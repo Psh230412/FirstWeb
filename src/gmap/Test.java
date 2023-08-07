@@ -5,10 +5,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Test {
 
-	public static AtomicInteger counter = new AtomicInteger(0);
+//	public static AtomicInteger counter = new AtomicInteger(0);
 
 	public static void main(String[] args) {
-		List<Distance> list = DistanceCalculator.distanceCalculate(counter, "34.4656639099121", "-118.405334472656");
+		List<Distance> list = DistanceCalculator.distanceCalculate( "34.4656639099121", "-118.405334472656");
 		
 		int avail = Runtime.getRuntime().availableProcessors();
 		System.out.println("코어의 갯수"+avail);

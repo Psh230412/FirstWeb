@@ -17,7 +17,7 @@ import dbutil.DBUtil;
 
 
 
-public class Location_DAO {
+public class gmap_Location_DAO {
 	
 	public String getRequestBody(HttpServletRequest request) throws IOException {
 		StringBuilder requestBodyBuilder = new StringBuilder();
@@ -33,8 +33,8 @@ public class Location_DAO {
 		return requestBodyBuilder.toString();
 	}
 	
-	public List<Location> getLatLongList(){
-		List<Location> entireDestinationList = new ArrayList<>();
+	public List<gmap_Location> getLatLongList(){
+		List<gmap_Location> entireDestinationList = new ArrayList<>();
 
 		Connection JdbcConn = null;
 		PreparedStatement pstmt = null;
@@ -51,7 +51,7 @@ public class Location_DAO {
 				double destinationLatitude = rs.getDouble("latitude");
 				double destinationLongitude = rs.getDouble("longitude");
 
-				entireDestinationList.add(new Location(destinationLatitude, destinationLongitude));
+				entireDestinationList.add(new gmap_Location(destinationLatitude, destinationLongitude));
 
 			}
 

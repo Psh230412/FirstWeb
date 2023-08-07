@@ -35,6 +35,13 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>WebContent/Movie.css</name>
+			<type>1</type>
+			<locationURI>copy_PARENT/test/WebContent/Movie.css</locationURI>
+		</link>
+	</linkedResources>
 	<filteredResources>
 		<filter>
 			<id>1691371721830</id>
@@ -46,4 +53,10 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+	<variableList>
+		<variable>
+			<name>copy_PARENT</name>
+			<value>$%7BPARENT-1-ECLIPSE_HOME%7D/Moon/workSpace_ee</value>
+		</variable>
+	</variableList>
 </projectDescription>

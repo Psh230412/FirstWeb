@@ -14,6 +14,37 @@ import object.Movie;
 import object.User;
 
 public class MovieDAO {
+	// 영화 하나의 제목을 가져오는 메소드
+	public String selectOneMovie(int movie_no) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Movie> list = new ArrayList<>();
+		String title = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			String sql = "SELECT * FROM movie where movie_no = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, movie_no);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				title = rs.getString("title");
+			}
+			return title;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return null;
+	}
+
 	// 영화 객체를 일정 개수 불러와서 리스트로 반환 (무한스크롤용)(일단 24개로 해둠)
 	public List<Movie> selectMovieList(int scrollCount) {
 		Connection conn = null;
@@ -22,14 +53,14 @@ public class MovieDAO {
 		List<Movie> list = new ArrayList<>();
 		try {
 			int offset = scrollCount * 24;
-			
+
 			conn = DBUtil.getConnection();
 			String sql = "SELECT * FROM movie LIMIT 24 OFFSET ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, offset);
-			
+
 			rs = stmt.executeQuery();
-			
+
 			while (rs.next()) {
 				int movie_no = rs.getInt("movie_no");
 				String title = rs.getString("title");
@@ -46,14 +77,14 @@ public class MovieDAO {
 		}
 		return null;
 	}
-	
+
 	// Movie[] 를 movieno로 변환
 	public int[] movieNumber(Movie[] movies) {
-		int[] arr = {movies[0].getMovie_no(), movies[1].getMovie_no(), movies[2].getMovie_no()};
+		int[] arr = { movies[0].getMovie_no(), movies[1].getMovie_no(), movies[2].getMovie_no() };
 		return arr;
 	}
-	
-	// 유저가 영화를 3개 선택하여 DB에 저장. 
+
+	// 유저가 영화를 3개 선택하여 DB에 저장.
 	public int insertMovies(Movie[] movies, User user) {
 		Connection conn = null;
 		PreparedStatement stmt1 = null;
@@ -62,12 +93,12 @@ public class MovieDAO {
 		try {
 			int[] arr = movieNumber(movies);
 			conn = DBUtil.getConnection();
-			
+
 			String sql1 = "DELETE FROM user_choice WHERE userno = ?";
 			stmt1 = conn.prepareStatement(sql1);
 			stmt1.setInt(1, user.getUserno());
 			stmt1.executeUpdate();
-			
+
 			String sql2 = "INSERT INTO user_choice (userno, movie1, movie2, movie3) VALUES (?, ?, ?, ?)";
 			stmt2 = conn.prepareStatement(sql2);
 			stmt2.setInt(1, user.getUserno());
@@ -75,7 +106,7 @@ public class MovieDAO {
 			stmt2.setInt(3, arr[1]);
 			stmt2.setInt(4, arr[2]);
 			return stmt2.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -86,9 +117,9 @@ public class MovieDAO {
 		}
 		return -1;
 	}
-	
+
 	// 선택한 영화 하나에 따른 장소 리스트를 반환
-	public List<Location> selectLocationList(Movie movie){
+	public List<Location> selectLocationList(int movie) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -97,8 +128,9 @@ public class MovieDAO {
 			conn = DBUtil.getConnection();
 			String sql = "SELECT * FROM location WHERE movie_no = ?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, movie.getMovie_no());
+			stmt.setInt(1, movie);
 			rs = stmt.executeQuery();
+
 			while (rs.next()) {
 				int location_no = rs.getInt("location_no");
 				int movie_no = rs.getInt("movie_no");
@@ -108,6 +140,7 @@ public class MovieDAO {
 				Blob image = rs.getBlob("image");
 				list.add(new Location(location_no, movie_no, address, latitude, longitude, image));
 			}
+
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,9 +151,9 @@ public class MovieDAO {
 		}
 		return null;
 	}
-	
+
 	// 장소 1개 저장/최단거리?랜덤장소 추가 5개 저장 // 지도 로직 필요
-	
+
 	// 저장된 경로를 반환? // 지도 로직 필요
-	
+
 }

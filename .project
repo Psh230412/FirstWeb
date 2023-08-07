@@ -47,4 +47,10 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+	<variableList>
+		<variable>
+			<name>copy_PARENT</name>
+			<value>$%7BPARENT-1-ECLIPSE_HOME%7D/Moon/workSpace_ee</value>
+		</variable>
+	</variableList>
 </projectDescription>

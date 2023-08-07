@@ -8,6 +8,15 @@ public class SelectPath {
 	private int location3;
 	private int location4;
 
+	public SelectPath(int user_choice_no, int location1, int location2, int location3, int location4) {
+		super();
+		this.user_choice_no = user_choice_no;
+		this.location1 = location1;
+		this.location2 = location2;
+		this.location3 = location3;
+		this.location4 = location4;
+	}
+	
 	public SelectPath(int path_no, int user_choice_no, int location1, int location2, int location3, int location4) {
 		super();
 		this.path_no = path_no;

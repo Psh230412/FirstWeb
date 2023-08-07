@@ -9,7 +9,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
-@WebFilter("/join")
+@WebFilter("/login11")
 // 회원가입 규칙
 // 아이디: 소문자, 대문자, 한글, 숫자를 이용하여 5~20자
 // 비밀번호: 소문자, 대문자, 숫자, 정해진 특수문자들을 모두 포함 (~ ! @ # $ % ^ & * ( ) _ - + = [ ] , . / < >)
@@ -21,27 +21,23 @@ public class UserFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		if ("POST".equalsIgnoreCase(req.getMethod())) {
 
-			String id = request.getParameter("id");
-			String password = request.getParameter("password");
-			String nickname = request.getParameter("nickname");
+			String joinId = request.getParameter("joinId");
+			String joinPassword = request.getParameter("joinPassword");
+			String joinNickname = request.getParameter("joinNickname");
 			
-			req.setAttribute("id", id);
-			req.setAttribute("password", password);
-			req.setAttribute("nickname", nickname);
-
-			if (!id.matches("[a-zA-Z0-9가-힣]{5,20}")) {
-				req.setAttribute("idError", "아이디는 소문자, 대문자, 한글, 숫자만을 이용하여 5~20자로 만들어야 합니다.");
+			if (!joinId.matches("[a-zA-Z0-9가-힣]{5,20}")) {
+				req.setAttribute("joinIdError", "아이디는 소문자, 대문자, 한글, 숫자만을 이용하여 5~20자로 만들어야 합니다.");
 			}
 
 			String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[~!@#$%^&*()_\\-+=\\[\\],./<>?])"
 					+ "[A-Za-z\\d~!@#$%^&*()_\\-+=\\[\\],./<>?]{9,20}$";
 
-			if (!password.matches(pattern)) {
-				req.setAttribute("passwordError", "비밀번호 규칙을 지키지 않았습니다.");
+			if (!joinPassword.matches(pattern)) {
+				req.setAttribute("joinPasswordError", "비밀번호 규칙을 지키지 않았습니다.");
 			}
 
-			if (!nickname.matches("[a-zA-Z0-9가-힣]{5,20}")) {
-				req.setAttribute("nicknameError", "닉네임은 소문자, 대문자, 한글, 숫자만을 이용하여 5~20자로 만들어야 합니다.");
+			if (!joinNickname.matches("[a-zA-Z0-9가-힣]{5,20}")) {
+				req.setAttribute("joinNicknameError", "닉네임은 소문자, 대문자, 한글, 숫자만을 이용하여 5~20자로 만들어야 합니다.");
 			}
 		}
 		chain.doFilter(request, response);

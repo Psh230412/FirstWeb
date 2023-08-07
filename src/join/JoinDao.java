@@ -20,9 +20,9 @@ public class JoinDao {
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				return false;
-			} else {
 				return true;
+			} else {
+				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -31,7 +31,7 @@ public class JoinDao {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
-		return true;
+		return false;
 	}
 	
 	public boolean duplicateNickname(String nickname) {

@@ -10,14 +10,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter("/join")
+@WebFilter("/login")
 public class EncodingFilter implements Filter {
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletResponse resp = (HttpServletResponse) response;
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");  // 요청 인코딩 설정
 
-		resp.setCharacterEncoding("UTF-8");
-		resp.setHeader("Content-Type", "text/plain;charset=utf-8");
-		chain.doFilter(request, response);
-	}
+        HttpServletResponse resp = (HttpServletResponse) response;
+        resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Content-Type", "text/html;charset=utf-8");  // 응답 헤더 설정
+
+        chain.doFilter(request, response);
+    }
 }

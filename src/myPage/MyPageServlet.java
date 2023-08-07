@@ -20,11 +20,11 @@ public class MyPageServlet extends HttpServlet {
 		String nickname = dao.getNickname(id);
 		req.setAttribute("nickname", nickname);
 		
-		req.getRequestDispatcher("/WEB-INF/mypage/mypage.jsp").forward(req, resp);
+		req.getRequestDispatcher("./WEB-INF/mypage/mypage.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/mypageModify/mypageModify.jsp").forward(req, resp);
+		resp.sendRedirect("/FirstWeb/mypagemodify");
 	}
 }

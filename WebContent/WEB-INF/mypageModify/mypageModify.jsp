@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<link rel="stylesheet" type="text/css" href="mypage modify/mypage modify.css" />
+<link rel="stylesheet" type="text/css"
+	href="mypage modify/mypage modify.css" />
 <title>Page Title</title>
 </head>
 <body>
@@ -15,26 +16,29 @@
 				<p id="profil">사진</p>
 				<img src="img/톱니바퀴 단추.png" id="profilBtn" alt="대체 텍스트" />
 			</div>
-			<div class="inputLongDiv">
-				<div class="inputDiv">
-					<p class="inputText">이것은닉네임이고공백포함15자</p>
+			<form method="post">
+				<div class="inputLongDiv">
+					<div class="inputDiv">
+						<input type="text" class="inputText" name="changeNickname" value="${ nickname }" />
+					</div>
+					<img src="img/연필모양img.png" id="pancilBtn" alt="대체 텍스트" />
 				</div>
-				<img src="img/연필모양img.png" id="pancilBtn" alt="대체 텍스트" />
-			</div>
 
-			<div class="inputLongDiv">
-				<div class="inputDiv">
-					<p class="inputText">이것은이름이고공백포함15자임</p>
+				<div class="inputLongDiv">
+					<div class="inputDiv">
+						<input type="password" class="inputText" name="changePassword" />
+					</div>
+					<img src="img/연필모양img.png" id="pancilBtn" alt="대체 텍스트" />
 				</div>
-				<img src="img/연필모양img.png" id="pancilBtn" alt="대체 텍스트" />
-			</div>
 
-			<div class="inputLongDiv">
-				<div class="inputDiv">
-					<p class="inputText">이것은비밀번호고공백포함15자</p>
+				<div class="inputLongDiv">
+					<div class="inputDiv">
+						<input type="password" class="inputText" name="changePasswordRe" />
+					</div>
+					<img src="img/연필모양img.png" id="pancilBtn" alt="대체 텍스트" />
+					<button></button>
 				</div>
-				<img src="img/연필모양img.png" id="pancilBtn" alt="대체 텍스트" />
-			</div>
+			</form>
 		</div>
 	</main>
 </body>

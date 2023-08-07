@@ -144,6 +144,7 @@ public class MovieMapsScraper {
 		return null;
 
 	}
+<<<<<<< HEAD
 //	영화 제목,포스터이미지,장소 이미지 
 	public String getPosterAndPlaceImage() {
 
@@ -201,6 +202,40 @@ public class MovieMapsScraper {
 		}
 
 	}
+=======
+
+//	public String getLocationURL() {
+//
+//		try {
+//			Map<String, String> MovieTitleAndURLMap = new HashMap();
+//
+//			for (Map.Entry<String, String> entry : MovieTitleAndURLMap.entrySet()) {
+//				String title = entry.getKey();
+//				String movieUrl = entry.getValue();
+//
+//				Document document = Jsoup.connect(movieUrl).get();
+//				
+//				Elements gallerylements = document.select("section.gallery");
+//				
+//				for (Element galleryElement : gallerylements) {
+//		            Elements thumbnailElements = galleryElement.select("figure.tiny.thumbnail");
+//		            if (thumbnailElements.size() >= 6) {
+//		            	
+//		            } else {
+//		            	
+//		            	continue;
+//		            }
+//				
+//				}
+//
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
+>>>>>>> branch 'master' of https://github.com/Psh230412/FirstWeb.git
 
 	public static void main(String[] args) {
 	}

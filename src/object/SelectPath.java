@@ -1,5 +1,7 @@
 package object;
 
+import java.sql.Blob;
+
 public class SelectPath {
 	private int path_no;
 	private int user_choice_no;
@@ -7,24 +9,25 @@ public class SelectPath {
 	private int location2;
 	private int location3;
 	private int location4;
+	private Blob pathMapImage;
 
-	public SelectPath(int user_choice_no, int location1, int location2, int location3, int location4) {
-		super();
+	public SelectPath(int user_choice_no, int location1, int location2, int location3, int location4, Blob pathMapImage) {
 		this.user_choice_no = user_choice_no;
 		this.location1 = location1;
 		this.location2 = location2;
 		this.location3 = location3;
 		this.location4 = location4;
+		this.pathMapImage = pathMapImage;
 	}
 	
-	public SelectPath(int path_no, int user_choice_no, int location1, int location2, int location3, int location4) {
-		super();
+	public SelectPath(int path_no, int user_choice_no, int location1, int location2, int location3, int location4, Blob pathMapImage) {
 		this.path_no = path_no;
 		this.user_choice_no = user_choice_no;
 		this.location1 = location1;
 		this.location2 = location2;
 		this.location3 = location3;
 		this.location4 = location4;
+		this.pathMapImage = pathMapImage;
 	}
 
 	public int getPath_no() {
@@ -75,4 +78,11 @@ public class SelectPath {
 		this.location4 = location4;
 	}
 
+	public Blob getPathMapImage() {
+		return pathMapImage;
+	}
+
+	public void setPathMapImage(Blob pathMapImage) {
+		this.pathMapImage = pathMapImage;
+	}
 }

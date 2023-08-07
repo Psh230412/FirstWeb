@@ -14,8 +14,6 @@ import org.jsoup.select.Elements;
 /*
 
 https://moviemaps.org/movies/
-
-제목
 <body class = “movie list”>
 	<main>
 		<section>
@@ -60,9 +58,14 @@ https://moviemaps.org/movies/x1
 
 
           
-        </h4><div class="markdown"><p></p></div><section class="gallery"></section><section class="source"><div class="markdown"><p>Source: Roman Latta</p></div></section></div></article></section>
+        </h4><div class="markdown"><p></p></div>
+        <section class="gallery"></section>
+        <section class="source"><div class="markdown"><p>Source: Roman Latta</p></div></section></div></article></section>
 
 
+
+		 <section class="gallery">
+		 <figure class="tiny thumbnail" img-key="1jn9.d9yk9m"><a href="/images/1jn9"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jn9.d9yk9m.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jn9.d9yk9m.78.jpg, //storage.googleapis.com/moviemaps/img/1jn9.d9yk9m.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jnb.3cg53c"><a href="/images/1jnb"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jnb.3cg53c.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jnb.3cg53c.78.jpg, //storage.googleapis.com/moviemaps/img/1jnb.3cg53c.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jna.1kitdy"><a href="/images/1jna"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jna.1kitdy.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jna.1kitdy.78.jpg, //storage.googleapis.com/moviemaps/img/1jna.1kitdy.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jnc.3ntni8"><a href="/images/1jnc"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jnc.3ntni8.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jnc.3ntni8.78.jpg, //storage.googleapis.com/moviemaps/img/1jnc.3ntni8.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jnd.d3w5at"><a href="/images/1jnd"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jnd.d3w5at.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jnd.d3w5at.78.jpg, //storage.googleapis.com/moviemaps/img/1jnd.d3w5at.156.jpg 2x"></a></figure></section>
 
 https://moviemaps.org/locations/z2
 
@@ -156,6 +159,7 @@ public class MovieMapsScraper {
 				Document document = Jsoup.connect(movieUrl).get();
 
 				Elements anchors = document.select("figure.location-map.gallery a");
+				
 
 				if (anchors != null) {
 					if (anchors.size() >= 6) {
@@ -167,14 +171,31 @@ public class MovieMapsScraper {
 						keysToRemove.add(title);
 					}
 				}
+				
+				
+				
+				Elements gallerySectionsHasFigures = document.select("section.gallery:has(figure.tiny.thumbnail)");
 
-			}
-			
-			for(int i=0;i<keysToRemove.size();i++) {
-				MovieTitleAndURLMap.remove(keysToRemove.get(i));
-			}
-			
-
+		        if (gallerySectionsHasFigures.size() >= 6) {
+		        	 Elements gallerySections = document.select("section.gallery");
+		        	 
+		        	 for (Element gallerySection : gallerySections) {
+		                 Element firstFigure = gallerySection.selectFirst("figure.tiny.thumbnail");
+		                 
+		                 Element anchorTag = firstFigure.selectFirst("a");
+		                 
+		                 if (anchorTag != null) {
+		                     String hrefValue = anchorTag.attr("href");
+		                     String fullUrl = "https://moviemaps.org" + hrefValue;
+		                     
+		                     
+		                     
+		                 } else {
+		                     System.out.println("No matching element found.");
+		                 }
+		             }
+		        }
+		    }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

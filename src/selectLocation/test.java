@@ -1,4 +1,4 @@
-package selectLocation;
+package servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 import CRUD.MovieDAO;
+import object.Location;
+import object.imgLocationObject;
 
 @WebServlet("/flow")
 public class test extends HttpServlet {
@@ -39,22 +43,26 @@ public class test extends HttpServlet {
 		List<imgLocationObject> list = new ArrayList<>();
 
 		for (int i = 1; i <= 5; i++) {
-			List<String> imageData = new ArrayList<>();
 			List<String> addressData = new ArrayList<>();
+			List<String> imageData = new ArrayList<>();
 			List<Location> location = movieDao.selectLocationList(i);
 			System.out.println(location.size());
 			for (int j = 0; j < location.size(); j++) {
-
 				Blob blob = location.get(j).getImage();
 				InputStream inputStream = blob.getBinaryStream();
 				byte[] bytes = new byte[(int) blob.length()];
 				inputStream.read(bytes);
-
 				imageData.add(Base64.getEncoder().encodeToString(bytes));
+				addressData.add(location.get(j).getAddress());
 			}
-			list.add(new imgLocationObject(imageData, addressData));
+//			list.add(new imgLocationObject(imageData, addressData));
+			System.out.println(addressData);
+			System.out.println(imageData.get(1));
+
+			req.setAttribute("address", addressData);
+			req.setAttribute("imageData", imageData);
+			req.setAttribute("locations", list);
 		}
-		req.setAttribute("locations", list);
 	}
 
 	@Override

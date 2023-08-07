@@ -26,18 +26,19 @@
 </header>
 <body>
     <c:forEach var="title" items="${titles}">
-        <h2 class="movieTitle">${title}</h2>
-        <div class="container">
-            <c:forEach var="location" items="${locations}" varStatus="locationLoop">
-                    <div class="item">
-                        <img src="data:image/jpeg;base64,${location.getImageData()}" class="movieimg"/>
-                        <div class="description">
-                            <p class="address">${location.getAddressData()}</p>
-                        </div>
+    <h2 class="movieTitle">${title}</h2>
+    <div class="container">
+        <c:forEach var="address" items="${address}" varStatus="locationLoop">
+                <div class="item">
+                    <img src="data:image/jpeg;base64,${imageData[locationLoop.index]}" class="movieimg"/>
+                    <div class="description">
+                        <p class="address">${address}</p>
                     </div>
-            </c:forEach>
-        </div>
-    </c:forEach>
+                </div>
+        </c:forEach>
+    </div>
+</c:forEach>
+ 
 
     <script>
         const titles = document.querySelectorAll(".movieTitle");

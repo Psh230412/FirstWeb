@@ -140,37 +140,37 @@ public class MovieMapsScraper {
 
 	}
 
-	public String getLocationURL() {
-
-		try {
-			Map<String, String> MovieTitleAndURLMap = new HashMap();
-
-			for (Map.Entry<String, String> entry : MovieTitleAndURLMap.entrySet()) {
-				String title = entry.getKey();
-				String movieUrl = entry.getValue();
-
-				Document document = Jsoup.connect(movieUrl).get();
-				
-				Elements gallerylements = document.select("section.gallery");
-				
-				for (Element galleryElement : gallerylements) {
-		            Elements thumbnailElements = galleryElement.select("figure.tiny.thumbnail");
-		            if (thumbnailElements.size() >= 6) {
-		            	
-		            } else {
-		            	
-		            	continue;
-		            }
-				
-				}
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
+//	public String getLocationURL() {
+//
+//		try {
+//			Map<String, String> MovieTitleAndURLMap = new HashMap();
+//
+//			for (Map.Entry<String, String> entry : MovieTitleAndURLMap.entrySet()) {
+//				String title = entry.getKey();
+//				String movieUrl = entry.getValue();
+//
+//				Document document = Jsoup.connect(movieUrl).get();
+//				
+//				Elements gallerylements = document.select("section.gallery");
+//				
+//				for (Element galleryElement : gallerylements) {
+//		            Elements thumbnailElements = galleryElement.select("figure.tiny.thumbnail");
+//		            if (thumbnailElements.size() >= 6) {
+//		            	
+//		            } else {
+//		            	
+//		            	continue;
+//		            }
+//				
+//				}
+//
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	public static void main(String[] args) {
 	}

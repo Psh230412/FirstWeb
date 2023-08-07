@@ -76,7 +76,7 @@ function createMovieCard(title, posterImage, movienumber) {
     const movieNumberValue = movieNumber.value;
     const index = moviesNumber.indexOf(movieNumberValue);
     const chooseContent = document.querySelector(".choose-content");
-
+	
     if (moviesNumber.length < 5) {
       if (index === -1) {
         moviesNumber.push(movieNumberValue);
@@ -153,35 +153,18 @@ function updateConfirmButtonState() {
 const confirmButton = document.querySelector(".choose-confirm-btn");
 confirmButton.addEventListener("click", () => {
   confirmMovies();
-  console.log(moviesNumber);
 });
 function confirmMovies() {
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ movieNumbers: moviesNumber }),
-  };
+ document.getElementById('selectedMovies').value = JSON.stringify( {movieNumbers : moviesNumber});
+ document.getElementById('movieSelectionForm').submit();
 
-  fetch("http://localhost:8080/ScreenSceneP/movieselect", requestOptions).then(
-    (response) => {
-      if (!response.ok) {
-        console.error(
-          "Error fetching movies:",
-          response.status,
-          response.statusText
-        );
-        return;
-      }
-    }
-  );
 }
 window.addEventListener("scroll", () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
     loadMoreMovies();
   }
 });
+
 let loadedMovieIds = [];
 function loadMoreMovies() {
   let totalMovies;

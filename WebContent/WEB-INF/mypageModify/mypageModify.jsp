@@ -47,7 +47,7 @@
 			<section>
 				<div class="profile">
 					<form method="post">
-						<input type="hidden" value="profilBtn">
+						<input type="hidden" value="profilImg" name="form_type">
 						<button id="photoset-Button">
 							<i class='bx bxs-cog' style='color: #ffffff'></i>
 						</button>

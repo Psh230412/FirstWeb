@@ -158,18 +158,6 @@ function confirmMovies() {
  document.getElementById('selectedMovies').value = JSON.stringify( {movieNumbers : moviesNumber});
  document.getElementById('movieSelectionForm').submit();
 
-  fetch("http://localhost:8080/FirstWeb/movieselect", requestOptions).then(
-    (response) => {
-      if (!response.ok) {
-        console.error(
-          "Error fetching movies:",
-          response.status,
-          response.statusText
-        );
-        return;
-      }
-    }
-  );
 }
 window.addEventListener("scroll", () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {

@@ -1,129 +1,149 @@
 @charset "UTF-8";
 
 table {
-	width: 100%;
+   width: 100%;
 }
 
 caption {
-	text-align: left;
-	caption-side: top;
-	font-weight: bold;
+   text-align: left;
+   caption-side: top;
+   font-weight: bold;
 }
 
 main {
-	width: 60%; /* 원하는 너비로 설정 */
-	margin: 0 auto; /* 가로 가운데 정렬 */
-	text-align: center; /* 내용을 가운데 정렬 */
+   width: 60%; /* 원하는 너비로 설정 */
+   margin: 0 auto; /* 가로 가운데 정렬 */
+   text-align: center; /* 내용을 가운데 정렬 */
 }
 
 html, body {
-	margin: 0;
-	padding: 0;
-	background-color: black;
-	color: aliceblue;
-	font-family: "NanumSquareNeo-Variable";
+   margin: 0;
+   padding: 0;
+   background-color: black;
+   color: aliceblue;
+   font-family: "NanumSquareNeo-Variable";
 }
 
 header {
-	margin-top: 30px;
-	margin-left: 30px;
+   margin-top: 30px;
+   margin-left: 30px;
 }
 
 #top_container {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
+   width: 100%;
+   display: flex;
+   flex-direction: row;
 }
 
 #logo {
-	height: 40px;
+   height: 40px;
 }
 
 #navigation {
-	margin-left: 50px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+   margin-left: 50px;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
 }
 
 .navi {
-	margin-left: 50px;
-	font-weight: 600;
+   margin-left: 50px;
+   font-weight: 600;
 }
 
 .movieimg {
-	max-width: 250px; /* 이미지 가로폭 고정 */
-	max-height: 170px; /* 이미지 높이 고정 */
-	width: auto;
-	height: auto;
+   max-width: 250px; /* 이미지 가로폭 고정 */
+   max-height: 170px; /* 이미지 높이 고정 */
+   width: auto;
+   height: auto;
 }
 
 .flex-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
 }
 
 .address {
-	white-space: normal; /* 줄 바꿈 허용 */
-	max-width: 350px;
-	max-height: 175px; /* 최대 높이 설정 */
-	overflow: hidden;
-	text-overflow: ellipsis; /* 25자 이후의 글자는 ...으로 표시 */
+   white-space: normal; /* 줄 바꿈 허용 */
+   max-width: 350px;
+   max-height: 175px; /* 최대 높이 설정 */
+   overflow: hidden;
+   text-overflow: ellipsis; /* 25자 이후의 글자는 ...으로 표시 */
 }
 
-.container {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
-	gap: 50px; /* 열 간격 조정 */
-	padding-left: 100px;
-	padding-right: 100px;
-	padding-bottom: 50px;
+/* 기존 moviePoster CSS */
+
+.movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    width: 1650px;  /* 너비를 설정하여 moviePoster와 locations-container의 너비를 제한 */
 }
 
+.poster-container {
+    width: 270px;
+    height: 400px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    background-image: linear-gradient(to right, yellow, red, green, blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.moviePoster {
+    width: 250px;  /* 포스터의 가로 크기를 조절합니다. */
+    height: 380px; /* 포스터의 세로 크기를 조절합니다. 포스터 크기를 조금 줄여서 그라데이션 효과를 더 잘 볼 수 있게 합니다. */
+    display: block;
+    margin: 0 auto;
+}
+
+.locations-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap; 
+    border: 3px solid white; /* 흰색 테두리 추가 */
+    padding: 10px; /* 테두리와 내용 사이의 간격을 조절 */
+    border-radius: 8px; /* 테두리의 모서리를 둥글게 */
+}
 .item {
-	display: flex;
-	align-items: center;
-	text-align: center;
-	padding: 10px;
-	border: 3px solid #000000;
+    width: 30%; 
+    flex-basis: 30%; 
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    border: 3px solid #000000;
+    margin: 5px 0;  /* 위아래 마진만 설정합니다. */
 }
+
 
 .description {
-	margin-left: 10px;
-	max-width: 350px; /* 최대 너비 설정 */
-}
-
-.movieTitle {
-	width: 250px;
-	height: 50px;
-	flex-shrink: 0;
-	border-radius: 50px;
-	background: #7937ff;
-	margin-left: 30px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    margin-left: 10px;
+    max-width: 350px;
 }
 
 .selected {
-	border-radius: 10px;
-	border: 3px solid #7937ff;
-	background: rgba(121, 55, 255, 0.5);
+   border-radius: 10px;
+   border: 3px solid #7937ff;
+   background: rgba(121, 55, 255, 0.5);
 }
 
 .Route {
-	width: 250px;
-	height: 50px;
-	flex-shrink: 0;
-	border-radius: 50px;
-	background: #7937ff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	margin-right: 200px;
+   width: 250px;
+   height: 50px;
+   flex-shrink: 0;
+   border-radius: 50px;
+   background: #7937ff;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   margin-right: 200px;
 }

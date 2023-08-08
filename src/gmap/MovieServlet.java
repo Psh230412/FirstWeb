@@ -23,7 +23,7 @@ public class MovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	ObjectMapper objectMapper = new ObjectMapper();
-	Movie_DAO choice_DAO = new Movie_DAO();
+	gmap_Movie_DAO choice_DAO = new gmap_Movie_DAO();
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -153,16 +153,10 @@ function updateConfirmButtonState() {
 const confirmButton = document.querySelector(".choose-confirm-btn");
 confirmButton.addEventListener("click", () => {
   confirmMovies();
-  console.log(moviesNumber);
 });
 function confirmMovies() {
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ movieNumbers: moviesNumber }),
-  };
+ document.getElementById('selectedMovies').value = JSON.stringify( {movieNumbers : moviesNumber});
+ document.getElementById('movieSelectionForm').submit();
 
   fetch("http://localhost:8080/FirstWeb/movieselect", requestOptions).then(
     (response) => {
@@ -182,6 +176,7 @@ window.addEventListener("scroll", () => {
     loadMoreMovies();
   }
 });
+
 let loadedMovieIds = [];
 function loadMoreMovies() {
   let totalMovies;
@@ -198,7 +193,7 @@ function loadMoreMovies() {
     }),
   };
 
-  fetch("http://localhost:8080/FirstWeb/userchoice", requestOptions)
+  fetch("http://localhost:8080/ScreenSceneP/userchoice", requestOptions)
     .then((response) => {
       if (!response.ok) {
         console.error(

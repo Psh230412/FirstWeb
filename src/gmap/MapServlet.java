@@ -14,11 +14,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebServlet("/Map")
 public class MapServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    Location_DAO m = new Location_DAO();
+    gmap_Location_DAO m = new gmap_Location_DAO();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	List<Location> mapList = m.getLatLongList();
+	List<gmap_Location> mapList = m.getLatLongList();
 
 	ObjectMapper objectMapper = new ObjectMapper();
 	String json = objectMapper.writeValueAsString(mapList);

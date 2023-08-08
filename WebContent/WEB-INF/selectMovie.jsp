@@ -25,36 +25,29 @@
 	</div>
 </header>
 <body>
-    <c:forEach var="title" items="${titles}">
+ <c:forEach var="title" items="${titles}">
     <h2 class="movieTitle">${title}</h2>
     <div class="container">
-        <c:forEach var="address" items="${address}" varStatus="locationLoop">
+        <c:forEach var="locationObject" items="${movieLocations[title]}">
+            <c:forEach var="imgData" items="${locationObject.imageData}" varStatus="status">
                 <div class="item">
-                    <img src="data:image/jpeg;base64,${imageData[locationLoop.index]}" class="movieimg"/>
+                    <img src="data:image/jpeg;base64,${imgData}" class="movieimg"/>
                     <div class="description">
-                        <p class="address">${address}</p>
+                        <p class="address">${locationObject.addressData[status.index]}</p>
                     </div>
                 </div>
+            </c:forEach>
         </c:forEach>
     </div>
 </c:forEach>
+
+
  
 
     <script>
-        const titles = document.querySelectorAll(".movieTitle");
-        const containers = document.querySelectorAll(".container");
+        
         const items = document.querySelectorAll(".item");
         let selectedCount = 0;
-
-        titles.forEach((title) => {
-            title.addEventListener("click", () => {
-                const movie = title.getAttribute("data-movie");
-                containers.forEach((container) => {
-                    container.style.display = "none";
-                });
-                document.querySelector(`[data-movie="${movie}"]`).style.display = "block";
-            });
-        });
 
         items.forEach((item) => {
             item.addEventListener("click", () => {

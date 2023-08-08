@@ -1,5 +1,6 @@
 package myPage;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,6 @@ import object.MyPath;
 import object.SelectPath;
 
 public class MyPageDao {
-<<<<<<< HEAD
 
 	public int getUserNo(String id) {
 		Connection conn = null;
@@ -52,10 +52,6 @@ public class MyPageDao {
 			stmt = conn.prepareStatement("SELECT * FROM user WHERE id = ?");
 			stmt.setString(1, id);
 			rs = stmt.executeQuery();
-=======
->>>>>>> branch 'master' of https://github.com/Psh230412/FirstWeb.git
-
-<<<<<<< HEAD
 			if (rs.next()) {
 				nickname = rs.getString("nickname");
 			}
@@ -83,14 +79,7 @@ public class MyPageDao {
 					+ "					FROM user_choice\r\n" + "					WHERE userno = ?)");
 			stmt.setInt(1, userno);
 			rs = stmt.executeQuery();
-=======
-    public String getNickname(String id) {
-	Connection conn = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
->>>>>>> branch 'master' of https://github.com/Psh230412/FirstWeb.git
 
-<<<<<<< HEAD
 			while (rs.next()) {
 				int location1 = rs.getInt("location1");
 				int location2 = rs.getInt("location2");
@@ -138,27 +127,9 @@ public class MyPageDao {
 			DBUtil.close(stmt);
 		}
 		return address;
-=======
-	String nickname = "";
-	try {
-	    conn = DBUtil.getConnection();
-	    stmt = conn.prepareStatement("SELECT * FROM user WHERE id = ?");
-	    stmt.setString(1, id);
-	    rs = stmt.executeQuery();
-
-	    if (rs.next()) {
-		nickname = rs.getString("nickname");
-	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	} finally {
-	    DBUtil.close(rs);
-	    DBUtil.close(stmt);
-	    DBUtil.close(conn);
->>>>>>> branch 'master' of https://github.com/Psh230412/FirstWeb.git
 	}
-	return nickname;
-    }
+}
+
 
 //    public List<Path> getMyPath(String id) {
 //	Connection conn = null;
@@ -190,4 +161,3 @@ public class MyPageDao {
 //	    DBUtil.close(conn);
 //	}
 //    }
-}

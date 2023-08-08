@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import object.SelectPath;
 
@@ -23,7 +22,7 @@ public class PathServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		System.out.println(req.getParameter("selectedLocationNos"));
 //		SelectPath path1 = (SelectPath) req.getAttribute("path1");
 //		SelectPath path2 = (SelectPath) req.getAttribute("path2");
 //		SelectPath path3 = (SelectPath) req.getAttribute("path3");
@@ -33,7 +32,7 @@ public class PathServlet extends HttpServlet {
 		SelectPath[] paths = { path1, path2, path3 };
 
 		List<ViewPath> viewPaths = selectPathDao.getViewPathArr(paths);
-		
+
 		req.setAttribute("viewPaths", viewPaths);
 		req.getRequestDispatcher("/WEB-INF/selectpathpage/selectpath.jsp").forward(req, resp);
 

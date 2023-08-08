@@ -78,7 +78,7 @@
 	});
     </script>
     
-    <form action="/pathservlet" post="get">
+    <form action="/selectpath" post="get">
 		<input type="hidden" id="selectedLocationNos" name="selectedLocationNos" />
 		<input type="submit" class="nextPage"value="경로 확인하기">
 	</form>

@@ -6,11 +6,13 @@ import java.util.List;
 public class imgLocationObject {
 	private List<String> imageData = new ArrayList<>();
 	private List<String> addressData = new ArrayList<>();
+	private List<Integer> location_no = new ArrayList<>();
 
-	public imgLocationObject(List<String> imageData, List<String> addressData) {
+	public imgLocationObject(List<String> imageData, List<String> addressData, List<Integer> location_no) {
 		super();
 		this.imageData = imageData;
 		this.addressData = addressData;
+		this.location_no = location_no;
 	}
 
 	public List<String> getImageData() {
@@ -29,9 +31,18 @@ public class imgLocationObject {
 		this.addressData = addressData;
 	}
 
+	public List<Integer> getLocation_no() {
+		return location_no;
+	}
+
+	public void setLocation_no(List<Integer> location_no) {
+		this.location_no = location_no;
+	}
+
 	@Override
 	public String toString() {
-		return "imgLocationObject [imageData=" + imageData + ", addressData=" + addressData + "]";
+		return "imgLocationObject [imageData=" + imageData + ", addressData=" + addressData + ", location_no="
+				+ location_no + "]";
 	}
 
 }

@@ -13,8 +13,43 @@ import dbutil.DBUtil;
 import object.Location;
 import object.SelectPath;
 
-// 경로에 해당하는 영화 포스터, 장소 사진, 상세주소 추출
+
 public class SelectPathDAO {
+	public List<Location> getLocationList(Connection conn, int[] selectedNos) throws SQLException {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int location1 = selectedNos[0];
+		int location2 = selectedNos[1];
+		int location3 = selectedNos[2];
+		int location4 = selectedNos[3];
+		List<Location> list = new ArrayList<>();
+
+		try {
+			conn = DBUtil.getConnection();
+			String sql = "SELECT * FROM Location WHERE location_no IN (?, ?, ?, ?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, location1);
+			stmt.setInt(2, location2);
+			stmt.setInt(3, location3);
+			stmt.setInt(4, location4);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int location_no = rs.getInt("location_no");
+				int movie_no = rs.getInt("movie_no");
+				String address = rs.getString("address");
+				double latitude = rs.getDouble("latitude");
+				double longitude = rs.getDouble("longitude");
+				Blob image = rs.getBlob("image");
+				list.add(new Location(location_no, movie_no, address, latitude, longitude, image));
+			}
+			return list;
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+		}
+	}
+	
 
 	public List<ViewPath> getViewPathArr(SelectPath[] paths) {
 		Connection conn = null;

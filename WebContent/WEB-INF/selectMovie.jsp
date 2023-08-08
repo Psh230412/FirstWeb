@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -24,33 +25,50 @@
       </div>
    </div>
 </header>
-<body>
-
 <c:forEach var="entry" items="${postersMap}">
-    <div class="movie-container">
-        <div class="poster-container">
-            <img src="data:image/jpeg;base64,${entry.value}" class="moviePoster"/>
-        </div>
-        <div class="locations-container">
-            <!-- 문자열로 키를 변환하여 사용 -->
-            <c:forEach var="locationObject" items="${movieLocations[String.valueOf(entry.key)]}"> 
-                <c:forEach var="imgData" items="${locationObject.imageData}" varStatus="status">
-                    <div class="item" data-location_no="${locationObject.location_no}">
-                        <img src="data:image/jpeg;base64,${imgData}" class="movieimg"/>
-                        <div class="description">
-                            <p class="address">${locationObject.addressData[status.index]}</p>
-                        </div>
-                    </div>
-                </c:forEach>
+   <div class="movie-container">
+      <div class="poster-container">
+         <img src="data:image/jpeg;base64,${entry.value}" class="moviePoster" />
+      </div>
+      <div class="locations-container">
+         <!-- 문자열로 키를 변환하여 사용 -->
+         <c:forEach var="locationObject"
+            items="${movieLocations[String.valueOf(entry.key)]}">
+            <c:forEach var="imgData" items="${locationObject.imageData}"
+               varStatus="status">
+               <div class="item" data-location_no="${locationObject.location_no}">
+                  <img src="data:image/jpeg;base64,${imgData}" class="movieimg" />
+                  <div class="description">
+                     <p class="address">${locationObject.addressData[status.index]}</p>
+                  </div>
+               </div>
             </c:forEach>
-        </div>
-    </div>
+         </c:forEach>
+      </div>
+   </div>
 </c:forEach>
-    <script>
+<form action="./selectpath" method="POST" id="form">
+   <!--  <input type="hidden" id="movieNumber" name ="movieNumber"/> -->
+   <c:forEach var="entry" items="${postersMap}">
+      <input type="hidden" name="movieNumber" value="${entry.key}" />
+   </c:forEach>
+   <input type="hidden" id="selectedLocationNos" name="selectedLocationNos" />
+    <input type="submit" class="nextPage"
+      value="경로 확인하기">
+</form>
+<script>
    const items = document.querySelectorAll(".item");
    let selectedCount = 0;
    const selectedLocationNos = [];
-
+   const movieNumber = [];
+ 
+   document.querySelector('#form').addEventListener('submit', (e) => {
+       document.getElementById("movieNumber").value = movieNumber.join(',');
+   });
+   
+   
+   
+   
    items.forEach((item) => {
        item.addEventListener("click", () => {
           if (selectedCount < 4 || item.classList.contains("selected")) {
@@ -72,18 +90,17 @@
                       console.log("선택한 장소 "+selectedLocationNos);
                   }
               }
-              const selectedLocationsInput = document.getElementById("selectedLocations");
-              if (selectedLocationsInput) {
-                  selectedLocationsInput.value = selectedLocationNos+"";
-              }
+              const selectedLocationsInput = document.getElementById("selectedLocationNos");
+            
+                  selectedLocationsInput.value = selectedLocationNos;
+              
           }
        });
    });
+
+
     </script>
-    
-    <form action="./selectpath" method="get">
-      <input type="hidden" id="selectedLocationNos" name="selectedLocationNos" />
-      <input type="submit" class="nextPage"value="경로 확인하기">
-   </form>
+
+
 </body>
 </html>

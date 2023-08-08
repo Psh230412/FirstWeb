@@ -81,6 +81,7 @@ public class MyPageDao {
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				int pathNo = rs.getInt("path_no");
 				int location1 = rs.getInt("location1");
 				int location2 = rs.getInt("location2");
 				int location3 = rs.getInt("location3");
@@ -92,7 +93,7 @@ public class MyPageDao {
 				String locationAddress3 = getAddress(location3, conn);
 				String locationAddress4 = getAddress(location4, conn);
 
-				list.add(new MyPath(locationAddress1, locationAddress2, locationAddress3, locationAddress4,
+				list.add(new MyPath(pathNo, locationAddress1, locationAddress2, locationAddress3, locationAddress4,
 						pathMapImage));
 			}
 		} catch (SQLException e) {
@@ -128,8 +129,25 @@ public class MyPageDao {
 		}
 		return address;
 	}
-}
 
+	public void deletePath(String pathNo) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("DELETE FROM path WHERE path_no = ?");
+			stmt.setInt(1, Integer.parseInt(pathNo));
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+	}
+}
 
 //    public List<Path> getMyPath(String id) {
 //	Connection conn = null;

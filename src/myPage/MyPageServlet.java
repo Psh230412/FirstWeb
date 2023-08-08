@@ -32,6 +32,13 @@ public class MyPageServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect("/ScreenSceneP/mypagemodify");
+		String pathNo = req.getParameter("pathPk");
+		System.out.println(pathNo);
+		if (pathNo != null) {
+			dao.deletePath(pathNo);
+			resp.sendRedirect("/ScreenSceneP/mypage");
+		} else {
+			resp.sendRedirect("/ScreenSceneP/mypagemodify");
+		}
 	}
 }

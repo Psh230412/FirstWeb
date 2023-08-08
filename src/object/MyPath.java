@@ -3,19 +3,29 @@ package object;
 import java.sql.Blob;
 
 public class MyPath {
+	int pathNo;
 	String locationAddress1;
 	String locationAddress2;
 	String locationAddress3;
 	String locationAddress4;
 	Blob pathMapImage;
 
-	public MyPath(String locationAddress1, String locationAddress2, String locationAddress3, String locationAddress4,
-			Blob pathMapImage) {
+	public MyPath(int pathNo, String locationAddress1, String locationAddress2, String locationAddress3,
+			String locationAddress4, Blob pathMapImage) {
+		this.pathNo = pathNo;
 		this.locationAddress1 = locationAddress1;
 		this.locationAddress2 = locationAddress2;
 		this.locationAddress3 = locationAddress3;
 		this.locationAddress4 = locationAddress4;
 		this.pathMapImage = pathMapImage;
+	}
+
+	public int getPathNo() {
+		return pathNo;
+	}
+
+	public void setPathNo(int pathNo) {
+		this.pathNo = pathNo;
 	}
 
 	public String getLocationAddress1() {

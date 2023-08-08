@@ -1,6 +1,5 @@
-package path;
+package object;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ViewPath {

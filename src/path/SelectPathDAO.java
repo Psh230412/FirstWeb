@@ -12,7 +12,8 @@ import java.util.List;
 import dbutil.DBUtil;
 import object.Location;
 import object.SelectPath;
-
+import object.ViewLocation;
+import object.ViewPath;
 
 public class SelectPathDAO {
 	public List<Location> getLocationList(Connection conn, int[] selectedNos) throws SQLException {
@@ -49,12 +50,11 @@ public class SelectPathDAO {
 			DBUtil.close(stmt);
 		}
 	}
-	
 
 	public List<ViewPath> getViewPathArr(SelectPath[] paths) {
 		Connection conn = null;
 		List<ViewPath> viewPathList = new ArrayList<>();
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			for (int i = 0; i < paths.length; i++) {
@@ -65,12 +65,12 @@ public class SelectPathDAO {
 
 				for (int j = 0; j < locationList.size(); j++) {
 					Location location = locationList.get(j);
-					
+
 					int locationNo = location.getLocation_no();
 					String locationName = location.getAddress();
 					String locationImgStr = encodeBlobToStr(location.getImage());
 					String posterImgStr = candidateMoviePoster(conn, location.getMovie_no());
-					
+
 					ViewLocation viewLoc1 = new ViewLocation(locationNo, locationName, locationImgStr, posterImgStr);
 					viewLocList.add(viewLoc1);
 				}
@@ -151,7 +151,7 @@ public class SelectPathDAO {
 		byte[] imageData = null;
 		try {
 			int blobLength = (int) blob.length();
-			imageData = blob.getBytes(1, blobLength); 
+			imageData = blob.getBytes(1, blobLength);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -166,14 +166,14 @@ public class SelectPathDAO {
 		try {
 			conn = DBUtil.getConnection();
 			String sql = "INSERT INTO path (user_choice_no, location1, location2, location3, location4) VALUES (?, ?, ?, ?, ?)";
-			stmt= conn.prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, path.getUser_choice_no());
 			stmt.setInt(2, path.getLocation1());
 			stmt.setInt(3, path.getLocation2());
 			stmt.setInt(4, path.getLocation3());
 			stmt.setInt(5, path.getLocation4());
 			return stmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

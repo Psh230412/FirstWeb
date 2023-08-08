@@ -1,4 +1,4 @@
-package path;
+package object;
 
 public class ViewLocation {
 	private int locationNo;

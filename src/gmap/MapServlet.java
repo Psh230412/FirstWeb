@@ -11,27 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import object.gmap_Location;
+
 @WebServlet("/Map")
 public class MapServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    gmap_Location_DAO m = new gmap_Location_DAO();
+	private static final long serialVersionUID = 1L;
+	gmap_Location_DAO m = new gmap_Location_DAO();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-	List<gmap_Location> mapList = m.getLatLongList();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<gmap_Location> mapList = m.getLatLongList();
 
-	ObjectMapper objectMapper = new ObjectMapper();
-	String json = objectMapper.writeValueAsString(mapList);
-	response.setContentType("application/json");
-	response.setCharacterEncoding("UTF-8");
-	
-	request.setAttribute("mapList", json);
-	request.getRequestDispatcher("NewFile.jsp").forward(request, response);
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = objectMapper.writeValueAsString(mapList);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 
-    }
+		request.setAttribute("mapList", json);
+		request.getRequestDispatcher("NewFile.jsp").forward(request, response);
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-    }
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	}
 
 }

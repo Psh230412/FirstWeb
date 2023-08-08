@@ -144,7 +144,7 @@ public class MovieMapsScraper {
 		return null;
 
 	}
-<<<<<<< HEAD
+
 //	영화 제목,포스터이미지,장소 이미지 
 	public String getPosterAndPlaceImage() {
 
@@ -160,49 +160,44 @@ public class MovieMapsScraper {
 				Document document = Jsoup.connect(movieUrl).get();
 
 				Elements anchors = document.select("figure.location-map.gallery a");
-				
 
 				if (anchors != null) {
 					if (anchors.size() >= 6) {
-						for(Element anchor : anchors) {
-							
+						for (Element anchor : anchors) {
+
 						}
-						
+
 					} else {
 						keysToRemove.add(title);
 					}
 				}
-				
-				
-				
+
 				Elements gallerySectionsHasFigures = document.select("section.gallery:has(figure.tiny.thumbnail)");
 
-		        if (gallerySectionsHasFigures.size() >= 6) {
-		        	 Elements gallerySections = document.select("section.gallery");
-		        	 
-		        	 for (Element gallerySection : gallerySections) {
-		                 Element firstFigure = gallerySection.selectFirst("figure.tiny.thumbnail");
-		                 
-		                 Element anchorTag = firstFigure.selectFirst("a");
-		                 
-		                 if (anchorTag != null) {
-		                     String hrefValue = anchorTag.attr("href");
-		                     String fullUrl = "https://moviemaps.org" + hrefValue;
-		                     
-		                     
-		                     
-		                 } else {
-		                     System.out.println("No matching element found.");
-		                 }
-		             }
-		        }
-		    }
+				if (gallerySectionsHasFigures.size() >= 6) {
+					Elements gallerySections = document.select("section.gallery");
+
+					for (Element gallerySection : gallerySections) {
+						Element firstFigure = gallerySection.selectFirst("figure.tiny.thumbnail");
+
+						Element anchorTag = firstFigure.selectFirst("a");
+
+						if (anchorTag != null) {
+							String hrefValue = anchorTag.attr("href");
+							String fullUrl = "https://moviemaps.org" + hrefValue;
+
+						} else {
+							System.out.println("No matching element found.");
+						}
+					}
+				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 
 	}
-=======
 
 //	public String getLocationURL() {
 //
@@ -235,7 +230,6 @@ public class MovieMapsScraper {
 //		}
 //
 //	}
->>>>>>> branch 'master' of https://github.com/Psh230412/FirstWeb.git
 
 	public static void main(String[] args) {
 	}

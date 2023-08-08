@@ -1,4 +1,4 @@
-package CRUD;
+package selectLocation;
 
 import java.sql.Blob;
 import java.sql.Connection;

@@ -12,15 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import CRUD.MovieDAO;
 import dbutil.DBUtil;
 import gmap.DistanceCalculator;
 import object.LatAndLng;
 import object.Location;
+import selectLocation.MovieDAO;
 
 @WebServlet("/selectpath")
 public class PathServlet extends HttpServlet {
-	SelectPathDAO selectPathDao = new SelectPathDAO()	;
+	SelectPathDAO selectPathDao = new SelectPathDAO();
 	MovieDAO movieDao = new MovieDAO();
 
 	@Override
@@ -35,25 +35,23 @@ public class PathServlet extends HttpServlet {
 		int[] selectedNos = new int[4];
 
 		String selectedLocationNos = req.getParameter("selectedLocationNos");
-		
-		System.out.println("getParameter로 받아오 지역:"+selectedLocationNos);
+
+		System.out.println("getParameter로 받아오 지역:" + selectedLocationNos);
 
 		if (selectedLocationNos != null && !selectedLocationNos.isEmpty()) {
 			String[] numbersString = selectedLocationNos.split(",");
 //			selectedNos = new int[numbersString.length];
-			System.out.println("numbersString"+numbersString);
+			System.out.println("numbersString" + numbersString);
 
 			for (int i = 0; i < numbersString.length; i++) {
 //				selectedNos[i] = Integer.parseInt(numbersString[i].trim());
-				
+
 				String number = numbersString[i].replaceAll("[\\[\\]]", "").trim();
-		        selectedNos[i] = Integer.parseInt(number);
+				selectedNos[i] = Integer.parseInt(number);
 
 			}
 
 		}
-		
-		
 
 		System.out.println(selectedNos[0]);
 		System.out.println(selectedNos[1]);
@@ -77,13 +75,12 @@ public class PathServlet extends HttpServlet {
 
 //       System.out.println(selectedMovies[i]);
 		}
-		
-		
-		System.out.println("0번 째 영화넘버: "+selectedMovies[0]);
-		System.out.println("1번 째 영화넘버: "+selectedMovies[1]);
-		System.out.println("2번 째 영화넘버: "+selectedMovies[2]);
-		System.out.println("3번 째 영화넘버: "+selectedMovies[3]);
-		System.out.println("4번 째 영화넘버: "+selectedMovies[4]);
+
+		System.out.println("0번 째 영화넘버: " + selectedMovies[0]);
+		System.out.println("1번 째 영화넘버: " + selectedMovies[1]);
+		System.out.println("2번 째 영화넘버: " + selectedMovies[2]);
+		System.out.println("3번 째 영화넘버: " + selectedMovies[3]);
+		System.out.println("4번 째 영화넘버: " + selectedMovies[4]);
 
 		try {
 			conn = DBUtil.getConnection();
@@ -99,10 +96,10 @@ public class PathServlet extends HttpServlet {
 			}
 
 			List<Location> firstLocationList = DistanceCalculator.getFirstLocation(selectedLocation);
-			
+
 			List<Location> secondLocationList = DistanceCalculator.getSecondLocation(firstLocationList,
 					entireSelectedList);
-			
+
 			List<Location> thirdLocationList = DistanceCalculator.getThirdLocation(firstLocationList,
 					secondLocationList, entireSelectedList);
 
@@ -124,44 +121,37 @@ public class PathServlet extends HttpServlet {
 				System.out.println("thirdLocationList의 위도: " + thirdLocationList.get(i).getLatitude());
 				System.out.println("thirdLocationList의 경도: " + thirdLocationList.get(i).getLongitude());
 			}
-			
-			
-			
-			LatAndLng[] firstlatAndLngs= new LatAndLng[4];
-			for(int i =0;i<firstLocationList.size();i++) {
-				firstlatAndLngs[i]=new LatAndLng(firstLocationList.get(i).getLatitude(), firstLocationList.get(i).getLongitude());
-				
+
+			LatAndLng[] firstlatAndLngs = new LatAndLng[4];
+			for (int i = 0; i < firstLocationList.size(); i++) {
+				firstlatAndLngs[i] = new LatAndLng(firstLocationList.get(i).getLatitude(),
+						firstLocationList.get(i).getLongitude());
+
 			}
-			LatAndLng[] secondlatAndLngs= new LatAndLng[4];
-			for(int i =0;i<secondLocationList.size();i++) {
-				secondlatAndLngs[i]=new LatAndLng(secondLocationList.get(i).getLatitude(), secondLocationList.get(i).getLongitude());
-				
+			LatAndLng[] secondlatAndLngs = new LatAndLng[4];
+			for (int i = 0; i < secondLocationList.size(); i++) {
+				secondlatAndLngs[i] = new LatAndLng(secondLocationList.get(i).getLatitude(),
+						secondLocationList.get(i).getLongitude());
+
 			}
-			LatAndLng[] thirdlatAndLngs= new LatAndLng[4];
-			for(int i =0;i<thirdLocationList.size();i++) {
-				thirdlatAndLngs[i]=new LatAndLng(thirdLocationList.get(i).getLatitude(), thirdLocationList.get(i).getLongitude());
-				
+			LatAndLng[] thirdlatAndLngs = new LatAndLng[4];
+			for (int i = 0; i < thirdLocationList.size(); i++) {
+				thirdlatAndLngs[i] = new LatAndLng(thirdLocationList.get(i).getLatitude(),
+						thirdLocationList.get(i).getLongitude());
+
 			}
-			
-			
-			
-			
+
 			req.setAttribute("firstlatAndLngs", firstlatAndLngs);
 			req.setAttribute("secondlatAndLngs", secondlatAndLngs);
 			req.setAttribute("thirdlatAndLngs", thirdlatAndLngs);
-			
-			
-			
-		
+
 			req.getRequestDispatcher("/WEB-INF/selectpathpage/pathmap.jsp").forward(req, resp);
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close(conn);
 		}
-		
 
 	}
 

@@ -129,6 +129,7 @@ public class MyPageModifyServlet extends HttpServlet {
 						dao.uploadImg(id, fileContent);
 					}
 				}
+				resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			} finally {

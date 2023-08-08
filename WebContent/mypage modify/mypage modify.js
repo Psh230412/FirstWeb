@@ -40,24 +40,14 @@ document.getElementById('fileInput').addEventListener('change', function() {
 });
 
 document.getElementById('fileInput').addEventListener('change', function() {
-	if (this.files.length > 0) {
-		var formData = new FormData();
-		formData.append('uploaded_file', this.files[0]);
-		formData.append('form_type', 'profilImg');
+    if (this.files.length > 0) {
+        var reader = new FileReader();
 
-		var xhr = new XMLHttpRequest();
-		xhr.open('POST', '서버의_업로드_URL', true);
+        reader.onload = function(e) {
+            // 미리보기 이미지를 로컬에서 표시
+            document.querySelector('img[src^="data:image/jpeg;base64,"]').src = e.target.result;
+        };
 
-		xhr.onload = function() {
-			if (xhr.status === 200) {
-				var imageUrl = JSON.parse(xhr.responseText).imageUrl;
-				// 이미지 태그에 URL 설정
-				document.getElementById('yourImageTagId').src = imageUrl;
-			} else {
-				console.error('업로드 중 문제 발생:', xhr.responseText);
-			}
-		};
-
-		xhr.send(formData);
-	}
+        reader.readAsDataURL(this.files[0]);
+    }
 });

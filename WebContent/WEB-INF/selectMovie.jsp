@@ -25,27 +25,28 @@
 	</div>
 </header>
 <body>
- <c:forEach var="title" items="${titles}">
-    <h2 class="movieTitle">${title}</h2>
-    <div class="container">
-        <c:forEach var="locationObject" items="${movieLocations[title]}">
-            <c:forEach var="imgData" items="${locationObject.imageData}" varStatus="status">
-                <div class="item">
-                    <img src="data:image/jpeg;base64,${imgData}" class="movieimg"/>
-                    <div class="description">
-                        <p class="address">${locationObject.addressData[status.index]}</p>
+
+<c:forEach var="entry" items="${postersMap}">
+    <div class="movie-container">
+        <div class="poster-container">
+            <img src="data:image/jpeg;base64,${entry.value}" class="moviePoster"/>
+        </div>
+        <div class="locations-container">
+            <!-- 문자열로 키를 변환하여 사용 -->
+            <c:forEach var="locationObject" items="${movieLocations[String.valueOf(entry.key)]}"> 
+                <c:forEach var="imgData" items="${locationObject.imageData}" varStatus="status">
+                    <div class="item">
+                        <img src="data:image/jpeg;base64,${imgData}" class="movieimg"/>
+                        <div class="description">
+                            <p class="address">${locationObject.addressData[status.index]}</p>
+                        </div>
                     </div>
-                </div>
+                </c:forEach>
             </c:forEach>
-        </c:forEach>
+        </div>
     </div>
 </c:forEach>
-
-
- 
-
-    <script>
-        
+    <script>        
         const items = document.querySelectorAll(".item");
         let selectedCount = 0;
 

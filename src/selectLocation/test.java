@@ -16,35 +16,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import CRUD.MovieDAO;
 import object.Location;
 import object.imgLocationObject;
 
 @WebServlet("/flow")
 public class test extends HttpServlet {
+    MovieDAO movieDao = new MovieDAO(); // movieDao 객체 생성
 
-    // 영화 3개의 title
-    private void MoviesTitle(HttpServletRequest req) {
-	MovieDAO movieDao = new MovieDAO(); // movieDao 객체 생성
+    private void MoviesPoster(HttpServletRequest req, List<Integer> movieNumbers) {
+	List<String> encodedPosters = new ArrayList<>();
+	Map<Integer, String> postersMap = new HashMap<>();
 
-	List<String> titles = new ArrayList<>(); // 영화 제목을 담을 리스트
-
-	for (int i = 1; i <= 5; i++) {
-	    String title = movieDao.selectOneMovie(i); // 영화 제목 가져오기
-	    titles.add(title); // 리스트에 추가
+	for (Integer movieNumber : movieNumbers) {
+	    Blob posterBlob = movieDao.selectOneMovie(movieNumber);
+	    if (posterBlob != null) {
+		try {
+		    byte[] posterBytes = posterBlob.getBytes(1, (int) posterBlob.length());
+		    String encodedPoster = Base64.getEncoder().encodeToString(posterBytes);
+		    postersMap.put(movieNumber, encodedPoster);
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
+	    }
 	}
 
-	req.setAttribute("titles", titles); // 영화 제목 리스트를 request에 저장
+	req.setAttribute("postersMap", postersMap);
     }
 
     // 각 영화당 촬영지,이미지
-    private void MoviesAddress(HttpServletRequest req) throws SQLException, IOException {
-	MovieDAO movieDao = new MovieDAO();
+    private void MoviesAddress(HttpServletRequest req, List<Integer> movieNumbers) throws SQLException, IOException {
 	Map<String, List<imgLocationObject>> movieLocationsMap = new HashMap<>();
 
-	for (int i = 1; i <= 5; i++) {
+	for (Integer movieNumber : movieNumbers) {
 	    List<imgLocationObject> locationsList = new ArrayList<>();
-	    List<Location> locations = movieDao.selectLocationList(i);
+	    List<Location> locations = movieDao.selectLocationList(movieNumber);
 
 	    for (Location location : locations) {
 		List<String> singleImageData = new ArrayList<>();
@@ -60,8 +69,8 @@ public class test extends HttpServlet {
 
 		locationsList.add(new imgLocationObject(singleImageData, singleAddressData));
 	    }
-
-	    movieLocationsMap.put(movieDao.selectOneMovie(i), locationsList);
+	    System.out.println("Movie Number: " + movieNumber + ", Locations: " + locationsList);
+	    movieLocationsMap.put(String.valueOf(movieNumber), locationsList);
 	}
 
 	req.setAttribute("movieLocations", movieLocationsMap);
@@ -69,13 +78,25 @@ public class test extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	MoviesTitle(req);
+	String movieNumbersJson = req.getParameter("movieNumbers");
+	ObjectMapper mapper = new ObjectMapper();
+
 	try {
-	    MoviesAddress(req);
+	    JsonNode rootNode = mapper.readTree(movieNumbersJson);
+	    JsonNode movieNumbersNode = rootNode.get("movieNumbers");
+	    List<Integer> movieNumbers = new ArrayList<>();
+
+	    if (movieNumbersNode.isArray()) {
+		for (JsonNode movieNumberNode : movieNumbersNode) {
+		    movieNumbers.add(movieNumberNode.asInt());
+		}
+	    }
+	    System.out.println(movieNumbers);
+	    MoviesPoster(req, movieNumbers); // 이 부분을 추가합니다.
+	    MoviesAddress(req, movieNumbers);
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
-	System.out.println("o");
 	req.getRequestDispatcher("/WEB-INF/selectMovie.jsp").forward(req, resp);
     }
 }

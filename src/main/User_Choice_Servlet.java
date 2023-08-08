@@ -68,11 +68,7 @@ public class User_Choice_Servlet extends HttpServlet {
 
 	        }
 	        rs = pstmt.executeQuery();
-			
-			
 			choice_DAO.sendResponse(rs, objectMapper, response,conn);
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

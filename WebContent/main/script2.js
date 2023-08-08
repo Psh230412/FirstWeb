@@ -164,7 +164,7 @@ function confirmMovies() {
     body: JSON.stringify({ movieNumbers: moviesNumber }),
   };
 
-  fetch("http://localhost:8080/ScreenSceneP/movieselect", requestOptions).then(
+  fetch("http://localhost:8080/FirstWeb/movieselect", requestOptions).then(
     (response) => {
       if (!response.ok) {
         console.error(
@@ -198,7 +198,7 @@ function loadMoreMovies() {
     }),
   };
 
-  fetch("http://localhost:8080/ScreenSceneP/userchoice", requestOptions)
+  fetch("http://localhost:8080/FirstWeb/userchoice", requestOptions)
     .then((response) => {
       if (!response.ok) {
         console.error(

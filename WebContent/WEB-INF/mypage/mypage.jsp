@@ -59,15 +59,18 @@
 				<c:forEach var="path" items="${ list }">
 					<div class="myRoot-sc">
 						<div class="myRoot">
-							<div class="cancelBtn">
-								<p>ⓧ</p>
-							</div>
+							<form method="post">
+								<div class="cancelBtn">
+									<input type="hidden" value="${ path.pathNo }" name="pathPk">
+									<button type="submit">ⓧ</button>
+								</div>
+							</form>
 							<div class="detailRoot">
 								<img src="img/춘식15.png" class="rootImg" />
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
 										<p class="detailRootBigText">
-											나의경로1 <i class='bx bxs-pencil' style='color: #ffffff'></i>
+											나의경로 <i class='bx bxs-pencil' style='color: #ffffff'></i>
 										</p>
 									</div>
 									<p class="detailRootDate">00/00/00 (저장된 날짜)</p>

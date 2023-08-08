@@ -1,5 +1,6 @@
 package myPage;
 
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -140,6 +141,24 @@ public class MyPageDao {
 			stmt.setInt(1, Integer.parseInt(pathNo));
 			stmt.executeUpdate();
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+	}
+
+	public void uploadImg(String id, InputStream fileContent) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("UPDATE user SET profile = ? WHERE id = ?");
+			stmt.setBlob(1, fileContent);
+			stmt.setString(2, id);
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

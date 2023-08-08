@@ -46,8 +46,9 @@
 		<div class="container">
 			<section>
 				<div class="profile">
-					<form method="post">
+					<form method="post" enctype="multipart/form-data">
 						<input type="hidden" value="profilImg" name="form_type">
+						<input type="file" name="uploaded_file">
 						<button id="photoset-Button">
 							<i class='bx bxs-cog' style='color: #ffffff'></i>
 						</button>

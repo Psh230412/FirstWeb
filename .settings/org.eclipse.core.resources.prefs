@@ -1,3 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/mypageModify/mypageModify.jsp=UTF-8
+<<<<<<< HEAD
 encoding//WebContent/WEB-INF/selectpathpage/pathmap.jsp=UTF-8
+=======
+encoding//WebContent/login/login.css=UTF-8
+>>>>>>> branch 'master' of https://github.com/Psh230412/FirstWeb.git

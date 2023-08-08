@@ -40,18 +40,20 @@
 			data-has-change-nickname-error="${ not empty changeNicknameError ? 'true' : 'false' }"
 			data-has-fail-check-password="${not empty failCheckPassword ? 'true' : 'false'}"
 			data-has-fail-check-password-change="${not empty failCheckPasswordChange ? 'true' : 'false'}"
-			data-has-password-input-error="${not empty passwordInputError ? 'true' : 'false'}"
-			>
+			data-has-password-input-error="${not empty passwordInputError ? 'true' : 'false'}">
 		</div>
 		<div class="container">
 			<section>
 				<div class="profile">
-					<form method="post">
+					<form method="post" enctype="multipart/form-data">
+						<input type="hidden" value="profilImg" name="form_type"> <input
+							type="file" name="uploaded_file" id="fileInput"
+							style="display: none;">
 						<button id="photoset-Button">
 							<i class='bx bxs-cog' style='color: #ffffff'></i>
 						</button>
 					</form>
-					<p class="profileimg">사진</p>
+					<img src="data:image/jpeg;base64,${ myProfile }" />
 					<div class="textitemDiv">
 						<div id="nickname">
 							<p>닉네임변경</p>
@@ -87,8 +89,9 @@
 							<p>변경할 비밀번호 입력</p>
 							<input type="password" id="passwordChange" name="passwordChange">
 							<p>변경할 비밀번호 입력 확인</p>
-							<input type="password" id="passwordChangeRe" name="passwordChangeRe">
-							<input type="submit" id="ChangePasswordBtn">
+							<input type="password" id="passwordChangeRe"
+								name="passwordChangeRe"> <input type="submit"
+								id="ChangePasswordBtn">
 						</form>
 					</div>
 				</div>

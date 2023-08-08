@@ -1,5 +1,6 @@
 package myPage;
 
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -146,6 +147,48 @@ public class MyPageDao {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
+	}
+
+	public void uploadImg(String id, InputStream fileContent) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("UPDATE user SET profile = ? WHERE id = ?");
+			stmt.setBlob(1, fileContent);
+			stmt.setString(2, id);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+	}
+
+	public Blob getProfile(String id) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		Blob profile = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM user WHERE id = ?");
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				profile = rs.getBlob("profile");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return profile;
 	}
 }
 

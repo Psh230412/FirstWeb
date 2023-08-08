@@ -4,27 +4,37 @@ document.addEventListener('DOMContentLoaded', () => {
     var joinIdError = document.querySelector('#joinIdError').textContent;
     var joinPasswordError = document.querySelector('#joinPasswordError').textContent;
 
-    const loginsec = document.querySelector('.login-section');
-    const loginlink = document.querySelector('.login-link');
-    const registerlink = document.querySelector('.register-link');
+
+
+const loginsec = document.querySelector('.login-section')
+const loginitemsec = document.querySelector('.login-item-section')
+const loginlink = document.querySelector('.login-link')
+const registerlink = document.querySelector('.register-link')
+
+
+
+
 
     // 만약 오류 메시지가 있으면 .login-section에 active 클래스 추가
     if (joinNicknameError || joinIdError || joinPasswordError) {
         loginsec.classList.add('active');
     }
 
-    registerlink.addEventListener('click', (event) => {
-        event.preventDefault(); // 기본 이벤트 (페이지 이동 등)를 막기 위함
-        loginsec.classList.add('active');
-    });
 
-    loginlink.addEventListener('click', (event) => {
-        event.preventDefault(); // 기본 이벤트 (페이지 이동 등)를 막기 위함
-        loginsec.classList.remove('active');
-    });
+registerlink.addEventListener('click', () => {
+    loginsec.classList.add('active')
+    loginitemsec.classList.add('active')
+})
+
+loginlink.addEventListener('click', () => {
+    loginsec.classList.remove('active')
+    loginitemsec.classList.remove('active')
+})
+
+
+
+
 });
-
-
 
 
 window.onload = function() {
@@ -56,5 +66,4 @@ function getCookie(cname) {
     }
     return "";
 }
-
 

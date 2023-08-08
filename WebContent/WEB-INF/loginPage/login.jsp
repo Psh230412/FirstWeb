@@ -14,6 +14,7 @@
 		<div class="background">
 			<!-- LOGIN FORM CREATION -->
 			<div class="container">
+			   <div class="login-item-section">
 				<div class="item login">
 					<a class="logo"><img src="img/Untitled-1_0000_Group-23-copy.png" alt="" id="logoImg" /></a>
 					<div class="text-item">
@@ -29,23 +30,25 @@
 						</div>
 					</div>
 				</div>
-				<div class="item register">
-					<a class="logo"><img src="img/Untitled-1_0000_Group-23-copy.png" alt="" id="logoImg" /></a>
-					<div class="text-item">
-						<h2>Screen Scenes의 가입은 간단합니다!</h2>
-						<p>빠르고 쉬운 회원가입으로, Screen Scenes를 즐겨보세요. <br>아이디: 소문자, 대문자, 한글, 숫자를 이용하여 5~20자
-							<br>비밀번호: 소문자, 대문자, 숫자, 정해진 특수문자들을 모두 포함 (~ ! @ # $ % ^ & * ( ) _ - + = [ ] , . / <>)
-								9~20자
-								<br>닉네임: 소문자, 대문자, 한글, 숫자 5~20자
-						</p>
-						<div class="social-icon">
-							<a href="#"><i class="bx bxl-facebook"></i></a> <a href="#"><i
-									class="bx bxl-twitter"></i></a> <a href="#"><i class="bx bxl-youtube"></i></a> <a
-								href="#"><i class="bx bxl-instagram"></i></a> <a href="#"><i
-									class="bx bxl-linkedin"></i></a>
-						</div>
-					</div>
-				</div>
+				  <div class="item register">
+                    <a class="logo"><img src="img/Untitled-1_0000_Group-23-copy.png" alt="" id="logoImg" /></a>
+                    <div class="text-item2">
+                        <h2>Screen Scenes의 가입은 간단합니다!</h2>
+                        <p>빠르고 쉬운 회원가입으로, Screen Scenes를 즐겨보세요. <br><br>아이디: 소문자, 대문자, 한글, 숫자를 이용하여 5~20자
+                            <br>비밀번호: 소문자, 대문자, 숫자, 정해진 특수문자들을 모두 포함 <br>(~ ! @ # $ % ^ & * ( ) _ - + = [ ] , . / <>)
+                                9~20자
+                                <br>닉네임: 소문자, 대문자, 한글, 숫자 5~20자
+                        </p>
+                        <div class="social-icon">
+                            <a href="#"><i class="bx bxl-facebook"></i></a> <a href="#"><i
+                                    class="bx bxl-twitter"></i></a> <a href="#"><i class="bx bxl-youtube"></i></a> <a
+                                href="#"><i class="bx bxl-instagram"></i></a> <a href="#"><i
+                                    class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
 				<div class="login-section">
 					<div class="form-box login">
 						<form action="" method="post">

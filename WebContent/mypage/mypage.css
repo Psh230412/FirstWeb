@@ -1,168 +1,305 @@
-@font-face {
-	font-family: "establishRetrosansOTF";
-	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff")
-		format("woff");
-	font-weight: 700;
-	font-style: normal;
+:root {
+    /**
+     * colors
+     */
+
+    --white: #fff;
+    --black: #000;
+    --vlet: #7937FF;
+
 }
+
 
 @font-face {
-	font-family: "NanumSquareNeo-Variable";
-	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
-		format("woff2");
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'establishRetrosansOTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-html, body {
-	margin: 0;
-	padding: 0;
-	background-color: black;
-	color: aliceblue;
-	font-family: "NanumSquareNeo-Variable";
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
-header {
-	background-color: #333333;
+/**
+ * header
+ */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    padding: 25px;
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+    z-index: 100;
 }
+
+.navbar img {
+    position: relative;
+    width: 20%;
+    height: 10%;
+    left: 50px;
+
+}
+
+.navbar a {
+
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+
+    text-decoration: none;
+}
+
+.navbar-menu {
+    margin-left: 150px;
+}
+
+.navbar a span {
+    position: relative;
+    bottom: 7px;
+
+}
+
+.navbar a:hover span {
+    color: var(--vlet);
+}
+
+.social-icon {
+    position: absolute;
+    top: 50%;
+    left: 80%;
+
+
+}
+
+.social-icon a i {
+    color: #fff;
+    font-size: 24px;
+
+    cursor: pointer;
+    transform: .5s ease;
+    position: relative;
+}
+
+.social-icon a:hover i {
+    transform: scale(1.2);
+
+}
+
+
+.btn {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+    padding: 5px 30px;
+    border: 3px solid var(--vlet);
+    background-color: #000;
+
+    border-radius: 50px;
+
+    position: absolute;
+    top: 40%;
+    left: 70%;
+}
+
+#startbtn {
+    width: 150px;
+    height: 50px;
+}
+
+#startbtn2 {
+
+    width: 150px;
+    height: 50px;
+}
+
+.btn-primary ::after {
+    background: var#000;
+}
+
+.btn-primary:is(:hover, :focus) {
+    background: var(--vlet);
+
+}
+
+.navbar-social-icon {
+    display: flex;
+    position: relative;
+    top: 40%;
+    left: 90%;
+}
+
+
+/**
+ * body
+ */
 
 body {
-	height: 3845px;
+    display: block;
+    margin: 0;
+    background-color: #000;
+
 }
 
-#middle_container {
-	margin-top: 80px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+
+.profile {
+    margin-top: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #profil {
-	width: 350px;
-	height: 350px;
-	flex-shrink: 0;
-	border-radius: 50%;
-	background-color: #d9d9d9;
-	margin-bottom: 53px;
-	color: black;
-	font-size: 130px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	align-items: center;
+    width: 250px;
+    height: 250px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    margin-bottom: 53px;
+    color: black;
+    font-size: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 #nicknameDiv {
-	height: 39px;
-	display: flex;
-	align-items: center;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    color: #fff;
 }
 
 #nickname {
-	font-size: 32px;
-	font-weight: 700;
-	line-height: normal;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: normal;
 }
 
 #NicknameButton {
-	width: 48px;
-	height: 48px;
-	flex-shrink: 0;
-	background: none;
-	border: none;
-	padding: 0;
-	margin: 0;
-	cursor: pointer;
-	outline: none;
+    font-size: 24px;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
 }
 
-#barDiv {
-	margin-top: 150px;
-	margin-bottom: 80px;
-	background-color: #7937ff;
-	width: 1920px;
-	height: 350px;
-	flex-shrink: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.barDiv {
+    margin-top: 150px;
+    margin-bottom: 80px;
+    background-color: #7937ff;
+    width: 100%;
+    height: 350px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #barTextDiv {
-	color: #fff;
-	font-size: 48px;
-	font-weight: 700;
-	line-height: normal;
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: normal;
 }
+
+.myRoot-sc {
+
+    position: relative;
+    left: 10%;
+
+}
+
+
 
 .myRoot {
-	margin-top: 50px;
-	width: 1500px;
-	height: 400px;
-	flex-shrink: 0;
-	border-radius: 50px;
-	background-color: #797979;
-	color: #ffffff;
+    margin-bottom: 50px;
+    width: 1500px;
+    height: 400px;
+    border-radius: 50px;
+    background-color: #797979;
+    color: #ffffff;
 }
 
+
 .cancelBtn {
-	position: relative;
-	top: 20px;
-	left: 1400px;
-	color: #fff;
-	font-size: 64px;
-	font-weight: 7000;
-	line-height: normal;
+    position: relative;
+    top: 0;
+    left: 1400px;
+    color: #fff;
+}
+
+.cancelBtn p {
+    font-size: 64px;
 }
 
 .detailRoot {
-	position: relative;
-	bottom: 80px;
-	left: 100px;
-	color: #fff;
-	display: flex;
+    position: relative;
+    bottom: 100px;
+    left: 50px;
+    color: #fff;
+    display: flex;
 }
 
 .rootImg {
-	width: 300px;
-	height: 300px;
-	flex-shrink: 0;
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
 }
 
+
+
+
 .detailRootLeft {
-	margin-left: 100px;
+    margin-left: 50px;
 }
 
 .detailRootTitle {
-	display: flex;
-	align-items: flex-end;
+    display: flex;
+    align-items: flex-end;
 }
 
 .pencilImg {
-	margin-left: 20px;
+    margin-left: 10px;
 }
 
 .detailRootBigText {
-	font-size: 40px;
-	font-weight: 700;
-	line-height: normal;
-	margin-bottom: 0px;
-	margin-top: 10px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 0px;
+    margin-top: 10px;
 }
 
 .detailRootDate {
-	color: #fff;
-	font-size: 20px;
-	font-weight: 400;
-	line-height: normal;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .detailRootAdressDiv {
-	margin-top: 38px;
-	font-size: 24px;
-	font-weight: 400;
-	line-height: normal;
+
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 18px;
 }

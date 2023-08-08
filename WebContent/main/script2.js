@@ -76,7 +76,7 @@ function createMovieCard(title, posterImage, movienumber) {
     const movieNumberValue = movieNumber.value;
     const index = moviesNumber.indexOf(movieNumberValue);
     const chooseContent = document.querySelector(".choose-content");
-	
+
     if (moviesNumber.length < 5) {
       if (index === -1) {
         moviesNumber.push(movieNumberValue);

@@ -43,7 +43,7 @@ public class LoginServelt extends HttpServlet {
 					}
 					HttpSession session = req.getSession();
 					session.setAttribute("loggedUserId", id);
-					req.setAttribute("loginError", "로그인완료(이부분페이지이동으로변경)");
+				
 					// 다음페이지로 이동
 					resp.sendRedirect("main/index.html");
 				} else {

@@ -26,3 +26,14 @@ $(document).ready(function() {
 		$("#inputChangePassword").show();
 	});
 });
+
+function triggerFileInput() {
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+
+        fileInput.onchange = function() {
+            if (fileInput.files.length) {
+                fileInput.closest('form').submit();
+            }
+        }
+    }

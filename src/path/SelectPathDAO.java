@@ -51,32 +51,27 @@ public class SelectPathDAO {
 		}
 	}
 
-	public List<ViewPath> getViewPathArr(SelectPath[] paths) {
+	public ViewPath getViewPathArr(int num, SelectPath path) {
 		Connection conn = null;
-		List<ViewPath> viewPathList = new ArrayList<>();
-
 		try {
 			conn = DBUtil.getConnection();
-			for (int i = 0; i < paths.length; i++) {
+
 				List<ViewLocation> viewLocList = new ArrayList<>();
-				SelectPath path = paths[i];
 				int user_choice_no = path.getUser_choice_no();
 				List<Location> locationList = candidatePathLocation(conn, path);
 
 				for (int j = 0; j < locationList.size(); j++) {
 					Location location = locationList.get(j);
-
+					
 					int locationNo = location.getLocation_no();
 					String locationName = location.getAddress();
 					String locationImgStr = encodeBlobToStr(location.getImage());
 					String posterImgStr = candidateMoviePoster(conn, location.getMovie_no());
-
+					
 					ViewLocation viewLoc1 = new ViewLocation(locationNo, locationName, locationImgStr, posterImgStr);
 					viewLocList.add(viewLoc1);
 				}
-				viewPathList.add(new ViewPath(i + 1, user_choice_no, viewLocList));
-			}
-			return viewPathList;
+				return new ViewPath(num, user_choice_no, viewLocList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

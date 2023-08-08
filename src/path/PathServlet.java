@@ -16,6 +16,8 @@ import dbutil.DBUtil;
 import gmap.DistanceCalculator;
 import object.LatAndLng;
 import object.Location;
+import object.SelectPath;
+import object.ViewPath;
 import selectLocation.MovieDAO;
 
 @WebServlet("/selectpath")
@@ -145,7 +147,26 @@ public class PathServlet extends HttpServlet {
 			req.setAttribute("secondlatAndLngs", secondlatAndLngs);
 			req.setAttribute("thirdlatAndLngs", thirdlatAndLngs);
 
-			req.getRequestDispatcher("/WEB-INF/selectpathpage/pathmap.jsp").forward(req, resp);
+			// 임시 user_choice_no = 1
+			SelectPath path1 = new SelectPath(1, firstLocationList.get(0).getLocation_no(), firstLocationList.get(1).getLocation_no()
+					, firstLocationList.get(2).getLocation_no(), firstLocationList.get(3).getLocation_no(), null);
+			
+			SelectPath path2 = new SelectPath(1, secondLocationList.get(0).getLocation_no(), secondLocationList.get(1).getLocation_no()
+					, secondLocationList.get(2).getLocation_no(), secondLocationList.get(3).getLocation_no(), null);
+			
+			SelectPath path3 = new SelectPath(1, thirdLocationList.get(0).getLocation_no(), thirdLocationList.get(1).getLocation_no()
+					, thirdLocationList.get(2).getLocation_no(), thirdLocationList.get(3).getLocation_no(), null);
+			
+			
+			ViewPath viewPath1 = selectPathDao.getViewPathArr(1, path1);
+			ViewPath viewPath2 = selectPathDao.getViewPathArr(2, path2);
+			ViewPath viewPath3 = selectPathDao.getViewPathArr(3, path3);
+			req.setAttribute("viewPath1", viewPath1);
+			req.setAttribute("viewPath2", viewPath2);
+			req.setAttribute("viewPath3", viewPath3);
+			
+			
+			req.getRequestDispatcher("/WEB-INF/selectpathpage/selectpath.jsp").forward(req, resp);
 
 		} catch (SQLException e) {
 			e.printStackTrace();

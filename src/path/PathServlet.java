@@ -33,9 +33,6 @@ public class PathServlet extends HttpServlet {
 		SelectPath[] paths = { path1, path2, path3 };
 
 		List<ViewPath> viewPaths = selectPathDao.getViewPathArr(paths);
-
-		HttpSession session = req.getSession(false);
-		session.setAttribute("paths", paths);
 		
 		req.setAttribute("viewPaths", viewPaths);
 		req.getRequestDispatcher("/WEB-INF/selectpathpage/selectpath.jsp").forward(req, resp);

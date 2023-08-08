@@ -86,6 +86,33 @@ console.log("pathmap.jsp로 이동 완료");
 	    addMarkersToMap(thirdLocationList, map3);
 	    addPathToMap(thirdLocationList, map3);
 	}
+	
+	// 지도 로딩 비동기 함수
+	async function loadMap(routeNumber) {
+	    switch (routeNumber) {
+	        case 1:
+	            await initMap(firstLocationList, 'map1');
+	            break;
+	        case 2:
+	            await initMap(secondLocationList, 'map2');
+	            break;
+	        case 3:
+	            await initMap(thirdLocationList, 'map3');
+	            break;
+	    }
+	}
+	
+
+	// 지도 초기화 비동기 함수
+	async function initMap(locationList, mapId) {
+	    var map = new google.maps.Map(document.getElementById(mapId), {
+	        zoom: 10,
+	        center: { lat: locationList[0].latitude, lng: locationList[0].longitude }
+	    });
+	    addMarkersToMap(locationList, map);
+	    addPathToMap(locationList, map);
+	}
+
 	</script>
 </head>
 
@@ -116,11 +143,11 @@ console.log("pathmap.jsp로 이동 완료");
                 <p><img src="img/타입트립 1.png" /></p>
             </div>
             <div class="button-group">
-                <a href="#" class="group-link clicked" id="group-1" onclick="changeColor('group-1')"><span><i
+                <a href="#" class="group-link clicked" id="group-1" onclick="changeColor('group-1'); loadMap(1);'"><span><i
                             class='bx bxs-circle'></i></span></a>
-                <a href="#" class="group-link" id="group-2" onclick="changeColor('group-2')"><span><i
+                <a href="#" class="group-link" id="group-2" onclick="changeColor('group-2'); loadMap(2);"><span><i
                             class='bx bxs-circle'></i></span></a>
-                <a href="#" class="group-link" id="group-3" onclick="changeColor('group-3')"><span><i
+                <a href="#" class="group-link" id="group-3" onclick="changeColor('group-3'); loadMap(3);"><span><i
                             class='bx bxs-circle'></i></span></a>
 
             </div>

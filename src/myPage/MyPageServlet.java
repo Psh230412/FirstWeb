@@ -23,9 +23,9 @@ public class MyPageServlet extends HttpServlet {
 		String nickname = dao.getNickname(id);
 		req.setAttribute("nickname", nickname);
 		int userno = dao.getUserNo(id);
-		
+
 		List<MyPath> list = dao.getMyPath(userno);
-		
+
 		req.setAttribute("list", list);
 		req.getRequestDispatcher("./WEB-INF/mypage/mypage.jsp").forward(req, resp);
 	}
@@ -33,12 +33,10 @@ public class MyPageServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String pathNo = req.getParameter("pathPk");
-		System.out.println(pathNo);
 		if (pathNo != null) {
 			dao.deletePath(pathNo);
 			resp.sendRedirect("/ScreenSceneP/mypage");
-		} else {
-			resp.sendRedirect("/ScreenSceneP/mypagemodify");
 		}
+		resp.sendRedirect("/ScreenSceneP/mypagemodify");
 	}
 }

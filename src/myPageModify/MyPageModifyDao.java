@@ -72,12 +72,12 @@ public class MyPageModifyDao {
 			DBUtil.close(conn);
 		}
 	}
-	
+
 	public String getNickname(String id) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
+
 		String nickname = null;
 		try {
 			conn = DBUtil.getConnection();
@@ -96,5 +96,22 @@ public class MyPageModifyDao {
 			DBUtil.close(conn);
 		}
 		return nickname;
+	}
+
+	public void updateUserPassword(String passwordNow, String passwordChange) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("UPDATE user SET password = ? WHERE password = ?");
+			stmt.setString(1, passwordChange);
+			stmt.setString(2, passwordNow);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
 	}
 }

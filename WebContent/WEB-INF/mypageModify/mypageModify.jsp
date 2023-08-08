@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css"
@@ -12,8 +11,10 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
 	rel='stylesheet'>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 	
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header class="header">
@@ -35,6 +36,13 @@
 		</nav>
 	</header>
 	<main>
+		<div id="errorData" style="display: none;"
+			data-has-change-nickname-error="${ not empty changeNicknameError ? 'true' : 'false' }"
+			data-has-fail-check-password="${not empty failCheckPassword ? 'true' : 'false'}"
+			data-has-fail-check-password-change="${not empty failCheckPasswordChange ? 'true' : 'false'}"
+			data-has-password-input-error="${not empty passwordInputError ? 'true' : 'false'}"
+			>
+		</div>
 		<div class="container">
 			<section>
 				<div class="profile">
@@ -75,11 +83,11 @@
 						<form method="post">
 							<input type="hidden" name="form_type" value="changePasswordForm">
 							<p>현재 비밀번호 입력</p>
-							<input type="password" id="passwordNow" name="changeNickname">
+							<input type="password" id="passwordNow" name="passwordNow">
 							<p>변경할 비밀번호 입력</p>
-							<input type="password" id="passwordChange" name="passwordCheck">
+							<input type="password" id="passwordChange" name="passwordChange">
 							<p>변경할 비밀번호 입력 확인</p>
-							<input type="password" id="passwordChangeRe" name="passwordCheck">
+							<input type="password" id="passwordChangeRe" name="passwordChangeRe">
 							<input type="submit" id="ChangePasswordBtn">
 						</form>
 					</div>

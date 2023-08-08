@@ -32,7 +32,7 @@ public class MyPageModifyServlet extends HttpServlet {
 		String form = req.getParameter("form_type");
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("loggedUserId");
-		boolean isJoin = true;
+		boolean isCheck = true;
 
 		if (form.equals("changeNicknameForm")) {
 			String changeNickname = req.getParameter("changeNickname");
@@ -43,44 +43,49 @@ public class MyPageModifyServlet extends HttpServlet {
 				req.removeAttribute("changeNicknameError");
 			} else if (nowNickname.equals(changeNickname)) {
 				req.setAttribute("changeNicknameError", "현재 닉네임과 동일한 닉네입입니다");
-				isJoin = false;
+				System.out.println("여기로오니?");
+				isCheck = false;
 			} else {
 				req.setAttribute("changeNickname", changeNickname);
 				req.setAttribute("changeNicknameError", "같은 닉네임이 존재합니다.");
-				isJoin = false;
+				isCheck = false;
 			}
 
 			if (modifyDao.checkPassword(id, checkPassword)) {
 				req.removeAttribute("failCheckPassword");
 			} else {
 				req.setAttribute("failCheckPassword", "비밀번호를 틀렸습니다. 다시 확인해주세요.");
-				isJoin = false;
+				isCheck = false;
 			}
 
-			if (isJoin) {
+			if (isCheck) {
 				modifyDao.updateUserNickname(nowNickname, changeNickname);
 			}
 		}
-
+		
+		if (form.equals("changePasswordForm")) {
+			String passwordNow = req.getParameter("passwordNow");
+			String passwordChange = req.getParameter("passwordChange");
+			String passwordChangeRe = req.getParameter("passwordChangeRe");
+			
+			if (modifyDao.checkPassword(id, passwordNow)) {
+				req.removeAttribute("failCheckPasswordChange");
+			} else {
+				req.setAttribute("failCheckPasswordChange", "비밀번호를 틀렸습니다. 다시 확인해주세요.");
+				isCheck = false;
+			}
+			
+			if (passwordChange.equals(passwordChangeRe)) {
+				req.removeAttribute("passwordInputError");
+			} else {
+				req.setAttribute("passwordInputError", "두 비밀번호 입력이 다릅니다. 다시 확인해주세요.");
+				isCheck = false;
+			}
+			
+			if (isCheck) {
+				modifyDao.updateUserPassword(passwordNow, passwordChange);
+			}
+		}
 		req.getRequestDispatcher("/WEB-INF/mypageModify/mypageModify.jsp").forward(req, resp);
-
-//		String changePassword = req.getParameter("changePassword");
-//		String changePasswordRe = req.getParameter("changePasswordRe");
-//		
-//		
-//		
-//		
-//		if (changePassword.equals(changePasswordRe)) {
-//			req.removeAttribute("joinPasswordError");
-//		} else {
-//			req.setAttribute("changePassword", changePassword);
-//			req.setAttribute("changePasswordRe", changePasswordRe);
-//			req.setAttribute("changePasswordError", "입력한 비밀번호가 서로 다릅니다.");
-//			isJoin = false;
-//		}
-
-//		if (isJoin) {
-//			dao.updateUserInfo(changeNickname, changePassword);
-//		}
 	}
 }

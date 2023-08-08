@@ -53,7 +53,7 @@
 							<i class='bx bxs-cog' style='color: #ffffff'></i>
 						</button>
 					</form>
-					<p class="profileimg">사진</p>
+					<img src="data:image/jpeg;base64,${ myProfile }" />
 					<div class="textitemDiv">
 						<div id="nickname">
 							<p>닉네임변경</p>

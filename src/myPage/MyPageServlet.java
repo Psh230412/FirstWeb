@@ -1,6 +1,10 @@
 package myPage;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import object.MyPath;
 
@@ -25,6 +34,21 @@ public class MyPageServlet extends HttpServlet {
 		int userno = dao.getUserNo(id);
 
 		List<MyPath> list = dao.getMyPath(userno);
+
+		Blob profile = dao.getProfile(id);
+
+		if (profile != null) {
+			InputStream inputStream;
+			try {
+				inputStream = profile.getBinaryStream();
+				byte[] bytes = new byte[(int) profile.length()];
+				inputStream.read(bytes);
+				String img = Base64.getEncoder().encodeToString(bytes);
+				req.setAttribute("myProfile", img);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 		req.setAttribute("list", list);
 		req.getRequestDispatcher("./WEB-INF/mypage/mypage.jsp").forward(req, resp);

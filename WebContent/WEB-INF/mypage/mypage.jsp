@@ -37,7 +37,7 @@
 
 			<section>
 				<div class="profile">
-					<p id="profil">사진</p>
+					<img src="data:image/jpeg;base64,${ myProfile }" />
 					<div id="nicknameDiv">
 						<div id="nickname">
 							<p>${ nickname }</p>

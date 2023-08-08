@@ -2,6 +2,9 @@ package myPageModify;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,7 +31,21 @@ public class MyPageModifyServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("loggedUserId");
 		String nickname = dao.getNickname(id);
-		
+		Blob profile = dao.getProfile(id);
+
+		if (profile != null) {
+			InputStream inputStream;
+			try {
+				inputStream = profile.getBinaryStream();
+				byte[] bytes = new byte[(int) profile.length()];
+				inputStream.read(bytes);
+				String img = Base64.getEncoder().encodeToString(bytes);
+				req.setAttribute("myProfile", img);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 		req.setAttribute("nickname", nickname);
 
 		req.getRequestDispatcher("/WEB-INF/mypageModify/mypageModify.jsp").forward(req, resp);
@@ -115,7 +132,6 @@ public class MyPageModifyServlet extends HttpServlet {
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			} finally {
-
 			}
 		}
 		req.getRequestDispatcher("/WEB-INF/mypageModify/mypageModify.jsp").forward(req, resp);

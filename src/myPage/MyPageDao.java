@@ -166,6 +166,30 @@ public class MyPageDao {
 			DBUtil.close(conn);
 		}
 	}
+
+	public Blob getProfile(String id) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		Blob profile = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM user WHERE id = ?");
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				profile = rs.getBlob("profile");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return profile;
+	}
 }
 
 //    public List<Path> getMyPath(String id) {

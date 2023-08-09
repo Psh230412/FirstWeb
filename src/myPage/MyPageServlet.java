@@ -49,6 +49,7 @@ public class MyPageServlet extends HttpServlet {
 		if (pathNo != null) {
 			dao.deletePath(pathNo);
 			resp.sendRedirect("/ScreenSceneP/mypage");
+			return;
 		}
 		resp.sendRedirect("/ScreenSceneP/mypagemodify");
 	}

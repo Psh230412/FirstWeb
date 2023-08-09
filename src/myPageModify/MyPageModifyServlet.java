@@ -53,6 +53,7 @@ public class MyPageModifyServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setHeader("Cache-Control", "no-store");
 		String form = req.getParameter("form_type");
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("loggedUserId");

@@ -13,7 +13,7 @@ import object.Location;
 import object.Movie;
 import object.User;
 
-public class MovieDAO {
+public class LocationDao {
     // 영화 하나의 제목을 가져오는 메소드
     public Blob selectOneMovie(int movie_no) {
 	Connection conn = null;

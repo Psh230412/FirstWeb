@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import object.gmap_Location;
+import object.Gmap_Location;
 
 @WebServlet("/Map")
 public class MapServlet extends HttpServlet {
@@ -20,7 +20,7 @@ public class MapServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<gmap_Location> mapList = m.getLatLongList();
+		List<Gmap_Location> mapList = m.getLatLongList();
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(mapList);

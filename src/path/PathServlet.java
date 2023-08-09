@@ -19,12 +19,12 @@ import object.LatAndLng;
 import object.Location;
 import object.SelectPath;
 import object.ViewPath;
-import selectLocation.MovieDAO;
+import selectLocation.LocationDao;
 
 @WebServlet("/selectpath")
 public class PathServlet extends HttpServlet {
 	SelectPathDAO selectPathDao = new SelectPathDAO();
-	MovieDAO movieDao = new MovieDAO();
+	LocationDao movieDao = new LocationDao();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -11,11 +11,11 @@ import java.net.URL;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import object.gmap_Location;
+import object.Gmap_Location;
 
 public class Geocoding {
 
-	public gmap_Location addressINTOLatLng() {
+	public Gmap_Location addressINTOLatLng() {
 
 		URL url;
 		try {
@@ -50,7 +50,7 @@ public class Geocoding {
 //			System.out.println("Latitude: " + lat);
 //			System.out.println("Longitude: " + lng);
 
-			return new gmap_Location(lat, lng);
+			return new Gmap_Location(lat, lng);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (ProtocolException e) {

@@ -265,7 +265,7 @@ public class DistanceCalculator implements Runnable {
 
 		thirdLocation.add(randomLocation);
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3 && i < resultList.size(); i++) {
 			Distance distance = resultList.get(i);
 
 			for (int j = 0; j < entireSelectedList.size(); j++) {

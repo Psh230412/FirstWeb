@@ -69,7 +69,7 @@ public class LoginServelt extends HttpServlet {
 					}
 					dao.updateAccess(userno);
 					// 다음페이지로 이동
-					resp.sendRedirect("main/index.html");
+					resp.sendRedirect("/ScreenSceneP/movie");
 				} else {
 					req.setAttribute("loginError", "아이디 또는 비밀번호를 틀리셨습니다.");
 					req.getRequestDispatcher("/WEB-INF/loginPage/login.jsp").forward(req, resp);

@@ -75,9 +75,9 @@ public class MyPageDao {
 
 		try {
 			conn = DBUtil.getConnection();
-			stmt = conn.prepareStatement("SELECT *\r\n" + "					FROM path\r\n"
-					+ "					WHERE user_choice_no = (SELECT user_choice_no\r\n"
-					+ "					FROM user_choice\r\n" + "					WHERE userno = ?)");
+			stmt = conn.prepareStatement("SELECT *\r\n" + 
+					"FROM path\r\n" + 
+					"WHERE userno = ?");
 			stmt.setInt(1, userno);
 			rs = stmt.executeQuery();
 

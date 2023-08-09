@@ -14,7 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dbutil.DBUtil;
-import object.gmap_Location;
+import object.Gmap_Location;
 
 public class gmap_Location_DAO {
 
@@ -32,8 +32,8 @@ public class gmap_Location_DAO {
 		return requestBodyBuilder.toString();
 	}
 
-	public List<gmap_Location> getLatLongList() {
-		List<gmap_Location> entireDestinationList = new ArrayList<>();
+	public List<Gmap_Location> getLatLongList() {
+		List<Gmap_Location> entireDestinationList = new ArrayList<>();
 
 		Connection JdbcConn = null;
 		PreparedStatement pstmt = null;
@@ -50,7 +50,7 @@ public class gmap_Location_DAO {
 				double destinationLatitude = rs.getDouble("latitude");
 				double destinationLongitude = rs.getDouble("longitude");
 
-				entireDestinationList.add(new gmap_Location(destinationLatitude, destinationLongitude));
+				entireDestinationList.add(new Gmap_Location(destinationLatitude, destinationLongitude));
 
 			}
 

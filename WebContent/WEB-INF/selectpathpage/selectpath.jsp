@@ -178,7 +178,7 @@ console.log("pathmap.jsp로 이동 완료");
                             <p>경로 1</p>
                         </div>
                         <div class="slidermap">
-                            <div id="map1" style="height: 420px; width: 600px"></div>
+                            <div id="map1" style="height: 840px; width: 1200px"></div>
                         </div>
                         <div class="left-section" id="section-1">
                             <div class="left-section-poster">
@@ -266,7 +266,7 @@ console.log("pathmap.jsp로 이동 완료");
                             <p>경로 2</p>
                         </div>
                         <div class="slidermap">
-                            <div id="map2" style="height: 420px; width: 600px"></div>
+                            <div id="map2" style="height: 840px; width: 1200px"></div>
                         </div>
                         <div class="left-section" id="section-1">
                             <div class="left-section-poster">
@@ -352,7 +352,7 @@ console.log("pathmap.jsp로 이동 완료");
                             <p>경로 3</p>
                         </div>
                         <div class="slidermap">
-                            <div id="map3" style="height: 420px; width: 600px"></div>
+                            <div id="map3" style="height: 840px; width: 1200px"></div>
                         </div>
                         <div class="left-section" id="section-1">
                             <div class="left-section-poster">

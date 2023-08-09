@@ -6,22 +6,14 @@ public class Distance {
 	
 	private int distance;
 	private Location destination;
+	private Location origin;
 	
-	public Distance( int distance,Location destination) {
-		
+	public Distance(int distance, Location destination, Location origin) {
 		this.distance = distance;
 		this.destination = destination;
+		this.origin = origin;
 	}
 
-	public Location getdestination() {
-		return destination;
-	}
-
-	public void setdestination(Location destination) {
-		this.destination = destination;
-	}
-
-	
 	public int getDistance() {
 		return distance;
 	}
@@ -30,12 +22,31 @@ public class Distance {
 		this.distance = distance;
 	}
 
+	public Location getDestination() {
+		return destination;
+	}
+
+	public void setDestination(Location destination) {
+		this.destination = destination;
+	}
+
+	public Location getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(Location origin) {
+		this.origin = origin;
+	}
+
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((destination == null) ? 0 : destination.hashCode());
 		result = prime * result + distance;
+		result = prime * result + ((origin == null) ? 0 : origin.hashCode());
 		return result;
 	}
 
@@ -55,14 +66,21 @@ public class Distance {
 			return false;
 		if (distance != other.distance)
 			return false;
+		if (origin == null) {
+			if (other.origin != null)
+				return false;
+		} else if (!origin.equals(other.origin))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Distance [distance=" + distance + ", destination=" + destination + "]";
+		return "Distance [distance=" + distance + ", destination=" + destination + ", origin=" + origin + "]";
 	}
-
+	
+	
+	
 	
 	
 	

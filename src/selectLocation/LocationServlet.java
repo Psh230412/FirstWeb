@@ -22,11 +22,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import object.Location;
-import object.imgLocationObject;
+import object.ImgLocationObject;
 
 @WebServlet("/flow")
-public class test extends HttpServlet {
-	MovieDAO movieDao = new MovieDAO(); // movieDao 객체 생성
+public class LocationServlet extends HttpServlet {
+	LocationDao movieDao = new LocationDao(); // movieDao 객체 생성
 
 	private void MoviesPoster(HttpServletRequest req, List<Integer> movieNumbers) {
 		List<String> encodedPosters = new ArrayList<>();
@@ -50,10 +50,10 @@ public class test extends HttpServlet {
 
 	// 각 영화당 촬영지,이미지
 	private void MoviesAddress(HttpServletRequest req, List<Integer> movieNumbers) throws SQLException, IOException {
-		Map<String, List<imgLocationObject>> movieLocationsMap = new HashMap<>();
+		Map<String, List<ImgLocationObject>> movieLocationsMap = new HashMap<>();
 
 		for (Integer movieNumber : movieNumbers) {
-			List<imgLocationObject> locationsList = new ArrayList<>();
+			List<ImgLocationObject> locationsList = new ArrayList<>();
 			List<Location> locations = movieDao.selectLocationList(movieNumber);
 
 			for (Location location : locations) {
@@ -70,7 +70,7 @@ public class test extends HttpServlet {
 				singleAddressData.add(location.getAddress());
 				location_no.add(location.getLocation_no());
 
-				locationsList.add(new imgLocationObject(singleImageData, singleAddressData, location_no));
+				locationsList.add(new ImgLocationObject(singleImageData, singleAddressData, location_no));
 			}
 			System.out.println("Movie Number: " + movieNumber + ", Locations: " + locationsList);
 			movieLocationsMap.put(String.valueOf(movieNumber), locationsList);
@@ -109,6 +109,6 @@ public class test extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		req.getRequestDispatcher("/WEB-INF/selectMovie.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/selectLocationPage/selectLocation.jsp").forward(req, resp);
 	}
 }

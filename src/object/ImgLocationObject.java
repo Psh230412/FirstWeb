@@ -3,12 +3,12 @@ package object;
 import java.util.ArrayList;
 import java.util.List;
 
-public class imgLocationObject {
+public class ImgLocationObject {
 	private List<String> imageData = new ArrayList<>();
 	private List<String> addressData = new ArrayList<>();
 	private List<Integer> location_no = new ArrayList<>();
 
-	public imgLocationObject(List<String> imageData, List<String> addressData, List<Integer> location_no) {
+	public ImgLocationObject(List<String> imageData, List<String> addressData, List<Integer> location_no) {
 		super();
 		this.imageData = imageData;
 		this.addressData = addressData;

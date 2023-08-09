@@ -1,4 +1,4 @@
-package main;
+package movieChoice;
 
 import java.io.IOException;
 

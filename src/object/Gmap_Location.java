@@ -1,6 +1,6 @@
 package object;
 
-public class gmap_Location {
+public class Gmap_Location {
     private double lat;
     private double lng;
 
@@ -40,7 +40,7 @@ public class gmap_Location {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	gmap_Location other = (gmap_Location) obj;
+	Gmap_Location other = (Gmap_Location) obj;
 	if (Double.doubleToLongBits(lat) != Double.doubleToLongBits(other.lat))
 	    return false;
 	if (Double.doubleToLongBits(lng) != Double.doubleToLongBits(other.lng))
@@ -53,13 +53,13 @@ public class gmap_Location {
 	return "Location [lat=" + lat + ", lng=" + lng + "]";
     }
 
-    public gmap_Location(double lat, double lng) {
+    public Gmap_Location(double lat, double lng) {
 	super();
 	this.lat = lat;
 	this.lng = lng;
     }
 
-    public gmap_Location() {
+    public Gmap_Location() {
 
     }
 

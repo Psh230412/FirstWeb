@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebFilter("/login11")
 // 회원가입 규칙
-// 아이디: 소문자, 대문자, 한글, 숫자를 이용하여 5~20자
+// 아이디: 소문자, 대문자, 숫자를 이용하여 5~20자
 // 비밀번호: 소문자, 대문자, 숫자, 정해진 특수문자들을 모두 포함 (~ ! @ # $ % ^ & * ( ) _ - + = [ ] , . / < >)
 // 9~20자
 // 닉네임: 소문자, 대문자, 한글, 숫자 5~20자
@@ -26,8 +26,8 @@ public class UserFilter implements Filter {
 			String joinPassword = request.getParameter("joinPassword");
 			String joinNickname = request.getParameter("joinNickname");
 			
-			if (!joinId.matches("[a-zA-Z0-9가-힣]{5,20}")) {
-				req.setAttribute("joinIdError", "아이디는 소문자, 대문자, 한글, 숫자만을 이용하여 5~20자로 만들어야 합니다.");
+			if (!joinId.matches("[a-zA-Z0-9]{5,20}")) {
+				req.setAttribute("joinIdError", "아이디는 소문자, 대문자, 숫자만을 이용하여 5~20자로 만들어야 합니다.");
 			}
 
 			String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[~!@#$%^&*()_\\-+=\\[\\],./<>?])"

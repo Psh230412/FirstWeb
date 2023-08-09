@@ -153,12 +153,14 @@ function updateConfirmButtonState() {
 const confirmButton = document.querySelector(".choose-confirm-btn");
 confirmButton.addEventListener("click", () => {
   confirmMovies();
+  
 });
+
 function confirmMovies() {
  document.getElementById('selectedMovies').value = JSON.stringify( {movieNumbers : moviesNumber});
  document.getElementById('movieSelectionForm').submit();
-
 }
+
 window.addEventListener("scroll", () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
     loadMoreMovies();

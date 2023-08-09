@@ -53,8 +53,7 @@
       <input type="hidden" name="movieNumber" value="${entry.key}" />
    </c:forEach>
    <input type="hidden" id="selectedLocationNos" name="selectedLocationNos" />
-    <input type="submit" class="nextPage"
-      value="경로 확인하기">
+    <input type="submit" class="nextPage" value="경로 확인하기" disabled="true">
 </form>
 <script>
    const items = document.querySelectorAll(".item");
@@ -75,6 +74,7 @@
               if (item.classList.contains("selected")) {
                   item.classList.remove("selected");
                   selectedCount--;
+                  SubmitButtonState();
                   const locationNo = item.getAttribute("data-location_no");
                   const index = selectedLocationNos.indexOf(locationNo);
                   console.log("취소한 장소 "+selectedLocationNos);
@@ -85,20 +85,28 @@
                   if (selectedCount < 4) {
                       item.classList.add("selected");
                       selectedCount++;
+                      SubmitButtonState();
                       const locationNo = item.getAttribute("data-location_no");
                       selectedLocationNos.push(locationNo);
                       console.log("선택한 장소 "+selectedLocationNos);
                   }
               }
               const selectedLocationsInput = document.getElementById("selectedLocationNos");
-            
                   selectedLocationsInput.value = selectedLocationNos;
-              
           }
        });
    });
-
-
+   function SubmitButtonState() {
+       const submitButton = document.querySelector(".nextPage");
+       if (submitButton) {
+           if (selectedCount >= 4) {
+               submitButton.disabled = false; // 버튼 활성화
+           } else {
+               submitButton.disabled = true; // 버튼 비활성화
+           }
+       }
+   }
+	
     </script>
 
 

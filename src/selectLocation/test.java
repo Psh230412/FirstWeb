@@ -10,11 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -80,6 +82,15 @@ public class test extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String movieNumbersJson = req.getParameter("movieNumbers");
+		
+		if (movieNumbersJson != null) {
+			HttpSession session = req.getSession();
+			session.setAttribute("movieNubers", movieNumbersJson);
+		} else {
+			HttpSession session = req.getSession();
+			movieNumbersJson = (String) session.getAttribute("movieNubers");
+		}
+		
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {

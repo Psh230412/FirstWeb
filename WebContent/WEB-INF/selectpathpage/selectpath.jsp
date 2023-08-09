@@ -112,6 +112,16 @@ console.log("pathmap.jsp로 이동 완료");
 	    addMarkersToMap(locationList, map);
 	    addPathToMap(locationList, map);
 	}
+	
+	// 특정 인덱스 활성화 함수
+	function setActiveIndex(indexNumber) {
+	    document.getElementById(`index${indexNumber}`).classList.add('active');
+	}
+	
+	window.onload = function() {
+	    loadMap(1);
+	    setActiveIndex(1);
+	};
 
 	</script>
 </head>
@@ -124,14 +134,16 @@ console.log("pathmap.jsp로 이동 완료");
                 <a href="http://localhost:8080/ScreenSceneP/main/index.html" class="navbar-menu"><span>영화선택</span></a>
                 <a href="http://localhost:8080/ScreenSceneP/mypage" class="navbar-menu"><span>경로보기</span></a>
                 
-                <div id="profileImgDiv">
-                <img src="data:image/jpeg;base64,${ porfileImg }" alt="대체이미지" />
-                </div>
-                <div id="nickname">
-					<p>${ nickname }</p>
-				</div>
-
-                <button class="btn btn-primary">로그아웃</button>
+<!--                 <div id="profileImgDiv"> -->
+<%--                 <img src="data:image/jpeg;base64,${ porfileImg }" alt="대체이미지" /> --%>
+<!--                 </div> -->
+<!--                 <div id="nickname"> -->
+<%-- 					<p>${ nickname }</p> --%>
+<!-- 				</div> -->
+				
+				<form action="logout" method="get">
+                	<button class="btn btn-primary">로그아웃</button>
+                </form>
                 <div class="social-icon">
 
 
@@ -150,7 +162,7 @@ console.log("pathmap.jsp로 이동 완료");
                 <p><img src="img/타입트립 1.png" /></p>
             </div>
             <div class="button-group">
-                <a href="#" class="group-link clicked" id="group-1" onclick="changeColor('group-1'); loadMap(1);'"><span><i
+                <a href="#" class="group-link clicked" id="group-1" onclick="changeColor('group-1'); loadMap(1);"><span><i
                             class='bx bxs-circle'></i></span></a>
                 <a href="#" class="group-link" id="group-2" onclick="changeColor('group-2'); loadMap(2);"><span><i
                             class='bx bxs-circle'></i></span></a>

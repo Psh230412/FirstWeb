@@ -67,24 +67,28 @@ public class User_Choice_DAO {
 
 	}
 
-	public int getCountMovie(Connection conn) throws SQLException {
+	public int getCountMovie(Connection conn) throws SQLException   {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String countSql = "SELECT count(*) as number FROM movie.movie";
-		pstmt = conn.prepareStatement(countSql);
-		rs = pstmt.executeQuery();
-
-		if (rs.next()) {
-			int count = rs.getInt("number");
-			return count;
+		try {
+			String countSql = "SELECT count(*) as number FROM movie.movie";
+			pstmt = conn.prepareStatement(countSql);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				int count = rs.getInt("number");
+				return count;
+			}
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+			
 		}
-		DBUtil.close(rs);
-		DBUtil.close(pstmt);
-
+		
 		return 0;
 
-	}
+	} 
 
 }

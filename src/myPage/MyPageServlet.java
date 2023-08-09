@@ -36,6 +36,7 @@ public class MyPageServlet extends HttpServlet {
 		req.setAttribute("porfileImg", profileImg);
 		
 		int userno = dao.getUserNo(id);
+		System.out.println(userno);
 		List<MyPath> list = dao.getMyPath(userno);
 
 		req.setAttribute("list", list);

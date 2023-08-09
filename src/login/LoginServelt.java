@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import join.JoinDao;
+import object.User;
 
 @WebServlet("/login")
 public class LoginServelt extends HttpServlet {
@@ -45,12 +45,16 @@ public class LoginServelt extends HttpServlet {
 						Cookie cookie = new Cookie("remember", id);
 						resp.addCookie(cookie);
 					}
-					String nickname = dao.getNickname(id);
-					Blob profile = dao.getProfile(id);
+					
+					User user = dao.getUserInfo(id);
+					String nickname = user.getNickname();
+					int userno = user.getUserno();
+					Blob profile = user.getProfile();
 					
 					HttpSession session = req.getSession();
 					session.setAttribute("loggedUserId", id);
 					session.setAttribute("loggedUserNickname", nickname);
+					session.setAttribute("loggedUserNo", userno);
 					if (profile != null) {
 						InputStream inputStream;
 						try {
@@ -63,7 +67,7 @@ public class LoginServelt extends HttpServlet {
 							e.printStackTrace();
 						}
 					}
-					
+					dao.updateAccess(userno);
 					// 다음페이지로 이동
 					resp.sendRedirect("main/index.html");
 				} else {

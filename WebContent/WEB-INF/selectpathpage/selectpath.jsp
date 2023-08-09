@@ -427,9 +427,13 @@ console.log("pathmap.jsp로 이동 완료");
                 <h1>추천 받은 경로가 마음에 들지 않으세요?</h1>
                 <p>재 테스트를 통해, 새로 경로를 추천 받을 수 있습니다.</p>
                 <p>원하는 항목을 선택후 새로운 경로를 추천받으세요.</p>
-
-                <button class="btn btn-primary" id="reselect-location">위치다시선택하기</button>
+				
+				<form method="post" action="/ScreenSceneP/flow">
+                	<button class="btn btn-primary" id="reselect-location">위치다시선택하기</button>
+				</form>
+				<form method="post" action="http://localhost:8080/ScreenSceneP/main/index.html">
                 <button class="btn btn-primary" id="reselect-movie">영화다시선택하기</button>
+                </form>
 				<button class="btn btn-primary" id="select-path">경로 선택</button>
             </div>
 

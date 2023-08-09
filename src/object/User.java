@@ -24,6 +24,13 @@ public class User {
 		this.nickname = nickname;
 		this.profile = profile;
 	}
+	
+	public User(int userno, String id, String nickname, Blob profile) {
+		this.userno = userno;
+		this.id = id;
+		this.nickname = nickname;
+		this.profile = profile;
+	}
 
 	public int getUserno() {
 		return userno;

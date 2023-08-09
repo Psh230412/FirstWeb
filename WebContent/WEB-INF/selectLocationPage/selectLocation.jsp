@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Page Title</title>
-<link rel="stylesheet" type="text/css" href="Movie.css" />
+<link rel="stylesheet" type="text/css" href="movie/Movie.css" />
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </head>
 <header>

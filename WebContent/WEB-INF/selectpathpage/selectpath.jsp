@@ -520,7 +520,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		};
 		var pathJson = JSON.stringify(path);
 
-        // 서버에 path1 값을 전송
+        // 서버에 path 값을 전송
         fetch('http://localhost:8080/ScreenSceneP/savePath', {
             method: 'POST',
             headers: {

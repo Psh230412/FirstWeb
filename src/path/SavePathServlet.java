@@ -36,9 +36,9 @@ public class SavePathServlet extends HttpServlet {
 
 	    int result = dao.insertSelectedPath(selectPath);
 	    System.out.println(result);
-	    
+	    resp.sendRedirect("http://localhost:8080/ScreenSceneP/main/index.html");
 //	    if (result == 1) {
-//	    	resp.sendRedirect("http://localhost:8080/ScreenSceneP/login");
+//	    	
 //	    } else {
 //	    	System.out.println("경로 저장 실패");
 //	    }

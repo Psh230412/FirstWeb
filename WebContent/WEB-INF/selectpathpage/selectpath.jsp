@@ -124,14 +124,16 @@ console.log("pathmap.jsp로 이동 완료");
                 <a href="http://localhost:8080/ScreenSceneP/main/index.html" class="navbar-menu"><span>영화선택</span></a>
                 <a href="http://localhost:8080/ScreenSceneP/mypage" class="navbar-menu"><span>경로보기</span></a>
                 
-                <div id="profileImgDiv">
-                <img src="data:image/jpeg;base64,${ porfileImg }" alt="대체이미지" />
-                </div>
-                <div id="nickname">
-					<p>${ nickname }</p>
-				</div>
-
-                <button class="btn btn-primary">로그아웃</button>
+<!--                 <div id="profileImgDiv"> -->
+<%--                 <img src="data:image/jpeg;base64,${ porfileImg }" alt="대체이미지" /> --%>
+<!--                 </div> -->
+<!--                 <div id="nickname"> -->
+<%-- 					<p>${ nickname }</p> --%>
+<!-- 				</div> -->
+				
+				<form action="logout" method="get">
+                	<button class="btn btn-primary">로그아웃</button>
+                </form>
                 <div class="social-icon">
 
 

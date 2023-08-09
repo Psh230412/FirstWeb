@@ -20,16 +20,16 @@ const indexlink3 = document.querySelector('#group-3')
 indexlink1.addEventListener('click', () => {
     indexsec2.classList.remove('active');
     indexsec3.classList.remove('active');
-    indexsec1.classList.remove('active');
+    indexsec1.classList.add('active');
 })
 
 indexlink2.addEventListener('click', () => {
-    indexsec1.classList.add('active');
+    indexsec1.classList.remove('active');
     indexsec3.classList.remove('active');
     indexsec2.classList.add('active');
 })
 indexlink3.addEventListener('click', () => {
-    indexsec1.classList.add('active');
+    indexsec1.classList.remove('active');
     indexsec2.classList.remove('active');
     indexsec3.classList.add('active');
 })
@@ -51,5 +51,9 @@ function showGroup(groupNumber) {
     }
 }
 
+// 페이지 로딩 완료 시 indexsec1에 'active' 클래스 추가
+window.addEventListener('DOMContentLoaded', () => {
+    indexsec1.classList.add('active');
+});
 
 

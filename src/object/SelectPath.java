@@ -1,28 +1,15 @@
 package object;
 
-import java.sql.Blob;
-
 public class SelectPath {
-	private int path_no;
-	private int user_choice_no;
+	private int userno;
 	private int location1;
 	private int location2;
 	private int location3;
 	private int location4;
-	private Blob pathMapImage;
+	private String pathMapImage;
 
-	public SelectPath(int user_choice_no, int location1, int location2, int location3, int location4, Blob pathMapImage) {
-		this.user_choice_no = user_choice_no;
-		this.location1 = location1;
-		this.location2 = location2;
-		this.location3 = location3;
-		this.location4 = location4;
-		this.pathMapImage = pathMapImage;
-	}
-	
-	public SelectPath(int path_no, int user_choice_no, int location1, int location2, int location3, int location4, Blob pathMapImage) {
-		this.path_no = path_no;
-		this.user_choice_no = user_choice_no;
+	public SelectPath(int userno, int location1, int location2, int location3, int location4, String pathMapImage) {
+		this.userno = userno;
 		this.location1 = location1;
 		this.location2 = location2;
 		this.location3 = location3;
@@ -30,20 +17,12 @@ public class SelectPath {
 		this.pathMapImage = pathMapImage;
 	}
 
-	public int getPath_no() {
-		return path_no;
+	public int getUserno() {
+		return userno;
 	}
 
-	public void setPath_no(int path_no) {
-		this.path_no = path_no;
-	}
-
-	public int getUser_choice_no() {
-		return user_choice_no;
-	}
-
-	public void setUser_choice_no(int user_choice_no) {
-		this.user_choice_no = user_choice_no;
+	public void setUserno(int userno) {
+		this.userno = userno;
 	}
 
 	public int getLocation1() {
@@ -78,11 +57,18 @@ public class SelectPath {
 		this.location4 = location4;
 	}
 
-	public Blob getPathMapImage() {
+	public String getPathMapImage() {
 		return pathMapImage;
 	}
 
-	public void setPathMapImage(Blob pathMapImage) {
+	public void setPathMapImage(String pathMapImage) {
 		this.pathMapImage = pathMapImage;
 	}
+
+	@Override
+	public String toString() {
+		return "SelectPath [userno=" + userno + ", location1=" + location1 + ", location2=" + location2 + ", location3="
+				+ location3 + ", location4=" + location4 + ", pathMapImage=" + pathMapImage + "]";
+	}
+
 }

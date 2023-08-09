@@ -408,6 +408,17 @@ picitme
     font-size: 48px;
 }
 
+.index1 .slider-section {
+    transform: translateX(-4500px);
+    transition: transform .6s ease;
+    transition-delay: 0s;
+}
+
+.index1.active .slider-section {
+    transform: translateX(0px);
+    transition-delay: .3s;
+}
+
 .index2 .slider-section {
     transform: translateX(-4500px);
     transition: transform .6s ease;
@@ -427,17 +438,6 @@ picitme
 
 .index3.active .slider-section {
     transform: translateX(0px);
-    transition-delay: .3s;
-}
-
-.index1 .slider-section {
-    transform: translateX(0px);
-    transition: transform .6s ease;
-    transition-delay: 0s;
-}
-
-.index1.active .slider-section {
-    transform: translateX(-4500px);
     transition-delay: .3s;
 }
 

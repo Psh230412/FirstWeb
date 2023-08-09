@@ -169,6 +169,11 @@ public class PathServlet extends HttpServlet {
 			ViewPath viewPath1 = selectPathDao.getViewPathArr(1, path1);
 			ViewPath viewPath2 = selectPathDao.getViewPathArr(2, path2);
 			ViewPath viewPath3 = selectPathDao.getViewPathArr(3, path3);
+			
+			req.setAttribute("path1", path1);
+			req.setAttribute("path2", path2);
+			req.setAttribute("path3", path3);
+			
 			req.setAttribute("viewPath1", viewPath1);
 			req.setAttribute("viewPath2", viewPath2);
 			req.setAttribute("viewPath3", viewPath3);

@@ -56,7 +56,7 @@ public class SelectPathDAO {
 			conn = DBUtil.getConnection();
 
 				List<ViewLocation> viewLocList = new ArrayList<>();
-				int user_choice_no = path.getUser_choice_no();
+				int userno = path.getUserno();
 				List<Location> locationList = candidatePathLocation(conn, path);
 
 				for (int j = 0; j < locationList.size(); j++) {
@@ -70,7 +70,7 @@ public class SelectPathDAO {
 					ViewLocation viewLoc1 = new ViewLocation(locationNo, locationName, locationImgStr, posterImgStr);
 					viewLocList.add(viewLoc1);
 				}
-				return new ViewPath(num, user_choice_no, viewLocList);
+				return new ViewPath(num, userno, viewLocList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -157,9 +157,9 @@ public class SelectPathDAO {
 		PreparedStatement stmt = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "INSERT INTO path (user_choice_no, location1, location2, location3, location4) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO path (userno, location1, location2, location3, location4) VALUES (?, ?, ?, ?, ?)";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, path.getUser_choice_no());
+			stmt.setInt(1, path.getUserno());
 			stmt.setInt(2, path.getLocation1());
 			stmt.setInt(3, path.getLocation2());
 			stmt.setInt(4, path.getLocation3());

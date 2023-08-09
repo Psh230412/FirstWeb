@@ -171,7 +171,7 @@ public class MovieMapsScraper {
 				Elements articles = document.select("article");
 
 				int count = 0;
-				
+
 				if (articles.size() >= 6) {
 
 					for (Element article : articles) {
@@ -183,49 +183,27 @@ public class MovieMapsScraper {
 							Element aTag = locationmapgalleryFigureTag.selectFirst("a");
 
 							if (aTag != null || !tinyThumbnailFigureTags.isEmpty()) {
-								
-								
+
 //				                이미지가 있다는 뜻!!
 								count++;
 
 							}
 						}
-						
-	
+
 					}
 
 				}
-				
-				if (count >=6) {
+
+				if (count >= 6) {
 					for (Element article : articles) {
 						Element locationmapgalleryFigureTag = article.selectFirst("figure.location-map.gallery");
 						Element tinyThumbnailFigureTags = article.selectFirst("figure.tiny.thumbnail");
-						
-						if(locationmapgalleryFigureTag == null && tinyThumbnailFigureTags == null) {
+
+						if (locationmapgalleryFigureTag == null && tinyThumbnailFigureTags == null) {
 							continue;
 						}
-						if(locationmapgalleryFigureTag != null && tinyThumbnailFigureTags ==null) {
-							
-						}
-						if(locationmapgalleryFigureTag != null && tinyThumbnailFigureTags !=null) {
-							
-						}
-						if(locationmapgalleryFigureTag == null && tinyThumbnailFigureTags !=null) {
-							
-						}
-						
-					}
-					
-				}
-				
-				
-
-				Elements anchors = document.select("figure.location-map.gallery a");
-				Elements gallerySectionsHasFigures = document.select("section.gallery:has(figure.tiny.thumbnail)");
-
-				if (anchors != null && gallerySectionsHasFigures != null) {
-					if (anchors.size() >= 6) {
-						for (Element anchor : anchors) {
+						if (locationmapgalleryFigureTag != null) {
+							Element anchor = locationmapgalleryFigureTag.selectFirst("a");
 							String hrefValue = anchor.attr("href");
 
 //							장소 디테일 주소
@@ -275,44 +253,110 @@ public class MovieMapsScraper {
 											inputStream);
 
 								}
+								if (locationmapgalleryFigureTag == null && tinyThumbnailFigureTags != null) {
+									
+
+								}
+
 							}
 
 						}
 
+//				Elements anchors = document.select("figure.location-map.gallery a");
+//				Elements gallerySectionsHasFigures = document.select("section.gallery:has(figure.tiny.thumbnail)");
+//
+//				if (anchors != null && gallerySectionsHasFigures != null) {
+//					if (anchors.size() >= 6) {
+//						for (Element anchor : anchors) {
+//							String hrefValue = anchor.attr("href");
+//
+////							장소 디테일 주소
+//							String PlaceDetailUrl = "https://moviemaps.org" + hrefValue;
+////							장소 이미지와 주소를 구할 수 있음 
+//							Document PlaceImagedocument = Jsoup.connect(PlaceDetailUrl).get();
+//
+////					       	 장소 구하기 
+//							Element addressElement = PlaceImagedocument.select("address").first();
+//							String address = addressElement.text();
+//
+////							위도와 경도 추출
+//							Element nearbyLocationsLink = PlaceImagedocument.select("a[href~=(\\?|&)lat=]").first();
+//							String hrefplace = nearbyLocationsLink.attr("href");
+//
+//							String lat = hrefplace.substring(hrefplace.indexOf("lat=") + 4, hrefplace.indexOf("&"));
+//							int startIndexOfLng = hrefplace.indexOf("lng=") + 4;
+//							int endIndexOfLng = hrefplace.indexOf("&", startIndexOfLng);
+//							if (endIndexOfLng == -1) { // "&"가 발견되지 않는 경우 문자열의 끝을 사용
+//								endIndexOfLng = hrefplace.length();
+//							}
+//
+//							String lng = hrefplace.substring(startIndexOfLng, endIndexOfLng);
+//
+////							이미지 구하기 
+//							Element firstGallerySection = PlaceImagedocument.select("section.gallery").first();
+//							if (firstGallerySection != null) {
+//								Element aTag = firstGallerySection.select("a").first();
+//								if (aTag != null) {
+//									String imagehref = aTag.attr("href");
+//
+////					       	장소 큰 이미지를 찾을 수있는 url
+//									String imageUrl = "https://moviemaps.org" + imagehref;
+//
+//									Document imagedocument = Jsoup.connect(imageUrl).get();
+//
+//									Element imgElement = imagedocument.select("figure img").first();
+////					                 장소 큰 이미지 url
+//									String imgUrl = imgElement.attr("abs:src");
+//
+//									URL imgURL = new URL(imgUrl);
+//									URLConnection connection = imgURL.openConnection();
+//									InputStream inputStream = connection.getInputStream();
+//
+//									int movie_no = getMovie_noWithTitle(title);
+//									insertIntoLocation(movie_no, address, Double.valueOf(lat), Double.valueOf(lng),
+//											inputStream);
+//
+//								}
+//							}
+//
+//						}
+//
+//					}
+//
+//				} else if (gallerySectionsHasFigures.size() >= 6) {
+//
+//					for (Element gallerySection : gallerySectionsHasFigures) {
+//						Element firstFigure = gallerySection.selectFirst("figure.tiny.thumbnail");
+//
+//						Element anchorTag = firstFigure.selectFirst("a");
+//
+//						if (anchorTag != null) {
+//							String hrefValue = anchorTag.attr("href");
+//
+////								장소 큰 사진
+//							String imageUrl = "https://moviemaps.org" + hrefValue;
+//
+//							Document imagedocument = Jsoup.connect(imageUrl).get();
+//
+//							Element imgElement = imagedocument.select("figure img").first();
+////			                 장소 큰 이미지 url
+//							String imgUrl = imgElement.attr("abs:src");
+//
+//							URL imgURL = new URL(imgUrl);
+//							URLConnection connection = imgURL.openConnection();
+//							InputStream inputStream = connection.getInputStream();
+//
+//						} else {
+//							System.out.println("No matching element found.");
+//						}
+//					}
+//				} else {
+//					keysToRemove.add(title);
+//				}
+//			}
 					}
-
-				} else if (gallerySectionsHasFigures.size() >= 6) {
-
-					for (Element gallerySection : gallerySectionsHasFigures) {
-						Element firstFigure = gallerySection.selectFirst("figure.tiny.thumbnail");
-
-						Element anchorTag = firstFigure.selectFirst("a");
-
-						if (anchorTag != null) {
-							String hrefValue = anchorTag.attr("href");
-
-//								장소 큰 사진
-							String imageUrl = "https://moviemaps.org" + hrefValue;
-
-							Document imagedocument = Jsoup.connect(imageUrl).get();
-
-							Element imgElement = imagedocument.select("figure img").first();
-//			                 장소 큰 이미지 url
-							String imgUrl = imgElement.attr("abs:src");
-
-							URL imgURL = new URL(imgUrl);
-							URLConnection connection = imgURL.openConnection();
-							InputStream inputStream = connection.getInputStream();
-
-						} else {
-							System.out.println("No matching element found.");
-						}
-					}
-				} else {
-					keysToRemove.add(title);
 				}
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,33 +1,27 @@
 package gmap;
 
+import object.Location;
+
 public class Distance {
-	private Double latitude;
-	private Double longitude;
-	private int distance;
 	
-	public Distance(Double latitude, Double longitude, int distance) {
-		super();
-		this.latitude = latitude;
-		this.longitude = longitude;
+	private int distance;
+	private Location destination;
+	
+	public Distance( int distance,Location destination) {
+		
 		this.distance = distance;
+		this.destination = destination;
 	}
 
-	public Double getLatitude() {
-		return latitude;
+	public Location getdestination() {
+		return destination;
 	}
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
+	public void setdestination(Location destination) {
+		this.destination = destination;
 	}
 
-	public Double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-
+	
 	public int getDistance() {
 		return distance;
 	}
@@ -36,14 +30,12 @@ public class Distance {
 		this.distance = distance;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((destination == null) ? 0 : destination.hashCode());
 		result = prime * result + distance;
-		result = prime * result + ((latitude == null) ? 0 : latitude.hashCode());
-		result = prime * result + ((longitude == null) ? 0 : longitude.hashCode());
 		return result;
 	}
 
@@ -56,25 +48,23 @@ public class Distance {
 		if (getClass() != obj.getClass())
 			return false;
 		Distance other = (Distance) obj;
+		if (destination == null) {
+			if (other.destination != null)
+				return false;
+		} else if (!destination.equals(other.destination))
+			return false;
 		if (distance != other.distance)
-			return false;
-		if (latitude == null) {
-			if (other.latitude != null)
-				return false;
-		} else if (!latitude.equals(other.latitude))
-			return false;
-		if (longitude == null) {
-			if (other.longitude != null)
-				return false;
-		} else if (!longitude.equals(other.longitude))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Distance [latitude=" + latitude + ", longitude=" + longitude + ", distance=" + distance + "]";
+		return "Distance [distance=" + distance + ", destination=" + destination + "]";
 	}
+
+	
+	
 	
 	
 	

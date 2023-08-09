@@ -172,6 +172,9 @@ public class MovieMapsScraper {
 					}
 				}
 
+				
+				
+				
 				Elements gallerySectionsHasFigures = document.select("section.gallery:has(figure.tiny.thumbnail)");
 
 				if (gallerySectionsHasFigures.size() >= 6) {
@@ -182,6 +185,9 @@ public class MovieMapsScraper {
 
 						Element anchorTag = firstFigure.selectFirst("a");
 
+						
+						
+						
 						if (anchorTag != null) {
 							String hrefValue = anchorTag.attr("href");
 							String fullUrl = "https://moviemaps.org" + hrefValue;
@@ -199,37 +205,7 @@ public class MovieMapsScraper {
 
 	}
 
-//	public String getLocationURL() {
-//
-//		try {
-//			Map<String, String> MovieTitleAndURLMap = new HashMap();
-//
-//			for (Map.Entry<String, String> entry : MovieTitleAndURLMap.entrySet()) {
-//				String title = entry.getKey();
-//				String movieUrl = entry.getValue();
-//
-//				Document document = Jsoup.connect(movieUrl).get();
-//				
-//				Elements gallerylements = document.select("section.gallery");
-//				
-//				for (Element galleryElement : gallerylements) {
-//		            Elements thumbnailElements = galleryElement.select("figure.tiny.thumbnail");
-//		            if (thumbnailElements.size() >= 6) {
-//		            	
-//		            } else {
-//		            	
-//		            	continue;
-//		            }
-//				
-//				}
-//
-//			}
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+
 
 	public static void main(String[] args) {
 	}

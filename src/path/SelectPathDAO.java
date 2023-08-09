@@ -26,7 +26,6 @@ public class SelectPathDAO {
 		List<Location> list = new ArrayList<>();
 
 		try {
-			conn = DBUtil.getConnection();
 			String sql = "SELECT * FROM Location WHERE location_no IN (?, ?, ?, ?)";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, location1);
@@ -91,7 +90,6 @@ public class SelectPathDAO {
 		List<Location> list = new ArrayList<>();
 
 		try {
-			conn = DBUtil.getConnection();
 			String sql = "SELECT * FROM Location WHERE location_no IN (?, ?, ?, ?)";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, location1);
@@ -122,7 +120,6 @@ public class SelectPathDAO {
 		ResultSet rs = null;
 
 		try {
-			conn = DBUtil.getConnection();
 			String sql = "SELECT poster FROM movie WHERE movie_no = ?";
 			stmt = conn.prepareStatement(sql);
 

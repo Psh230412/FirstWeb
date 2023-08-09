@@ -1,6 +1,10 @@
 package login;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,8 +45,25 @@ public class LoginServelt extends HttpServlet {
 						Cookie cookie = new Cookie("remember", id);
 						resp.addCookie(cookie);
 					}
+					String nickname = dao.getNickname(id);
+					Blob profile = dao.getProfile(id);
+					
 					HttpSession session = req.getSession();
 					session.setAttribute("loggedUserId", id);
+					session.setAttribute("loggedUserNickname", nickname);
+					if (profile != null) {
+						InputStream inputStream;
+						try {
+							inputStream = profile.getBinaryStream();
+							byte[] bytes = new byte[(int) profile.length()];
+							inputStream.read(bytes);
+							String img = Base64.getEncoder().encodeToString(bytes);
+							session.setAttribute("loggedUserProfileImg", img);
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+					
 					// 다음페이지로 이동
 					resp.sendRedirect("main/index.html");
 				} else {

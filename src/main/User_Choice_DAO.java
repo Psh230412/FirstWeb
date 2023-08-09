@@ -18,8 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import dbutil.DBUtil;
+
 public class User_Choice_DAO {
-	public String getRequestBody( HttpServletRequest request) throws IOException {
+	public String getRequestBody(HttpServletRequest request) throws IOException {
 		StringBuilder requestBodyBuilder = new StringBuilder();
 
 		try (InputStream requestBodyStream = request.getInputStream();
@@ -33,7 +35,8 @@ public class User_Choice_DAO {
 		return requestBodyBuilder.toString();
 	}
 
-	public void sendResponse(ResultSet rs, ObjectMapper objectMapper,HttpServletResponse response,Connection conn) throws IOException, SQLException {
+	public void sendResponse(ResultSet rs, ObjectMapper objectMapper, HttpServletResponse response, Connection conn)
+			throws IOException, SQLException {
 		// Jackson ObjectMapper를 사용하여 JSON 생성
 		ArrayNode jsonArray = objectMapper.createArrayNode();
 
@@ -43,7 +46,7 @@ public class User_Choice_DAO {
 			jsonObject.put("title", rs.getString("title"));
 			jsonObject.put("count", getCountMovie(conn));
 			jsonObject.put("movieNumber", rs.getInt("movie_no"));
-			
+
 			// poster 이미지를 Base64 형식으로 변환해서 전달
 			byte[] posterData = rs.getBytes("poster");
 			if (posterData != null) {
@@ -63,27 +66,25 @@ public class User_Choice_DAO {
 		out.print(jsonArray.toString());
 
 	}
-	
+
 	public int getCountMovie(Connection conn) throws SQLException {
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		String countSql = "SELECT count(*) as number FROM movie.movie";
 		pstmt = conn.prepareStatement(countSql);
 		rs = pstmt.executeQuery();
-		
-		
-		if(rs.next()) {
+
+		if (rs.next()) {
 			int count = rs.getInt("number");
 			return count;
 		}
-		
-		return 0;
-		
-	}
-	
-	
+		DBUtil.close(rs);
+		DBUtil.close(pstmt);
 
+		return 0;
+
+	}
 
 }

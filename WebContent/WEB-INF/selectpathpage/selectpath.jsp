@@ -121,8 +121,15 @@ console.log("pathmap.jsp로 이동 완료");
         <nav class="navbar">
             <div class="navbar-item">
                 <img src="img/Untitled-1_0000_Group-3-copy.png" class="logo" alt="">
-                <a href="#" class="navbar-menu"><span>영화선택</span></a>
-                <a href="#" class="navbar-menu"><span>경로보기</span></a>
+                <a href="http://localhost:8080/ScreenSceneP/main/index.html" class="navbar-menu"><span>영화선택</span></a>
+                <a href="http://localhost:8080/ScreenSceneP/mypage" class="navbar-menu"><span>경로보기</span></a>
+                
+                <div id="profileImgDiv">
+                <img src="data:image/jpeg;base64,${ porfileImg }" alt="대체이미지" />
+                </div>
+                <div id="nickname">
+					<p>${ nickname }</p>
+				</div>
 
                 <button class="btn btn-primary">로그아웃</button>
                 <div class="social-icon">

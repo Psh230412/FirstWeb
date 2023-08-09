@@ -146,7 +146,7 @@ public class LoginDao {
 			if (rs.next()) {
 				int userno = rs.getInt("userno");
 				String nickname = rs.getString("nickname");
-				Blob profile = rs.getBlob("profiel");
+				Blob profile = rs.getBlob("profile");
 
 				user = new User(userno, id, nickname, profile);
 			}

@@ -85,10 +85,10 @@ public class test extends HttpServlet {
 		
 		if (movieNumbersJson != null) {
 			HttpSession session = req.getSession();
-			session.setAttribute("movieNubers", movieNumbersJson);
+			session.setAttribute("movieNumbers", movieNumbersJson);
 		} else {
 			HttpSession session = req.getSession();
-			movieNumbersJson = (String) session.getAttribute("movieNubers");
+			movieNumbersJson = (String) session.getAttribute("movieNumbers");
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();

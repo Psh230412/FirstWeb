@@ -29,26 +29,14 @@ public class MyPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("loggedUserId");
-		String nickname = dao.getNickname(id);
+		String nickname = (String) session.getAttribute("loggedUserNickname");
+		String profileImg = (String) session.getAttribute("loggedUserProfileImg");
+		
 		req.setAttribute("nickname", nickname);
+		req.setAttribute("porfileImg", profileImg);
+		
 		int userno = dao.getUserNo(id);
-
 		List<MyPath> list = dao.getMyPath(userno);
-
-		Blob profile = dao.getProfile(id);
-
-		if (profile != null) {
-			InputStream inputStream;
-			try {
-				inputStream = profile.getBinaryStream();
-				byte[] bytes = new byte[(int) profile.length()];
-				inputStream.read(bytes);
-				String img = Base64.getEncoder().encodeToString(bytes);
-				req.setAttribute("myProfile", img);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 
 		req.setAttribute("list", list);
 		req.getRequestDispatcher("./WEB-INF/mypage/mypage.jsp").forward(req, resp);

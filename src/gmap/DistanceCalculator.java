@@ -79,6 +79,8 @@ public class DistanceCalculator implements Runnable {
             while ((inputLine = in.readLine()) != null) {
                content.append(inputLine);
             }
+            
+            
             String jsonString = content.toString();
             JsonNode rootNode = mapper.readTree(jsonString);
 
@@ -180,7 +182,7 @@ public class DistanceCalculator implements Runnable {
       Random random = new Random();
 
       // 0부터 entireSelectedList.size() - 1 사이의 랜덤한 정수를 얻습니다.
-      int randomIndex = random.nextInt(entireSelectedList.size());
+      int randomIndex = random.nextInt(entireSelectedList.size()-1);
 
       Location randomLocation = entireSelectedList.get(randomIndex);
       
@@ -191,6 +193,11 @@ public class DistanceCalculator implements Runnable {
       List<Distance> resultList= distanceCalculate(originLatitude.toString(),originLongitude.toString(),entireSelectedList);
       
       List<Location> secondLocation = new ArrayList<Location>();
+      for (int i =0 ;i<entireSelectedList.size();i++) {
+    	  if(entireSelectedList.get(i).getLatitude()== originLatitude &&  entireSelectedList.get(i).getLongitude() == originLongitude) {
+    		  secondLocation.add(entireSelectedList.get(i));
+    	  }
+      }
       
       for(int i=0;i<3;i++) {
          Distance distance = resultList.get(i);
@@ -206,11 +213,6 @@ public class DistanceCalculator implements Runnable {
 //         secondLocation.add(new Location(distance.getLatitude(), distance.getLongitude()));
          
       }
-      for (int i =0 ;i<entireSelectedList.size();i++) {
-         if(entireSelectedList.get(i).getLatitude()== originLatitude &&  entireSelectedList.get(i).getLongitude() == originLongitude) {
-            secondLocation.add(entireSelectedList.get(i));
-         }
-      }
 
       return secondLocation;
    }
@@ -224,7 +226,7 @@ public class DistanceCalculator implements Runnable {
       
       Random random = new Random();
 
-      int randomIndex = random.nextInt(entireSelectedList.size());
+      int randomIndex = random.nextInt(entireSelectedList.size()-1);
 
       Location randomLocation = entireSelectedList.get(randomIndex);
       
@@ -236,6 +238,11 @@ public class DistanceCalculator implements Runnable {
       List<Distance> resultList= distanceCalculate(originLatitude.toString(),originLongitude.toString(),entireSelectedList);
       
       List<Location> thirdLocation = new ArrayList<Location>();
+      for (int i =0 ;i<entireSelectedList.size();i++) {
+    	  if(entireSelectedList.get(i).getLatitude()== originLatitude &&  entireSelectedList.get(i).getLongitude() == originLongitude) {
+    		  thirdLocation.add(entireSelectedList.get(i));
+    	  }
+      }
       
       for(int i=0;i<3;i++) {
          Distance distance = resultList.get(i);
@@ -250,11 +257,6 @@ public class DistanceCalculator implements Runnable {
          
 //         secondLocation.add(new Location(distance.getLatitude(), distance.getLongitude()));
          
-      }
-      for (int i =0 ;i<entireSelectedList.size();i++) {
-         if(entireSelectedList.get(i).getLatitude()== originLatitude &&  entireSelectedList.get(i).getLongitude() == originLongitude) {
-            thirdLocation.add(entireSelectedList.get(i));
-         }
       }
       
       

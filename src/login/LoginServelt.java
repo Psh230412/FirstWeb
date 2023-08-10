@@ -24,12 +24,19 @@ public class LoginServelt extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(req.getParameter("joinNicknameError"));
+		System.out.println(req.getParameter("joinIdError"));
+		System.out.println(req.getParameter("joinPasswordError"));
 		req.getRequestDispatcher("/WEB-INF/loginPage/login.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String formType = req.getParameter("form_type");
+		
+		System.out.println(req.getParameter("joinNicknameError"));
+		System.out.println(req.getParameter("joinIdError"));
+		System.out.println(req.getParameter("joinPasswordError"));
 
 		if (formType.equals("loginForm")) {
 			String id = req.getParameter("id");
@@ -86,10 +93,14 @@ public class LoginServelt extends HttpServlet {
 
 			boolean isJoin = true;
 
+			req.setAttribute("inputNickname", joinNickname);
+			req.setAttribute("inputId", joinId);
+			req.setAttribute("joinPassword", joinPassword);
+			req.setAttribute("joinPasswordRe", joinPasswordRe);
+			
 			if (!joinDao.duplicateNickname(joinNickname)) {
 				req.removeAttribute("joinNicknameError");
 			} else {
-				req.setAttribute("inputNickname", joinNickname);
 				req.setAttribute("joinNicknameError", "같은 닉네임이 존재합니다.");
 				isJoin = false;
 			}
@@ -97,7 +108,6 @@ public class LoginServelt extends HttpServlet {
 			if (!joinDao.duplicateId(joinId)) {
 				req.removeAttribute("joinIdError");
 			} else {
-				req.setAttribute("inputId", joinId);
 				req.setAttribute("joinIdError", "같은 이름의 아이디가 존재합니다.");
 				isJoin = false;
 			}
@@ -105,8 +115,6 @@ public class LoginServelt extends HttpServlet {
 			if (joinPassword.equals(joinPasswordRe)) {
 				req.removeAttribute("joinPasswordError");
 			} else {
-				req.setAttribute("joinPassword", joinPassword);
-				req.setAttribute("joinPasswordRe", joinPasswordRe);
 				req.setAttribute("joinPasswordError", "입력한 비밀번호가 서로 다릅니다.");
 				isJoin = false;
 			}

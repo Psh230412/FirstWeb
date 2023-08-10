@@ -521,17 +521,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		var pathJson = JSON.stringify(path);
 
         // 서버에 path 값을 전송
-        fetch('http://localhost:8080/ScreenSceneP/savePath', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: pathJson
-        }).then(response => response.json())
-        .then(data => {
-        	console.log(data);
-        })
-        .catch(error => console.error('An error occurred:', error));
+		fetch('http://localhost:8080/ScreenSceneP/savePath', {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: pathJson
+		})
+		.then(response => response.json())
+		.then(data => {
+		    console.log(data);
+		    if (data.status === "success") {
+		        // 성공적으로 데이터를 저장한 후의 동작
+		    } else {
+		        console.error("서버에서 문제가 발생했습니다:", data.error);
+		    }
+		})
+		.catch(error => console.error('An error occurred:', error));
     });
 });
 

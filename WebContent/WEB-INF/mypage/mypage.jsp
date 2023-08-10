@@ -37,7 +37,7 @@
 
 			<section>
 				<div class="profile">
-					<img src="data:image/jpeg;base64,${ porfileImg }" />
+					<img src="data:image/jpeg;base64,${ porfileImg }" alt="img/기본프로필사진.jpg" />
 					<div id="nicknameDiv">
 						<div id="nickname">
 							<p>${ nickname }</p>
@@ -72,11 +72,13 @@
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
 										<p class="detailRootBigText">
-											<span id="pathText${path.pathNo}">나의경로</span> <input
-												type="text" id="pathNameInput${path.pathNo}"
-												style="display: none;" value="나의경로">
+										<span id="pathText${path.pathNo}">${path.rootName}</span>
+										<form id="pathForm${path.pathNo}" method="post">
+											<input type="hidden" value="${path.pathNo}" name="pathPk">
+											<input type="hidden" value="inputName" name="input_type">
+											<input type="text" name="pathName" id="pathNameInput${path.pathNo}" style="display: none;" value="${path.rootName}">
 											<button class="bx bxs-pencil" data-pathno="${path.pathNo}"></button>
-
+										</form>
 										</p>
 									</div>
 									<div class="detailRootAdressDiv">
@@ -95,6 +97,8 @@
 		</div>
 	</main>
 	<footer></footer>
-	<script src="mypage/mypage.js">	</script>
+	<script src="mypage/mypage.js">
+		
+	</script>
 </body>
 </html>

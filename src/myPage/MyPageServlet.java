@@ -53,8 +53,13 @@ public class MyPageServlet extends HttpServlet {
 				resp.sendRedirect("/ScreenSceneP/mypage");
 				return;
 			}
-		} else if(inputType.equals("nameInput")) {
+		} else if(inputType.equals("inputName")) {
+			String pathNo = req.getParameter("pathPk");
+			String pathName = req.getParameter("pathName");
 			
+			dao.updatePathName(pathNo, pathName);
+			resp.sendRedirect("/ScreenSceneP/mypage");
+			return;
 		}
 		resp.sendRedirect("/ScreenSceneP/mypagemodify");
 

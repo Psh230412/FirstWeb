@@ -261,7 +261,13 @@ picitme
     transform: translate(-150%, 0%);
     background-color: var(--vlet);
     width: 450px;
-    height: 675px;
+    height: 650px;
+}
+
+.left-section-poster img{
+	width: 100%;
+    height: auto;
+    display: block;
 }
 
 .left-section .left-section-content {
@@ -291,7 +297,13 @@ picitme
     transform: translate(50%, 0%);
     background-color: var(--vlet);
     width: 450px;
-    height: 675px;
+    height: 650px;
+}
+
+.right-section-poster img{
+	width: 100%;
+    height: auto;
+    display: block;
 }
 
 .right-section .right-section-content {
@@ -314,9 +326,18 @@ picitme
 
 
 .photoTop .location_photo {
+	width: 600px;
+	height: 340px;
     position: absolute;
     top: 0;
     left: 120px;
+    overflow: hidden;
+}
+
+.location_photo img{
+	width: 100%;
+    height: auto;
+    display: block;
 }
 
 .location-title {
@@ -408,6 +429,17 @@ picitme
     font-size: 48px;
 }
 
+.index1 .slider-section {
+    transform: translateX(-4500px);
+    transition: transform .6s ease;
+    transition-delay: 0s;
+}
+
+.index1.active .slider-section {
+    transform: translateX(0px);
+    transition-delay: .3s;
+}
+
 .index2 .slider-section {
     transform: translateX(-4500px);
     transition: transform .6s ease;
@@ -427,17 +459,6 @@ picitme
 
 .index3.active .slider-section {
     transform: translateX(0px);
-    transition-delay: .3s;
-}
-
-.index1 .slider-section {
-    transform: translateX(0px);
-    transition: transform .6s ease;
-    transition-delay: 0s;
-}
-
-.index1.active .slider-section {
-    transform: translateX(-4500px);
     transition-delay: .3s;
 }
 

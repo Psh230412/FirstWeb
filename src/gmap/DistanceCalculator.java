@@ -97,8 +97,12 @@ public class DistanceCalculator implements Runnable {
 
 //                     System.out.println("Response Content: " + content.toString());
 //                     System.out.println(distanceValue);
+							
+							if(distanceValue>=100) {
+								
+								distances.add(new Distance(distanceValue, destination,originLocation));
+							}
 
-							distances.add(new Distance(distanceValue, destination));
 
 						}
 					}
@@ -111,49 +115,41 @@ public class DistanceCalculator implements Runnable {
 			e.printStackTrace();
 		}
 	}
-//	public static List<Distance> allDistanceCalculate(List<Location> entireSelectedList){
-//		ExecutorService executor = Executors.newFixedThreadPool(16);
-//		String API_KEY = "AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ";
-//		
-//		List<Distance> allDistances = new ArrayList<>();
-//		List<DistanceCalculator> workers = new ArrayList<>();
-//		
-////		for (Location destination : entireSelectedList) {
-////			DistanceCalculator worker = new DistanceCalculator(destination, originLatitude, originLongitude, API_KEY);
-////			workers.add(worker);
-////			executor.execute(worker);
-////		}
-//		
-//		
-//		for(int i=0;i<entireSelectedList.size();i++) {
-//			for(int j=i+1;j<entireSelectedList.size();j++) {
-//				Double Latitude =entireSelectedList.get(i).getLatitude();
-//				Double Longitude = entireSelectedList.get(i).getLongitude();
-//				
-//				DistanceCalculator worker = new DistanceCalculator(entireSelectedList.get(j), Latitude.toString(), Longitude.toString(), API_KEY);
-//				workers.add(worker);
-//				executor.execute(worker);
-//			}
-//		}
-//		
-//		executor.shutdown();
-//
-//		while (!executor.isTerminated()) {
-//		}
-//
-//		for (DistanceCalculator worker : workers) {
-//			allDistances.addAll(worker.getDistances());
-//		}
-//		
-//		
-//	}
+	public static List<Distance> allDistanceCalculate(List<Location> fourLocation){
+		ExecutorService executor = Executors.newFixedThreadPool(16);
+		String API_KEY = "AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ";
+		
+		List<Distance> allDistances = new ArrayList<>();
+		List<DistanceCalculator> workers = new ArrayList<>();
+		
+		
+		for(int i=0;i<fourLocation.size();i++) {
+			for(int j=i+1;j<fourLocation.size();j++) {
+				
+				DistanceCalculator worker = new DistanceCalculator(fourLocation.get(i), fourLocation.get(j), API_KEY);
+				workers.add(worker);
+				executor.execute(worker);
+			}
+		}
+		
+		executor.shutdown();
+
+		while (!executor.isTerminated()) {
+		}
+
+		for (DistanceCalculator worker : workers) {
+			allDistances.addAll(worker.getDistances());
+		}
+		
+		
+		return allDistances;
+		
+	}
 
 	public static List<Distance> distanceCalculate(Location originLocation, List<Location> entireSelectedList) {
-//      Location_DAO location_DAO = new Location_DAO();
 		ExecutorService executor = Executors.newFixedThreadPool(16);
 		String API_KEY = "AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ";
 
-//      List<Location> entireDestinationList = location_DAO.getLatLongList();
 
 		List<Distance> allDistances = new ArrayList<>();
 		List<DistanceCalculator> workers = new ArrayList<>();
@@ -173,8 +169,6 @@ public class DistanceCalculator implements Runnable {
 			allDistances.addAll(worker.getDistances());
 		}
 
-//      System.out.println("\nFinished all threads");
-//      System.out.println("Number of successful executions: " + counter.get());
 
 //      거리 오름차순으로 정렬
 		Collections.sort(allDistances, new Comparator<Distance>() {
@@ -209,6 +203,17 @@ public class DistanceCalculator implements Runnable {
 
 		List<Distance> resultList = distanceCalculate(randomLocation, entireSelectedList);
 
+		System.out.println("resultList의 크기: "+resultList.size());
+		
+		int count = 0;
+		for(int i=0;i<resultList.size();i++) {
+			if(resultList.get(i).getDistance()>=100) {
+				count++;
+			}
+		}
+		System.out.println("거리가 100이상인 경우의 수: "+count);
+
+
 		List<Location> secondLocation = new ArrayList<Location>();
 
 		secondLocation.add(randomLocation);
@@ -218,7 +223,7 @@ public class DistanceCalculator implements Runnable {
 
 			for (int j = 0; j < entireSelectedList.size(); j++) {
 
-				if (entireSelectedList.get(j).equals(distance.getdestination())) {
+				if (entireSelectedList.get(j).equals(distance.getDestination())) {
 					secondLocation.add(entireSelectedList.get(j));
 
 				}
@@ -245,6 +250,16 @@ public class DistanceCalculator implements Runnable {
 		Location randomLocation = entireSelectedList.get(randomIndex);
 
 		List<Distance> resultList = distanceCalculate(randomLocation, entireSelectedList);
+		System.out.println("resultList의 크기: "+resultList.size());
+		
+		int count = 0;
+		for(int i=0;i<resultList.size();i++) {
+			if(resultList.get(i).getDistance()>=100) {
+				count++;
+			}
+		}
+		System.out.println("거리가 100이상인 경우의 수: "+count);
+
 
 		List<Location> thirdLocation = new ArrayList<Location>();
 
@@ -255,7 +270,7 @@ public class DistanceCalculator implements Runnable {
 
 			for (int j = 0; j < entireSelectedList.size(); j++) {
 
-				if (entireSelectedList.get(j).equals(distance.getdestination())) {
+				if (entireSelectedList.get(j).equals(distance.getDestination())) {
 					thirdLocation.add(entireSelectedList.get(j));
 
 				}

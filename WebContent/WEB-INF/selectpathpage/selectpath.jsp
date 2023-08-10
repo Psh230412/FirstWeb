@@ -4,6 +4,8 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper"%>
 <%@ page import="object.LatAndLng"%>
+<%@ page import="com.google.gson.Gson" %>
+<%@page import="object.SelectPath"%>
 
 <!DOCTYPE html>
 
@@ -20,7 +22,6 @@
 	async defer></script>
 	
 	<script>
-console.log("pathmap.jsp로 이동 완료");
 	
 	<% 
     LatAndLng[] firstlatAndLngs = (LatAndLng[]) request.getAttribute("firstlatAndLngs");
@@ -126,7 +127,7 @@ console.log("pathmap.jsp로 이동 완료");
 	</script>
 </head>
 
-<body background="img/대지1 1.png">
+<body background="img/대지1 1.png" style="overflow-x: hidden">
     <header class="header">
         <nav class="navbar">
             <div class="navbar-item">
@@ -178,7 +179,7 @@ console.log("pathmap.jsp로 이동 완료");
                             <p>경로 1</p>
                         </div>
                         <div class="slidermap">
-                            <div id="map1" style="height: 420px; width: 600px"></div>
+                            <div id="map1" style="height: 840px; width: 1200px"></div>
                         </div>
                         <div class="left-section" id="section-1">
                             <div class="left-section-poster">
@@ -266,7 +267,7 @@ console.log("pathmap.jsp로 이동 완료");
                             <p>경로 2</p>
                         </div>
                         <div class="slidermap">
-                            <div id="map2" style="height: 420px; width: 600px"></div>
+                            <div id="map2" style="height: 840px; width: 1200px"></div>
                         </div>
                         <div class="left-section" id="section-1">
                             <div class="left-section-poster">
@@ -352,7 +353,7 @@ console.log("pathmap.jsp로 이동 완료");
                             <p>경로 3</p>
                         </div>
                         <div class="slidermap">
-                            <div id="map3" style="height: 420px; width: 600px"></div>
+                            <div id="map3" style="height: 840px; width: 1200px"></div>
                         </div>
                         <div class="left-section" id="section-1">
                             <div class="left-section-poster">
@@ -441,7 +442,7 @@ console.log("pathmap.jsp로 이동 완료");
 				<form method="post" action="/ScreenSceneP/flow">
                 	<button class="btn btn-primary" id="reselect-location">위치다시선택하기</button>
 				</form>
-				<form method="post" action="http://localhost:8080/ScreenSceneP/main/index.html">
+				<form method="get" action="/ScreenSceneP/movie">
                 <button class="btn btn-primary" id="reselect-movie">영화다시선택하기</button>
                 </form>
 				<button class="btn btn-primary" id="select-path">경로 선택</button>
@@ -459,5 +460,90 @@ console.log("pathmap.jsp로 이동 완료");
 </body>
 
 <script src="selectpath/selectpath.js"></script>
+<script>
 
+document.addEventListener('DOMContentLoaded', (event) => {
+	let selectpath = document.getElementById("select-path");
+	if (!selectpath) return; // select-path가 없는 경우 종료
+	
+	let group1 = document.getElementById("group-1");
+	
+	const indexsec1 = document.querySelector('.index1');
+	const indexsec2 = document.querySelector('.index2');
+	const indexsec3 = document.querySelector('.index3');
+	
+	<%
+		SelectPath path1 = (SelectPath)request.getAttribute("path1");
+		SelectPath path2 = (SelectPath)request.getAttribute("path2");
+		SelectPath path3 = (SelectPath)request.getAttribute("path3");
+	%>
+
+	selectpath.addEventListener("click", function(e) {
+		console.log("경로 선택 버튼 누름");
+		
+		if (indexsec1.classList.contains('active')) {
+			console.log("인덱스 1 활성화");
+			var usernoParse = <%= path1.getUserno() %>;
+			 var location1Parse = '<%= path1.getLocation1() %>';
+			 var location2Parse = '<%= path1.getLocation2() %>';
+			 var location3Parse = '<%= path1.getLocation3() %>';
+			 var location4Parse = '<%= path1.getLocation4() %>';
+			 var pathMapImageParse = '<%= path1.getPathMapImage() %>';
+			
+		} else if (indexsec2.classList.contains('active')) {
+			console.log("인덱스 2 활성화");
+			var usernoParse = <%= path2.getUserno() %>;
+			var location1Parse = '<%= path2.getLocation1() %>';
+			var location2Parse = '<%= path2.getLocation2() %>';
+			var location3Parse = '<%= path2.getLocation3() %>';
+			var location4Parse = '<%= path2.getLocation4() %>';
+			var pathMapImageParse = '<%= path2.getPathMapImage() %>';
+			 
+		} else if (indexsec3.classList.contains('active')) {
+			console.log("인덱스 3 활성화");
+			var usernoParse = <%= path3.getUserno() %>;
+			var location1Parse = '<%= path3.getLocation1() %>';
+			var location2Parse = '<%= path3.getLocation2() %>';
+			var location3Parse = '<%= path3.getLocation3() %>';
+			var location4Parse = '<%= path3.getLocation4() %>';
+			var pathMapImageParse = '<%= path3.getPathMapImage() %>';
+		}
+		
+		var path = {
+				// 올바른 값을 넣어야 함
+				userno: usernoParse,
+				location1: location1Parse,
+				location2: location2Parse,
+				location3: location3Parse,
+				location4: location4Parse,
+				pathMapImage: pathMapImageParse
+		};
+		var pathJson = JSON.stringify(path);
+
+        // 서버에 path 값을 전송
+		fetch('http://localhost:8080/ScreenSceneP/savePath', {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: pathJson
+		})
+		.then(response => response.json())
+		.then(data => {
+		    console.log(data);
+		    if (data.status === "success") {
+		        // 성공적으로 데이터를 저장한 후의 동작
+		    	alert('경로 선택이 완료되었습니다.');
+		    } else if (data.status === "false") {
+		    	alert('이미 선택 완료한 경로입니다. 다른 경로를 선택하세요.');
+		    } else {
+		        console.error("서버에서 문제가 발생했습니다:", data.error);
+		    }
+		})
+		.catch(error => console.error('An error occurred:', error));
+    });
+});
+
+
+</script>
 </html>

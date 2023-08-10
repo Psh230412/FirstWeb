@@ -75,9 +75,7 @@ public class MyPageDao {
 
 		try {
 			conn = DBUtil.getConnection();
-			stmt = conn.prepareStatement("SELECT *\r\n" + 
-					"FROM path\r\n" + 
-					"WHERE userno = ?");
+			stmt = conn.prepareStatement("SELECT *\r\n" + "FROM path\r\n" + "WHERE userno = ?");
 			stmt.setInt(1, userno);
 			rs = stmt.executeQuery();
 
@@ -87,6 +85,7 @@ public class MyPageDao {
 				int location2 = rs.getInt("location2");
 				int location3 = rs.getInt("location3");
 				int location4 = rs.getInt("location4");
+				String rootName = rs.getString("pathName");
 				Blob pathMapImage = rs.getBlob("pathMapImage");
 
 				String locationAddress1 = getAddress(location1, conn);
@@ -95,7 +94,7 @@ public class MyPageDao {
 				String locationAddress4 = getAddress(location4, conn);
 
 				list.add(new MyPath(pathNo, locationAddress1, locationAddress2, locationAddress3, locationAddress4,
-						pathMapImage));
+						rootName, pathMapImage));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -189,6 +188,24 @@ public class MyPageDao {
 			DBUtil.close(conn);
 		}
 		return profile;
+	}
+
+	public void updatePathName(String pathNo, String pathName) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("UPDATE path SET pathName = ? WHERE path_no = ?");
+			stmt.setString(1, pathName);
+			stmt.setInt(2, Integer.parseInt(pathNo));
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
 	}
 }
 

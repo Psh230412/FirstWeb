@@ -37,7 +37,7 @@
 
 			<section>
 				<div class="profile">
-					<img src="data:image/jpeg;base64,${ porfileImg }" />
+					<img src="data:image/jpeg;base64,${ porfileImg }" alt="img/기본프로필사진.jpg" />
 					<div id="nicknameDiv">
 						<div id="nickname">
 							<p>${ nickname }</p>
@@ -62,7 +62,9 @@
 							<form method="post">
 								<div class="cancelBtn">
 									<input type="hidden" value="${ path.pathNo }" name="pathPk">
-									<button type="submit">ⓧ</button>
+									<input type="hidden" value="cancel" name="input_type">
+									<button class="button-x-image"></button>
+
 								</div>
 							</form>
 							<div class="detailRoot">
@@ -70,10 +72,15 @@
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
 										<p class="detailRootBigText">
-											나의경로 <i class='bx bxs-pencil' style='color: #ffffff'></i>
+										<span id="pathText${path.pathNo}">${path.rootName}</span>
+										<form id="pathForm${path.pathNo}" method="post">
+											<input type="hidden" value="${path.pathNo}" name="pathPk">
+											<input type="hidden" value="inputName" name="input_type">
+											<input type="text" name="pathName" id="pathNameInput${path.pathNo}" style="display: none;" value="${path.rootName}">
+											<button class="bx bxs-pencil" data-pathno="${path.pathNo}"></button>
+										</form>
 										</p>
 									</div>
-									<p class="detailRootDate">00/00/00 (저장된 날짜)</p>
 									<div class="detailRootAdressDiv">
 										<p class="detailRootAdress">${ path.locationAddress1 }</p>
 										<p class="detailRootAdress">${ path.locationAddress2 }</p>
@@ -90,6 +97,8 @@
 		</div>
 	</main>
 	<footer></footer>
-	<script src="mypage/mypage.js"></script>
+	<script src="mypage/mypage.js">
+		
+	</script>
 </body>
 </html>

@@ -8,15 +8,17 @@ public class MyPath {
 	String locationAddress2;
 	String locationAddress3;
 	String locationAddress4;
+	String rootName;
 	Blob pathMapImage;
 
 	public MyPath(int pathNo, String locationAddress1, String locationAddress2, String locationAddress3,
-			String locationAddress4, Blob pathMapImage) {
+			String locationAddress4, String rootName, Blob pathMapImage) {
 		this.pathNo = pathNo;
 		this.locationAddress1 = locationAddress1;
 		this.locationAddress2 = locationAddress2;
 		this.locationAddress3 = locationAddress3;
 		this.locationAddress4 = locationAddress4;
+		this.rootName = rootName;
 		this.pathMapImage = pathMapImage;
 	}
 
@@ -67,4 +69,13 @@ public class MyPath {
 	public void setPathMapImage(Blob pathMapImage) {
 		this.pathMapImage = pathMapImage;
 	}
+
+	public String getRootName() {
+		return rootName;
+	}
+
+	public void setRootName(String rootName) {
+		this.rootName = rootName;
+	}
+	
 }

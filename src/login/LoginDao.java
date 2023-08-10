@@ -27,6 +27,7 @@ public class LoginDao {
 			} else {
 				return false;
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -62,26 +63,6 @@ public class LoginDao {
 			DBUtil.close(conn);
 		}
 		return true;
-	}
-
-	public void insertId(String joinNickname, String joinId, String joinPassword) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		try {
-			conn = DBUtil.getConnection();
-			stmt = conn.prepareStatement("INSERT INTO user (id, password, nickname) VALUES (?, ?, ?)");
-
-			stmt.setString(1, joinId);
-			stmt.setString(2, joinPassword);
-			stmt.setString(3, joinNickname);
-
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBUtil.close(stmt);
-			DBUtil.close(conn);
-		}
 	}
 
 	public String getNickname(String id) {

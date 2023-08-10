@@ -120,7 +120,8 @@ public class LoginServelt extends HttpServlet {
 			}
 
 			if (isJoin) {
-				dao.insertId(joinNickname, joinId, joinPassword);
+				InputStream img = getServletContext().getResourceAsStream("/img/기본프로필사진.png");
+				joinDao.insertId(joinNickname, joinId, joinPassword, img);
 			}
 			req.getRequestDispatcher("/WEB-INF/loginPage/login.jsp").forward(req, resp);
 		}

@@ -261,7 +261,13 @@ picitme
     transform: translate(-150%, 0%);
     background-color: var(--vlet);
     width: 450px;
-    height: 675px;
+    height: 650px;
+}
+
+.left-section-poster img{
+	width: 100%;
+    height: auto;
+    display: block;
 }
 
 .left-section .left-section-content {
@@ -291,7 +297,13 @@ picitme
     transform: translate(50%, 0%);
     background-color: var(--vlet);
     width: 450px;
-    height: 675px;
+    height: 650px;
+}
+
+.right-section-poster img{
+	width: 100%;
+    height: auto;
+    display: block;
 }
 
 .right-section .right-section-content {

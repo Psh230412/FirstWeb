@@ -240,7 +240,7 @@
 
                         <div class="right-section" id="section-4">
                             <div class="right-section-poster">
-                                <img src="data:image/jpeg;base64,${viewPath2.location[3].posterImgStr}" alt="Image">
+                                <img src="data:image/jpeg;base64,${viewPath1.location[3].posterImgStr}" alt="Image">
                             </div>
                             <div class="right-section-content">
                                 <div class="photoTop">
@@ -248,10 +248,10 @@
                                         <img src="img/피커 1.png" />
                                     </div>
                                     <div class="location_photo" id="photo1-2">
-                                        <img src="data:image/jpeg;base64,${viewPath2.location[3].locationImgStr}" alt="Image">
+                                        <img src="data:image/jpeg;base64,${viewPath1.location[3].locationImgStr}" alt="Image">
                                     </div>
                                     <div class="location-title" id="location-title1-2">
-                                        <p>${viewPath2.location[3].locationName}</p>
+                                        <p>${viewPath1.location[3].locationName}</p>
                                     </div>
                                 </div>
                             </div>

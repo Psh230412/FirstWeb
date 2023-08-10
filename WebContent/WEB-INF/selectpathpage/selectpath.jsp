@@ -127,7 +127,7 @@
 	</script>
 </head>
 
-<body background="img/대지1 1.png">
+<body background="img/대지1 1.png" style="overflow-x: hidden">
     <header class="header">
         <nav class="navbar">
             <div class="navbar-item">
@@ -442,7 +442,7 @@
 				<form method="post" action="/ScreenSceneP/flow">
                 	<button class="btn btn-primary" id="reselect-location">위치다시선택하기</button>
 				</form>
-				<form method="post" action="http://localhost:8080/ScreenSceneP/main/index.html">
+				<form method="get" action="/ScreenSceneP/movie">
                 <button class="btn btn-primary" id="reselect-movie">영화다시선택하기</button>
                 </form>
 				<button class="btn btn-primary" id="select-path">경로 선택</button>

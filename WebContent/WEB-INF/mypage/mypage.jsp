@@ -62,7 +62,9 @@
 							<form method="post">
 								<div class="cancelBtn">
 									<input type="hidden" value="${ path.pathNo }" name="pathPk">
-									<button type="submit">ⓧ</button>
+									<input type="hidden" value="cancel" name="input_type">
+									<button class="button-x-image"></button>
+
 								</div>
 							</form>
 							<div class="detailRoot">
@@ -70,10 +72,13 @@
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
 										<p class="detailRootBigText">
-											나의경로 <i class='bx bxs-pencil' style='color: #ffffff'></i>
+											<span id="pathText${path.pathNo}">나의경로</span> <input
+												type="text" id="pathNameInput${path.pathNo}"
+												style="display: none;" value="나의경로">
+											<button class="bx bxs-pencil" data-pathno="${path.pathNo}"></button>
+
 										</p>
 									</div>
-									<p class="detailRootDate">00/00/00 (저장된 날짜)</p>
 									<div class="detailRootAdressDiv">
 										<p class="detailRootAdress">${ path.locationAddress1 }</p>
 										<p class="detailRootAdress">${ path.locationAddress2 }</p>
@@ -90,6 +95,6 @@
 		</div>
 	</main>
 	<footer></footer>
-	<script src="mypage/mypage.js"></script>
+	<script src="mypage/mypage.js">	</script>
 </body>
 </html>

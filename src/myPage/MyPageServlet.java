@@ -31,10 +31,10 @@ public class MyPageServlet extends HttpServlet {
 		String id = (String) session.getAttribute("loggedUserId");
 		String nickname = (String) session.getAttribute("loggedUserNickname");
 		String profileImg = (String) session.getAttribute("loggedUserProfileImg");
-		
+
 		req.setAttribute("nickname", nickname);
 		req.setAttribute("porfileImg", profileImg);
-		
+
 		int userno = dao.getUserNo(id);
 		System.out.println(userno);
 		List<MyPath> list = dao.getMyPath(userno);
@@ -45,12 +45,18 @@ public class MyPageServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String pathNo = req.getParameter("pathPk");
-		if (pathNo != null) {
-			dao.deletePath(pathNo);
-			resp.sendRedirect("/ScreenSceneP/mypage");
-			return;
+		String inputType = req.getParameter("input_type");
+		if (inputType.equals("cancel")) {
+			String pathNo = req.getParameter("pathPk");
+			if (pathNo != null) {
+				dao.deletePath(pathNo);
+				resp.sendRedirect("/ScreenSceneP/mypage");
+				return;
+			}
+		} else if(inputType.equals("nameInput")) {
+			
 		}
 		resp.sendRedirect("/ScreenSceneP/mypagemodify");
+
 	}
 }

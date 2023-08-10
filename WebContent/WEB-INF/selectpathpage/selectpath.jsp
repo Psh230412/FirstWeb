@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 	selectpath.addEventListener("click", function(e) {
 		console.log("경로 선택 버튼 누름");
-		
+		alert('경로 선택이 완료되었습니다.');
 		if (indexsec1.classList.contains('active')) {
 			console.log("인덱스 1 활성화");
 			var usernoParse = <%= path1.getUserno() %>;
@@ -528,7 +528,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             },
             body: pathJson
         }).then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+        	console.log(data);
+        })
         .catch(error => console.error('An error occurred:', error));
     });
 });

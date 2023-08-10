@@ -314,9 +314,18 @@ picitme
 
 
 .photoTop .location_photo {
+	width: 600px;
+	height: 340px;
     position: absolute;
     top: 0;
     left: 120px;
+    overflow: hidden;
+}
+
+.location_photo img{
+	width: 100%;
+    height: auto;
+    display: block;
 }
 
 .location-title {

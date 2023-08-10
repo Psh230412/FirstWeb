@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 	selectpath.addEventListener("click", function(e) {
 		console.log("경로 선택 버튼 누름");
-		alert('경로 선택이 완료되었습니다.');
+		
 		if (indexsec1.classList.contains('active')) {
 			console.log("인덱스 1 활성화");
 			var usernoParse = <%= path1.getUserno() %>;
@@ -533,6 +533,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		    console.log(data);
 		    if (data.status === "success") {
 		        // 성공적으로 데이터를 저장한 후의 동작
+		    	alert('경로 선택이 완료되었습니다.');
+		    } else if (data.status === "false") {
+		    	alert('이미 선택 완료한 경로입니다. 다른 경로를 선택하세요.');
 		    } else {
 		        console.error("서버에서 문제가 발생했습니다:", data.error);
 		    }

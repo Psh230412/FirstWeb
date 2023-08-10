@@ -1,6 +1,8 @@
 package path;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import dbutil.DBUtil;
 import object.SelectPath;
 
 @WebServlet("/savePath")
@@ -31,19 +34,29 @@ public class SavePathServlet extends HttpServlet {
 	    // Gson을 사용하여 requestBody 객체를 SelectPath 객체로 변환
 	    Gson gson = new Gson();
 	    SelectPath selectPath = gson.fromJson(requestBody, SelectPath.class); // JSON 객체를 문자열로 변환
-
 	    System.out.println(selectPath);
 
-	    int result = dao.insertSelectedPath(selectPath);
-	    System.out.println(result);
-	    System.out.println("여기오니?");
-	    resp.sendRedirect("http://localhost:8080/ScreenSceneP/main/index.html");
-	    System.out.println("이건 실행되나?");
-//	    if (result == 1) {
-//	    	
-//	    } else {
-//	    	System.out.println("경로 저장 실패");
-//	    }
+	    Connection conn = null;
+	    try {
+			conn = DBUtil.getConnection();
+			boolean searchresult = dao.searchDuplPath(conn, selectPath);
+			if (searchresult) {
+				int result = dao.insertSelectedPath(conn, selectPath);
+				System.out.println(result);
+				System.out.println("경로 저장 완료");
+				resp.setContentType("application/json");
+				resp.getWriter().write("{\"status\":\"success\"}");
+			} else {
+				System.out.println("이미 저장된 경로임");
+				resp.setContentType("application/json");
+				resp.getWriter().write("{\"status\":\"false\"}");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(conn);
+		}
+
 	}
 
 }

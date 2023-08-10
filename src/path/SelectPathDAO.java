@@ -152,8 +152,7 @@ public class SelectPathDAO {
 	}
 
 	// 결정한 경로를 db에 입력
-	public int insertSelectedPath(SelectPath path) {
-		Connection conn = null;
+	public int insertSelectedPath(Connection conn, SelectPath path) throws SQLException {
 		PreparedStatement stmt = null;
 		try {
 			conn = DBUtil.getConnection();
@@ -166,13 +165,42 @@ public class SelectPathDAO {
 			stmt.setInt(5, path.getLocation4());
 			return stmt.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			DBUtil.close(stmt);
-			DBUtil.close(conn);
 		}
-		return -1;
 	}
-
+	
+	// false면 중복이므로 생성금지, true면 생성가능
+	public boolean searchDuplPath(Connection conn, SelectPath path) throws SQLException {
+		int userno = path.getUserno();
+		int location1 = path.getLocation1();
+		int location2 = path.getLocation2();
+		int location3 = path.getLocation3();
+		int location4 = path.getLocation4();
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT COUNT(*) AS cnt FROM path WHERE userno = ? AND location1 = ? AND location2 = ? AND  location3 = ? AND  location4 = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, userno);
+			stmt.setInt(2, location1);
+			stmt.setInt(3, location2);
+			stmt.setInt(4, location3);
+			stmt.setInt(5, location4);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				int count = rs.getInt("cnt");
+				if (count > 0) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+		}
+		return true;
+	}
 }

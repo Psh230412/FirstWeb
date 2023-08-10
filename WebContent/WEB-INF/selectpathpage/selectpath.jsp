@@ -127,7 +127,7 @@
 	</script>
 </head>
 
-<body background="img/대지1 1.png">
+<body background="img/대지1 1.png" style="overflow-x: hidden">
     <header class="header">
         <nav class="navbar">
             <div class="navbar-item">

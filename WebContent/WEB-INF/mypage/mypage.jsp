@@ -37,7 +37,7 @@
 
 			<section>
 				<div class="profile">
-					<img src="data:image/jpeg;base64,${ porfileImg }" alt="img/기본프로필사진.jpg" />
+					<img class="fixed-size-image" src="data:image/jpeg;base64,${ porfileImg }" />
 					<div id="nicknameDiv">
 						<div id="nickname">
 							<p>${ nickname }</p>

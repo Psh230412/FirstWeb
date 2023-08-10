@@ -55,5 +55,3 @@ function showGroup(groupNumber) {
 window.addEventListener('DOMContentLoaded', () => {
     indexsec1.classList.add('active');
 });
-
-

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper"%>
@@ -14,18 +13,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Document</title>
 <link rel="stylesheet" type="text/css" href="selectpath/selectpath.css" />
-<link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
-<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-   <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-
-<script
-	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ&callback=initMap"
-	async defer></script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ&callback=initMap" async defer></script>
 
 <script>
 	
@@ -131,71 +121,30 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 	</script>
 </head>
 
-<body id="top" background="img/대지1 1.png" style="overflow-x: hidden">
+<body background="img/대지1 1.png" style="overflow-x: hidden">
+	<header class="header">
+		<nav class="navbar">
+			<div class="navbar-item">
+				<img src="img/Untitled-1_0000_Group-3-copy.png" class="logo" alt=""> <a href="http://localhost:8080/ScreenSceneP/movie" class="navbar-menu"><span>영화선택</span></a> <a href="http://localhost:8080/ScreenSceneP/mypage" class="navbar-menu"><span>경로보기</span></a>
 
-	<!-- 
-    - #HEADER
-  -->
+				<!--                 <div id="profileImgDiv"> -->
+				<%--                 <img src="data:image/jpeg;base64,${ porfileImg }" alt="대체이미지" /> --%>
+				<!--                 </div> -->
+				<!--                 <div id="nickname"> -->
+				<%-- 					<p>${ nickname }</p> --%>
+				<!-- 				</div> -->
 
-	<header class="header" data-header>
-		<div class="container">
-			<div class="overlay" data-overlay></div>
-
-			<a href="./index.html" class="logo"> </a> <img
-				src="img/Untitled-1_0000_Group-3-copy.png" alt="Filmlane logo"
-				class="logoimg" />
-			<div class="header-actions">
-				<div class="user-info">
-					<a href="#" class="navbar-link"><img src="img/춘식19.png" alt="" /></a>
-					<p class="navbar-link">${ nickname }</p>
-				</div>
-
-			</div>
-
-			<button class="menu-open-btn" data-menu-open-btn>
-				<ion-icon name="reorder-two"alt="어딧는지 위치라도알려줘"></ion-icon>
-			</button>
-
-			<nav class="navbar" data-navbar>
-				<div class="navbar-top">
-					<a href="./index.html" class="logo"> </a>
-
-					<button class="menu-close-btn" data-menu-close-btn>
-						<ion-icon name="close-outline"></ion-icon>
-					</button>
-				</div>
-
-				<ul class="navbar-list">
-					<li><a href="#" class="navbar-link">영화선택</a></li>
-					<li><a href="#" class="navbar-link">경로확인</a></li>
+				<form action="logout" method="get">
 					<button class="btn btn-primary">로그아웃</button>
+				</form>
+				<div class="social-icon">
 
 
-
-
-				</ul>
-
-				<ul class="navbar-social-list">
-					<li><a href="#" class="navbar-social-link"> <ion-icon
-								name="logo-twitter"></ion-icon>
-					</a></li>
-					<li><a href="#" class="navbar-social-link"> <ion-icon
-								name="logo-facebook"></ion-icon>
-					</a></li>
-					<li><a href="#" class="navbar-social-link"> <ion-icon
-								name="logo-pinterest"></ion-icon>
-					</a></li>
-					<li><a href="#" class="navbar-social-link"> <ion-icon
-								name="logo-instagram"></ion-icon>
-					</a></li>
-					<li><a href="#" class="navbar-social-link"> <ion-icon
-								name="logo-youtube"></ion-icon>
-					</a></li>
-				</ul>
-			</nav>
-		</div>
+					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i class='bx bxl-twitter'></i></a> <a href="#"><i class='bx bxl-youtube'></i></a> <a href="#"><i class='bx bxl-instagram'></i></a> <a href="#"><i class='bx bxl-linkedin'></i></a>
+				</div>
+			</div>
+		</nav>
 	</header>
-
 	<div class="background">
 		<div class="container">
 			<div class="picitem">
@@ -204,13 +153,7 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 				</p>
 			</div>
 			<div class="button-group">
-				<a href="#" class="group-link clicked" id="group-1"
-					onclick="changeColor('group-1'); loadMap(1);"><span><i
-						class='bx bxs-circle'></i></span></a> <a href="#" class="group-link"
-					id="group-2" onclick="changeColor('group-2'); loadMap(2);"><span><i
-						class='bx bxs-circle'></i></span></a> <a href="#" class="group-link"
-					id="group-3" onclick="changeColor('group-3'); loadMap(3);"><span><i
-						class='bx bxs-circle'></i></span></a>
+				<a href="#" class="group-link clicked" id="group-1" onclick="changeColor('group-1'); loadMap(1);"><span><i class='bx bxs-circle'></i></span></a> <a href="#" class="group-link" id="group-2" onclick="changeColor('group-2'); loadMap(2);"><span><i class='bx bxs-circle'></i></span></a> <a href="#" class="group-link" id="group-3" onclick="changeColor('group-3'); loadMap(3);"><span><i class='bx bxs-circle'></i></span></a>
 
 			</div>
 
@@ -225,19 +168,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 						</div>
 						<div class="left-section" id="section-1">
 							<div class="left-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath1.location[0].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath1.location[0].posterImgStr}" alt="Image">
 							</div>
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[0].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[0].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
-										<img
-											src="data:image/jpeg;base64,${viewPath1.location[0].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath1.location[0].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-1">
 										<p>${viewPath1.location[0].locationName}</p>
@@ -248,19 +196,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 
 						<div class="right-section" id="section-2">
 							<div class="right-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath1.location[1].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath1.location[1].posterImgStr}" alt="Image">
 							</div>
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[1].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[1].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
-										<img
-											src="data:image/jpeg;base64,${viewPath1.location[1].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath1.location[1].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-2">
 										<p>${viewPath1.location[1].locationName}</p>
@@ -270,19 +223,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 						</div>
 						<div class="left-section" id="section-3">
 							<div class="left-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath1.location[2].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath1.location[2].posterImgStr}" alt="Image">
 							</div>
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[2].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[2].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
-										<img
-											src="data:image/jpeg;base64,${viewPath1.location[2].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath1.location[2].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-1">
 										<p>${viewPath1.location[2].locationName}</p>
@@ -294,19 +252,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 
 						<div class="right-section" id="section-4">
 							<div class="right-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath1.location[3].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath1.location[3].posterImgStr}" alt="Image">
 							</div>
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[3].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath1.location[3].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
-										<img
-											src="data:image/jpeg;base64,${viewPath1.location[3].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath1.location[3].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-2">
 										<p>${viewPath1.location[3].locationName}</p>
@@ -329,19 +292,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 						</div>
 						<div class="left-section" id="section-1">
 							<div class="left-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath2.location[0].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath2.location[0].posterImgStr}" alt="Image">
 							</div>
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[0].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[0].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
-										<img
-											src="data:image/jpeg;base64,${viewPath2.location[0].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath2.location[0].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-1">
 										<p>${viewPath2.location[0].locationName}</p>
@@ -352,19 +320,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 
 						<div class="right-section" id="section-2">
 							<div class="right-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath2.location[1].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath2.location[1].posterImgStr}" alt="Image">
 							</div>
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[1].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[1].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
-										<img
-											src="data:image/jpeg;base64,${viewPath2.location[1].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath2.location[1].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-2">
 										<p>${viewPath2.location[1].locationName}</p>
@@ -374,19 +347,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 						</div>
 						<div class="left-section" id="section-3">
 							<div class="left-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath2.location[2].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath2.location[2].posterImgStr}" alt="Image">
 							</div>
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[2].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[2].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
-										<img
-											src="data:image/jpeg;base64,${viewPath2.location[2].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath2.location[2].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-1">
 										<p>${viewPath2.location[2].locationName}</p>
@@ -397,19 +375,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 
 						<div class="right-section" id="section-4">
 							<div class="right-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath2.location[3].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath2.location[3].posterImgStr}" alt="Image">
 							</div>
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[3].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath2.location[3].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
-										<img
-											src="data:image/jpeg;base64,${viewPath2.location[3].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath2.location[3].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-2">
 										<p>${viewPath2.location[3].locationName}</p>
@@ -431,19 +414,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 						</div>
 						<div class="left-section" id="section-1">
 							<div class="left-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath3.location[0].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath3.location[0].posterImgStr}" alt="Image">
 							</div>
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[0].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[0].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
-										<img
-											src="data:image/jpeg;base64,${viewPath3.location[0].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath3.location[0].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-1">
 										<p>${viewPath3.location[0].locationName}</p>
@@ -454,19 +442,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 
 						<div class="right-section" id="section-2">
 							<div class="right-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath3.location[1].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath3.location[1].posterImgStr}" alt="Image">
 							</div>
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[1].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[1].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
-										<img
-											src="data:image/jpeg;base64,${viewPath3.location[1].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath3.location[1].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-2">
 										<p>${viewPath3.location[1].locationName}</p>
@@ -476,19 +469,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 						</div>
 						<div class="left-section" id="section-3">
 							<div class="left-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath3.location[2].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath3.location[2].posterImgStr}" alt="Image">
 							</div>
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[2].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[2].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
-										<img
-											src="data:image/jpeg;base64,${viewPath3.location[2].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath3.location[2].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-1">
 										<p>${viewPath3.location[2].locationName}</p>
@@ -499,19 +497,24 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 
 						<div class="right-section" id="section-4">
 							<div class="right-section-poster">
-								<img
-									src="data:image/jpeg;base64,${viewPath3.location[3].posterImgStr}"
-									alt="Image">
+								<img src="data:image/jpeg;base64,${viewPath3.location[3].posterImgStr}" alt="Image">
 							</div>
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<img src="img/피커 1.png" />
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[3].locationName}">
+											<input type="hidden" name="search" value="lodging">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
+										<form action="./hotelFood">
+											<input type="hidden" name="locationName" value="${viewPath3.location[3].locationName}">
+											<input type="hidden" name="search" value="restaurant">
+											<input type="image" src="img/피커 1.png" alt="Submit">
+										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
-										<img
-											src="data:image/jpeg;base64,${viewPath3.location[3].locationImgStr}"
-											alt="Image">
+										<img src="data:image/jpeg;base64,${viewPath3.location[3].locationImgStr}" alt="Image">
 									</div>
 									<div class="location-title" id="location-title1-2">
 										<p>${viewPath3.location[3].locationName}</p>
@@ -544,85 +547,12 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 		<p>푸터내용~</p>
 
 	</div>
-
+	<form>
+		<button id="topbutton" type="button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">▲</button>
+	</form>
 </body>
 
-
-<!-- 
-    - #FOOTER
-  -->
-
-<footer class="footer">
-	<div class="footer-top">
-		<div class="footer-container">
-			<div class="footer-brand-wrapper">
-				<a href="./index.html" class="logo"> </a>
-
-				<ul class="footer-list">
-					<li><a href="#" class="navbar-link">영화선택</a></li>
-
-					<li><a href="#" class="navbar-link">경로확인</a></li>
-
-
-				</ul>
-			</div>
-
-			<div class="divider"></div>
-
-			<div class="quicklink-wrapper">
-				<ul class="quicklink-list">
-					<li><a href="#" class="quicklink-link"></a></li>
-
-					<li><a href="#" class="quicklink-link"></a></li>
-
-					<li><a href="#" class="quicklink-link"></a></li>
-
-					<li><a href="#" class="quicklink-link"></a></li>
-				</ul>
-
-				<ul class="social-list">
-					<li><a href="#" class="social-link"> <ion-icon
-								name="logo-facebook"></ion-icon>
-					</a></li>
-
-					<li><a href="#" class="social-link"> <ion-icon
-								name="logo-twitter"></ion-icon>
-					</a></li>
-
-					<li><a href="#" class="social-link"> <ion-icon
-								name="logo-pinterest"></ion-icon>
-					</a></li>
-
-					<li><a href="#" class="social-link"> <ion-icon
-								name="logo-linkedin"></ion-icon>
-					</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="footer-bottom">
-		<div class="container">
-			<p class="copyright">
-				&copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
-			</p>
-
-			<img alt="Online banking companies logo" class="footer-bottom-img" />
-		</div>
-	</div>
-</footer>
-
-<!-- 
-    - #GO TO TOP
-  -->
-
-<a href="#top" class="go-top" data-go-top> <ion-icon
-		name="chevron-up"></ion-icon>
-</a>
-
-
 <script src="selectpath/selectpath.js"></script>
-<script src="selectpath/madia.js"></script>
 <script>
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -641,7 +571,7 @@ SelectPath path3 = (SelectPath) request.getAttribute("path3");%>
 
 	selectpath.addEventListener("click", function(e) {
 		console.log("경로 선택 버튼 누름");
-		
+		alert('경로 선택이 완료되었습니다.');
 		if (indexsec1.classList.contains('active')) {
 			console.log("인덱스 1 활성화");
 			var usernoParse = <%=path1.getUserno()%>;
@@ -682,29 +612,19 @@ SelectPath path3 = (SelectPath) request.getAttribute("path3");%>
 		var pathJson = JSON.stringify(path);
 
         // 서버에 path 값을 전송
-		fetch('http://localhost:8080/ScreenSceneP/savePath', {
-		    method: 'POST',
-		    headers: {
-		        'Content-Type': 'application/json'
-		    },
-		    body: pathJson
-		})
-		.then(response => response.json())
-		.then(data => {
-		    console.log(data);
-		    if (data.status === "success") {
-		        // 성공적으로 데이터를 저장한 후의 동작
-		    	alert('경로 선택이 완료되었습니다.');
-		    } else if (data.status === "false") {
-		    	alert('이미 선택 완료한 경로입니다. 다른 경로를 선택하세요.');
-		    } else {
-		        console.error("서버에서 문제가 발생했습니다:", data.error);
-		    }
-		})
-		.catch(error => console.error('An error occurred:', error));
+        fetch('http://localhost:8080/ScreenSceneP/savePath', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: pathJson
+        }).then(response => response.json())
+        .then(data => {
+        	console.log(data);
+        })
+        .catch(error => console.error('An error occurred:', error));
     });
 });
-
 
 </script>
 </html>

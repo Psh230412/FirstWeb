@@ -360,6 +360,10 @@ body.active {
        width: 25px;
        height: 25px;
 }
+.user-info p{
+
+   
+}
 
 .navbar.active {
     right: 0;
@@ -435,20 +439,6 @@ body.active {
     pointer-events: all;
 }
 
-.fixed-size-navi-image {
-    width: 50px;
-    height: 50px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background-color: #d9d9d9;
-    color: black;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-}
-
 /**
  * body
  */
@@ -469,6 +459,7 @@ body.active {
     flex-wrap: wrap;
 
 }
+
 
 .poster-container {
     width: 270px;

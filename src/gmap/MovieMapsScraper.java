@@ -2,6 +2,7 @@ package gmap;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Connection;
@@ -9,10 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,132 +24,70 @@ import org.jsoup.select.Elements;
 
 import dbutil.DBUtil;
 
-/*
-
-https://moviemaps.org/movies/
-<body class = “movie list”>
-	<main>
-		<section>
-			<article>
-				<a name=“A-Z,Misc”>
-				<ul>
-					<li>
-						<a href=“/movies/x1”>제목</a>
-					</li>
-				</ul>
-				</a>
-			</article>
-		</section>
-	</main>
-</body>
-
-
-
-https://moviemaps.org/movies/x1
-
-포스터
-<section id="description">
-	<figure class="small poster gallery">
-		<a href="/images/15m0" title="Click to view a larger version of the poster.">
-			<img src="//storage.googleapis.com/moviemaps/img/15m0.545r6n.100.jpg" width="100" srcset="//storage.googleapis.com/moviemaps/img/15m0.545r6n.100.jpg,
-                     //storage.googleapis.com/moviemaps/img/15m0.545r6n.200.jpg 2x" alt="Poster for The A-Team."></a></figure><ul class="links"><li><a href="https://www.imdb.com/title/tt0429493/">View on IMDb</a></li></ul><p class="cities description">
-        The A-Team was filmed in <a href="/cities/2">Vancouver</a> &amp; <a href="/cities/91">Richmond</a> in Canada.
-      </p></section>
-
-장소이름,장소사진
-갯수가 6개 이상인 것만 
-<section>
-	<article>
-		<a name="6q6"></a>
-		<figure class="location-map gallery">
-			<a href="/locations/z2">
-				<img src="//storage.googleapis.com/moviemaps/img/2ux.1mv45o.160.jpg" width="160" height="160" srcset="//storage.googleapis.com/moviemaps/img/2ux.1mv45o.160.jpg,
-                     //storage.googleapis.com/moviemaps/img/2ux.1mv45o.320.jpg 2x" title="Click to see more detail on Vancouver Convention Centre." alt="Photograph of Vancouver Convention Centre."></a></figure><div><h4><a href="/locations/z2">Vancouver Convention Centre</a></h4><div class="markdown"><p></p></div><section class="gallery"></section><section class="source"><div class="markdown"><p>Source: <a href="https://www.youtube.com/watch?v=ojm74VGsZBU">Every Frame a Painting — YouTube</a></p></div></section></div></article><article><a name="ir4"></a><figure class="location-map gallery"><a href="/locations/zc"><img src="//storage.googleapis.com/moviemaps/img/137.fyawqa.160.jpg" width="160" height="160" srcset="//storage.googleapis.com/moviemaps/img/137.fyawqa.160.jpg,
-                     //storage.googleapis.com/moviemaps/img/137.fyawqa.320.jpg 2x" title="Click to see more detail on Aerospace Technology Campus." alt="Photograph of Aerospace Technology Campus."></a></figure><div><h4><a href="/locations/zc">Aerospace Technology Campus</a>
-
-  (<a href="/locations/1fd">BCIT</a>)
-
-
-          
-        </h4><div class="markdown"><p></p></div>
-        <section class="gallery"></section>
-        <section class="source"><div class="markdown"><p>Source: Roman Latta</p></div></section></div></article></section>
-
-
-
-		 <section class="gallery">
-		 <figure class="tiny thumbnail" img-key="1jn9.d9yk9m"><a href="/images/1jn9"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jn9.d9yk9m.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jn9.d9yk9m.78.jpg, //storage.googleapis.com/moviemaps/img/1jn9.d9yk9m.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jnb.3cg53c"><a href="/images/1jnb"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jnb.3cg53c.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jnb.3cg53c.78.jpg, //storage.googleapis.com/moviemaps/img/1jnb.3cg53c.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jna.1kitdy"><a href="/images/1jna"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jna.1kitdy.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jna.1kitdy.78.jpg, //storage.googleapis.com/moviemaps/img/1jna.1kitdy.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jnc.3ntni8"><a href="/images/1jnc"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jnc.3ntni8.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jnc.3ntni8.78.jpg, //storage.googleapis.com/moviemaps/img/1jnc.3ntni8.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="1jnd.d3w5at"><a href="/images/1jnd"><img title="Click to view a larger version of this image." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/1jnd.d3w5at.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/1jnd.d3w5at.78.jpg, //storage.googleapis.com/moviemaps/img/1jnd.d3w5at.156.jpg 2x"></a></figure></section>
-
-https://moviemaps.org/locations/z2
-
-주소
-<section id="description">
-	<h1>Movies Filmed at Vancouver Convention Centre</h1>
-	<address>1055 Canada Place, Vancouver, BC V6C 3T4, Canada</address>
-
-<div class="markdown"><p>The recently opened West Building of the Vancouver Convention Centre has been a popular building with filmmakers in the past five years. The building features a multi-story lobby connecting the underground portion of West Waterfront Road to the convention centre and Canada Place.</p></div><section class="gallery"><figure class="tiny thumbnail" img-key="2ux.1mv45o" img-alt="Photograph of Vancouver Convention Centre."><a href="/images/2ux"><img title="Click to view a larger version of this image." alt="Photograph of Vancouver Convention Centre." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/2ux.1mv45o.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/2ux.1mv45o.78.jpg, //storage.googleapis.com/moviemaps/img/2ux.1mv45o.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="2uz.10k8m9" img-alt="Photograph of Vancouver Convention Centre."><a href="/images/2uz"><img title="Click to view a larger version of this image." alt="Photograph of Vancouver Convention Centre." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/2uz.10k8m9.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/2uz.10k8m9.78.jpg, //storage.googleapis.com/moviemaps/img/2uz.10k8m9.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="yfs.cgg6mc" img-alt="Photograph of Vancouver Convention Centre."><a href="/images/yfs"><img title="Click to view a larger version of this image." alt="Photograph of Vancouver Convention Centre." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/yfs.cgg6mc.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/yfs.cgg6mc.78.jpg, //storage.googleapis.com/moviemaps/img/yfs.cgg6mc.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="yft.e8zp4z" img-alt="Photograph of Vancouver Convention Centre."><a href="/images/yft"><img title="Click to view a larger version of this image." alt="Photograph of Vancouver Convention Centre." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/yft.e8zp4z.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/yft.e8zp4z.78.jpg, //storage.googleapis.com/moviemaps/img/yft.e8zp4z.156.jpg 2x"></a></figure><figure class="tiny thumbnail" img-key="yfu.4fc3td" img-alt="Photograph of Vancouver Convention Centre."><a href="/images/yfu"><img title="Click to view a larger version of this image." alt="Photograph of Vancouver Convention Centre." class="tiny thumbnail" src="//storage.googleapis.com/moviemaps/img/yfu.4fc3td.78.jpg" srcset="//storage.googleapis.com/moviemaps/img/yfu.4fc3td.78.jpg, //storage.googleapis.com/moviemaps/img/yfu.4fc3td.156.jpg 2x"></a></figure></section><noscript><section class="gallery"><a href="/images/2ux">Browse Gallery</a></section></noscript><h5>Nearby Locations</h5><div class="nearby"><a href="/locations/2qt">
-        West Waterfront Road (between Thurlow &amp; …
-      </a>
-      
-        from Arrow
-          and 1 other movie.
-        
-      
-      <div>
-        
-          82 m
-        
-      </div><br><a href="/locations/acr">
-        Jack Poole Plaza
-      </a>
-      
-        from Supergirl
-      
-      <div>
-        
-          93 m
-        
-      </div><br><a href="/locations/3fl">
-        Fairmont Pacific Rim
-      </a>
-      
-        from Arrow
-      
-      <div>
-        
-          112 m
-        
-      </div><br>
-    
-
-      Browse more
-      <a href="/locations/?lat=49.2891411186&amp;lng=-123.116458805">nearby locations</a>.
-    </div></section>
-
-
-*/
-public class MovieMapsScraper {
+public class MovieMapsScraper implements Runnable {
 
 	private static final String BASE_URL = "https://moviemaps.org/movies/";
+	private MovieTitleAndURL titleAndURL;
 
-	public Map<String, String> getMovieTitleAndURL() {
+	Connection conn = null;
+
+	public MovieMapsScraper(MovieTitleAndURL titleAndURL, Connection conn) {
+		this.titleAndURL = titleAndURL;
+		this.conn = conn;
+	}
+
+	public static int sleep(int primaryMillesecond, int millesecond) throws InterruptedException {
+		Random rand = new Random();
+		int randomDelay = primaryMillesecond + rand.nextInt(millesecond);
+//		System.out.println(placeImageUrlrandomDelay + "	초 취침");
+
+		Thread.sleep(randomDelay);
+
+		return randomDelay / 1000;
+	}
+
+	public static List<MovieTitleAndURL> getMovieTitleAndURLList() {
 		try {
-			Map<String, String> MovieTitleAndURLMap = new HashMap();
-			Document document = Jsoup.connect(BASE_URL).get();
+			List<MovieTitleAndURL> MovieTitleAndURLList = new ArrayList<>();
 
-			Elements movieLinks = document.select("a[href^='/movies/']");
+			org.jsoup.Connection BASE_URLConnection = Jsoup.connect(BASE_URL);
 
-			for (Element link : movieLinks) {
-				String title = link.text();
-				String movieUrl = BASE_URL + link.attr("href").substring(1);
+			Response BASE_URLResponse = BASE_URLConnection.execute();
+			int BASE_URLStatusCode = BASE_URLResponse.statusCode();
 
-				MovieTitleAndURLMap.put(title, movieUrl);
+			if (BASE_URLStatusCode == 403) {
+				System.out.println("BASE_URLStatusCode:	" + BASE_URLStatusCode);
+			} else if (BASE_URLStatusCode == 200) {
+				System.out.println("BASE_URLStatusCode:	" + BASE_URLStatusCode);
+				System.out.println(BASE_URL + "으로 이동 완료");
+				Document document = BASE_URLResponse.parse();
 
-//    			System.out.println("Title: " + title);
-//    			System.out.println("URL: " + movieUrl);
+				Elements movieLinks = document.select("a[href^='/movies/']");
+
+				System.out.println(movieLinks.size() + "이것은 개별 영화 페이지 링크들의 갯수 입니다.");
+
+				for (Element link : movieLinks) {
+
+					String title = link.text();
+
+					String hrefValue = link.attr("href");
+					String movieId = hrefValue.split("/")[2];
+
+					String movieUrl = BASE_URL + movieId;
+
+					if (!gmap_Movie_DAO.isDup(title)) {
+						MovieTitleAndURLList.add(new MovieTitleAndURL(title, movieUrl));
+
+					} else {
+						System.out.println(title + " 는 movie 테이블에서 중복을 발견하여 제외되었습니다.");
+					}
+
+				}
+				return MovieTitleAndURLList;
+			} else {
+				System.out.println("BASE_URLStatusCode:	" + BASE_URLStatusCode);
 
 			}
-			return MovieTitleAndURLMap;
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -154,271 +96,315 @@ public class MovieMapsScraper {
 
 	}
 
-//	영화 제목,포스터이미지,장소 이미지 
-	public String getPosterAndPlaceImage() {
+	@Override
+	public void run() {
+
+		String title = titleAndURL.getTitle();
+		String movieUrl = titleAndURL.getURL();
 
 		try {
-			List<String> keysToRemove = new ArrayList<>();
 
-			Map<String, String> MovieTitleAndURLMap = getMovieTitleAndURL();
+//			System.out.println(movieUrl + "	접속 전  취침");
+//			sleep(5000, 10000);
 
-			for (Map.Entry<String, String> entry : MovieTitleAndURLMap.entrySet()) {
-				String title = entry.getKey();
-				String movieUrl = entry.getValue();
+//			System.out.println(title+"리스트 내의 마지막 영화입니다.");
 
-				Document document = Jsoup.connect(movieUrl).get();
+			org.jsoup.Connection movieUrlConnection = Jsoup.connect(movieUrl);
+			Response movieUrlResponse = movieUrlConnection.execute();
+			int movieUrlStatusCode = movieUrlResponse.statusCode();
 
-				Elements articles = document.select("article");
+			if (movieUrlStatusCode == 403) {
+				System.out.println("movieUrlStatusCode:	" + movieUrlStatusCode);
+			} else if (movieUrlStatusCode == 200) {
+				System.out.println("movieUrlStatusCode:	" + movieUrlStatusCode);
+				Document document = movieUrlResponse.parse();
 
-				int count = 0;
+				if (hasMoreSix(document, title)) {
 
-				if (articles.size() >= 6) {
+					activateInsertMovie(document, title, conn);
 
-					for (Element article : articles) {
 
-						Element locationmapgalleryFigureTag = article.selectFirst("figure.location-map.gallery");
-						Elements tinyThumbnailFigureTags = article.select("figure.tiny.thumbnail");
-
-						if (locationmapgalleryFigureTag != null) {
-							Element aTag = locationmapgalleryFigureTag.selectFirst("a");
-
-							if (aTag != null || !tinyThumbnailFigureTags.isEmpty()) {
-
-//				                이미지가 있다는 뜻!!
-								count++;
-
-							}
-						}
-
-					}
-
-				}
-
-				if (count >= 6) {
-					for (Element article : articles) {
-						Element locationmapgalleryFigureTag = article.selectFirst("figure.location-map.gallery");
-						Element tinyThumbnailFigureTags = article.selectFirst("figure.tiny.thumbnail");
-
-						if (locationmapgalleryFigureTag == null && tinyThumbnailFigureTags == null) {
-							continue;
-						}
-						if (locationmapgalleryFigureTag != null) {
-							Element anchor = locationmapgalleryFigureTag.selectFirst("a");
-							String hrefValue = anchor.attr("href");
-
-//							장소 디테일 주소
-							String PlaceDetailUrl = "https://moviemaps.org" + hrefValue;
-//							장소 이미지와 주소를 구할 수 있음 
-							Document PlaceImagedocument = Jsoup.connect(PlaceDetailUrl).get();
-
-//					       	 장소 구하기 
-							Element addressElement = PlaceImagedocument.select("address").first();
-							String address = addressElement.text();
-
-//							위도와 경도 추출
-							Element nearbyLocationsLink = PlaceImagedocument.select("a[href~=(\\?|&)lat=]").first();
-							String hrefplace = nearbyLocationsLink.attr("href");
-
-							String lat = hrefplace.substring(hrefplace.indexOf("lat=") + 4, hrefplace.indexOf("&"));
-							int startIndexOfLng = hrefplace.indexOf("lng=") + 4;
-							int endIndexOfLng = hrefplace.indexOf("&", startIndexOfLng);
-							if (endIndexOfLng == -1) { // "&"가 발견되지 않는 경우 문자열의 끝을 사용
-								endIndexOfLng = hrefplace.length();
-							}
-
-							String lng = hrefplace.substring(startIndexOfLng, endIndexOfLng);
-
-//							이미지 구하기 
-							Element firstGallerySection = PlaceImagedocument.select("section.gallery").first();
-							if (firstGallerySection != null) {
-								Element aTag = firstGallerySection.select("a").first();
-								if (aTag != null) {
-									String imagehref = aTag.attr("href");
-
-//					       	장소 큰 이미지를 찾을 수있는 url
-									String imageUrl = "https://moviemaps.org" + imagehref;
-
-									Document imagedocument = Jsoup.connect(imageUrl).get();
-
-									Element imgElement = imagedocument.select("figure img").first();
-//					                 장소 큰 이미지 url
-									String imgUrl = imgElement.attr("abs:src");
-
-									URL imgURL = new URL(imgUrl);
-									URLConnection connection = imgURL.openConnection();
-									InputStream inputStream = connection.getInputStream();
-
-									int movie_no = getMovie_noWithTitle(title);
-									insertIntoLocation(movie_no, address, Double.valueOf(lat), Double.valueOf(lng),
-											inputStream);
-
-								}
-								if (locationmapgalleryFigureTag == null && tinyThumbnailFigureTags != null) {
-									
-
-								}
-
-							}
-
-						}
-
-//				Elements anchors = document.select("figure.location-map.gallery a");
-//				Elements gallerySectionsHasFigures = document.select("section.gallery:has(figure.tiny.thumbnail)");
+					int count = gmap_Movie_DAO.getCountByTitle(conn, title);
 //
-//				if (anchors != null && gallerySectionsHasFigures != null) {
-//					if (anchors.size() >= 6) {
-//						for (Element anchor : anchors) {
-//							String hrefValue = anchor.attr("href");
+//					System.out.println(title + "이 가지고 있는 장소의 갯수:	" + count);
 //
-////							장소 디테일 주소
-//							String PlaceDetailUrl = "https://moviemaps.org" + hrefValue;
-////							장소 이미지와 주소를 구할 수 있음 
-//							Document PlaceImagedocument = Jsoup.connect(PlaceDetailUrl).get();
-//
-////					       	 장소 구하기 
-//							Element addressElement = PlaceImagedocument.select("address").first();
-//							String address = addressElement.text();
-//
-////							위도와 경도 추출
-//							Element nearbyLocationsLink = PlaceImagedocument.select("a[href~=(\\?|&)lat=]").first();
-//							String hrefplace = nearbyLocationsLink.attr("href");
-//
-//							String lat = hrefplace.substring(hrefplace.indexOf("lat=") + 4, hrefplace.indexOf("&"));
-//							int startIndexOfLng = hrefplace.indexOf("lng=") + 4;
-//							int endIndexOfLng = hrefplace.indexOf("&", startIndexOfLng);
-//							if (endIndexOfLng == -1) { // "&"가 발견되지 않는 경우 문자열의 끝을 사용
-//								endIndexOfLng = hrefplace.length();
-//							}
-//
-//							String lng = hrefplace.substring(startIndexOfLng, endIndexOfLng);
-//
-////							이미지 구하기 
-//							Element firstGallerySection = PlaceImagedocument.select("section.gallery").first();
-//							if (firstGallerySection != null) {
-//								Element aTag = firstGallerySection.select("a").first();
-//								if (aTag != null) {
-//									String imagehref = aTag.attr("href");
-//
-////					       	장소 큰 이미지를 찾을 수있는 url
-//									String imageUrl = "https://moviemaps.org" + imagehref;
-//
-//									Document imagedocument = Jsoup.connect(imageUrl).get();
-//
-//									Element imgElement = imagedocument.select("figure img").first();
-////					                 장소 큰 이미지 url
-//									String imgUrl = imgElement.attr("abs:src");
-//
-//									URL imgURL = new URL(imgUrl);
-//									URLConnection connection = imgURL.openConnection();
-//									InputStream inputStream = connection.getInputStream();
-//
-//									int movie_no = getMovie_noWithTitle(title);
-//									insertIntoLocation(movie_no, address, Double.valueOf(lat), Double.valueOf(lng),
-//											inputStream);
-//
-//								}
-//							}
-//
-//						}
-//
-//					}
-//
-//				} else if (gallerySectionsHasFigures.size() >= 6) {
-//
-//					for (Element gallerySection : gallerySectionsHasFigures) {
-//						Element firstFigure = gallerySection.selectFirst("figure.tiny.thumbnail");
-//
-//						Element anchorTag = firstFigure.selectFirst("a");
-//
-//						if (anchorTag != null) {
-//							String hrefValue = anchorTag.attr("href");
-//
-////								장소 큰 사진
-//							String imageUrl = "https://moviemaps.org" + hrefValue;
-//
-//							Document imagedocument = Jsoup.connect(imageUrl).get();
-//
-//							Element imgElement = imagedocument.select("figure img").first();
-////			                 장소 큰 이미지 url
-//							String imgUrl = imgElement.attr("abs:src");
-//
-//							URL imgURL = new URL(imgUrl);
-//							URLConnection connection = imgURL.openConnection();
-//							InputStream inputStream = connection.getInputStream();
-//
-//						} else {
-//							System.out.println("No matching element found.");
-//						}
-//					}
-//				} else {
-//					keysToRemove.add(title);
-//				}
-//			}
+					if (count <= 30) {
+						activateInsertLocation(document, title, conn);
+						
 					}
 				}
+
+			} else {
+				System.out.println("movieUrlStatusCode: " + movieUrlStatusCode);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		return null;
-
-	}
-
-	public int insertIntoLocation(int movie_no, String address, Double latitude, Double longitude,
-			InputStream inputStream) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = DBUtil.getConnection();
-
-			String sql = "INSERT INTO location (movie_no,address,latitude,longitude,image) VALUES (?,?,?,?)";
-
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, movie_no);
-			pstmt.setString(2, address);
-			pstmt.setDouble(3, latitude);
-			pstmt.setDouble(4, longitude);
-			pstmt.setBlob(5, inputStream);
-			int result = pstmt.executeUpdate();
-
-			return result;
-		} catch (SQLException e) {
+		} catch (NoSuchElementException e) {
+			System.out.println(e.getMessage());
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.close(pstmt);
 			DBUtil.close(conn);
+
 		}
-		return 0;
 
 	}
 
-	public int getMovie_noWithTitle(String title) {
+	public static void main(String[] args) {
+
 		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 
 		try {
-			conn = DBUtil.getConnection();
 
-			String sql = "SELECT movie_no FROM movie WHERE title = ?";
+			ExecutorService executor = Executors.newFixedThreadPool(32);
 
-			pstmt = conn.prepareStatement(sql);
+			List<MovieTitleAndURL> MovieTitleAndURLList = getMovieTitleAndURLList();
 
-			pstmt.setString(1, title);
+			List<MovieMapsScraper> workers = new ArrayList<>();
 
-			rs = pstmt.executeQuery();
+			for (MovieTitleAndURL titleAndURL : MovieTitleAndURLList) {
+				conn = DBUtil.getConnection();
 
-			if (rs.next()) {
-				int movie_no = rs.getInt("movie_no");
-				return movie_no;
+				MovieMapsScraper worker = new MovieMapsScraper(titleAndURL, conn);
+				workers.add(worker);
+				executor.execute(worker);
+
+			}
+
+			executor.shutdown();
+
+			while (!executor.isTerminated()) {
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
 	}
 
+//	영화 한개에 대해서 검증하는 메서드 
+	public static boolean hasMoreSix(Document document, String title) throws IOException {
+
+		Elements articles = document.select("article");
+
+		int count = 0;
+
+		for (Element article : articles) {
+
+			Element h4Link = article.select("h4 > a[href^='/locations/']").first();
+
+			if (h4Link != null) {
+
+				Elements tinyThumbnailFigureTags = article.select("figure.tiny.thumbnail");
+
+				if (!tinyThumbnailFigureTags.isEmpty()) {
+//                        이미지가 있다는 뜻!!
+					count++;
+
+				}
+			}
+		}
+
+		if (count >= 6) {
+			return true;
+		}
+		System.out.println(title + " 은 이미지를 가지고 있는 장소의 갯수가 6개 미만이라서 제외 됐습니다. ");
+		return false;
+	}
+
+// 영화 하나를 삽입하는  메서드
+	public static void activateInsertMovie(Document document, String title, Connection conn)
+			throws IOException, InterruptedException {
+
+		Element aElement = document.select("figure.small.poster.gallery a").first();
+		if (aElement == null) {
+			System.out.println("aElement이 null 입니다.");
+
+			System.out.println("figure.small.poster.gallery a 를 찾지 못했습니다 다음 영화를 탐색하겠습니다.");
+			throw new NoSuchElementException();
+		}
+
+		if (aElement != null) {
+
+			String hrefposter = aElement.attr("href");
+
+			String posterUrl = "https://moviemaps.org" + hrefposter;
+			System.out.println("poster를 다운로드 받기 위한 url: " + posterUrl);
+
+//			System.out.println(posterUrl + "	접속 전 취침");
+//			sleep(5000, 10000);
+
+			org.jsoup.Connection posterUrlConnection = Jsoup.connect(posterUrl);
+			Response posterUrlResponse = posterUrlConnection.execute();
+			int posterUrlStatusCode = posterUrlResponse.statusCode();
+
+			if (posterUrlStatusCode == 403) {
+				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
+			} else if (posterUrlStatusCode == 200) {
+				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
+				System.out.println(posterUrl + "으로 이동 완료");
+
+				Document posterdocument = posterUrlResponse.parse();
+
+				Element posterElement = posterdocument.select("figure img").first();
+				if (posterElement == null) {
+					System.out.println("posterElement이 null 입니다.");
+
+				}
+				if (posterElement != null) {
+
+					String posterimgUrl = posterElement.attr("abs:src");
+
+					URL posterimgURL = new URL(posterimgUrl);
+
+//					System.out.println(posterimgURL + "	접속 전	취침");
+//					sleep(5000, 10000);
+					URLConnection posterimgURLConnection = posterimgURL.openConnection();
+
+					if (posterimgURLConnection instanceof HttpURLConnection) {
+						HttpURLConnection posterimgURLHttpConnection = (HttpURLConnection) posterimgURLConnection;
+						int posterimgURLStatusCode = posterimgURLHttpConnection.getResponseCode();
+						System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
+						System.out.println(posterimgUrl + "연결 성공");
+
+						if (posterimgURLStatusCode != 200) {
+							System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
+							System.out.println("Error message:	" + posterimgURLHttpConnection.getResponseMessage());
+						}
+					}
+					InputStream posterinputStream = posterimgURLConnection.getInputStream();
+
+					gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
+
+					posterinputStream.close();
+
+					System.out.println("insertIntoMovie 메서드로 movie 테이블에 " + title + " 을 삽입 했습니다.");
+
+				}
+
+			} else {
+				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
+			}
+		}
+	}
+
+//  한개의 영화에 딸린 장소들을 삽입하는 메서드 
+
+	public static void activateInsertLocation(Document document, String title, Connection conn
+			) throws IOException, InterruptedException {
+
+		Elements articles = document.select("article");
+
+		for (Element article : articles) {
+			System.out.println(title + "을 location 테이블에 넣는 작업을 tinyThumbnailFigureTags != null 에서 시작하겠습니다.");
+			Element h4Link = article.select("h4 > a[href^='/locations/']").first();
+
+			if (h4Link != null) {
+				Element tinyThumbnailInFigureTag = article.selectFirst("figure.tiny.thumbnail");
+
+				if (tinyThumbnailInFigureTag != null) {
+					Element a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst("a");
+
+					if (a_tagInTinythumbnail != null) {
+						String imagehrefInA_tag = a_tagInTinythumbnail.attr("href");
+						String placeImageUrl = "https://moviemaps.org" + imagehrefInA_tag;
+
+//						System.out.println(placeImageUrl + "	접속전 취침");
+//						sleep(5000, 10000);
+
+						org.jsoup.Connection placeImageUrlConnection = Jsoup.connect(placeImageUrl);
+						Response placeImageresponse = placeImageUrlConnection.execute();
+						int placeImageStatusCode = placeImageresponse.statusCode();
+
+						if (placeImageStatusCode == 403) {
+							System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
+						} else if (placeImageStatusCode == 200) {
+							System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
+							Document placeImagedocument = placeImageresponse.parse();
+							Element movieLink = placeImagedocument
+									.selectFirst("section#description a[href^=/locations/]");
+
+							if (movieLink != null) {
+								String placeDetailhref = movieLink.attr("href");
+								String placeDetailUrl = "https://moviemaps.org" + placeDetailhref;
+
+//								System.out.println(placeDetailUrl + "	접속전 취침");
+//								sleep(5000, 10000);
+
+								org.jsoup.Connection placeDetailUrlConnection = Jsoup.connect(placeDetailUrl);
+								Response placeDetailUrlresponse = placeDetailUrlConnection.execute();
+
+								int placeDetailUrlStatusCode = placeDetailUrlresponse.statusCode();
+								if (placeDetailUrlStatusCode == 403) {
+									System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
+								} else if (placeDetailUrlStatusCode == 200) {
+									System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
+									Document placeDetaildocument = placeDetailUrlresponse.parse();
+									Element addressElement = placeDetaildocument.select("address").first();
+
+									if (addressElement != null) {
+										String address = addressElement.text();
+										Element a_tagHaveLatLng = placeDetaildocument.select("a[href~=(\\?|&)lat=]")
+												.first();
+
+										if (a_tagHaveLatLng != null) {
+											String latLnghref = a_tagHaveLatLng.attr("href");
+											String lat = latLnghref.substring(latLnghref.indexOf("lat=") + 4,
+													latLnghref.indexOf("&"));
+											int startIndexOfLng = latLnghref.indexOf("lng=") + 4;
+											int endIndexOfLng = latLnghref.indexOf("&", startIndexOfLng);
+											if (endIndexOfLng == -1) {
+												endIndexOfLng = latLnghref.length();
+											}
+											String lng = latLnghref.substring(startIndexOfLng, endIndexOfLng);
+											Element imgElement = placeImagedocument.select("figure img").first();
+
+											if (imgElement != null) {
+												String imgUrl = imgElement.attr("abs:src");
+												URL imgURL = new URL(imgUrl);
+
+//												System.out.println(imgUrl + "	접속전 취침");
+//												sleep(5000, 10000);
+												URLConnection imgUrlConnection = imgURL.openConnection();
+
+												if (imgUrlConnection instanceof HttpURLConnection) {
+													HttpURLConnection imgUrlHttpConnection = (HttpURLConnection) imgUrlConnection;
+													int imgUrlStatusCode = imgUrlHttpConnection.getResponseCode();
+													System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
+													System.out.println(imgUrl + "	연결 성공");
+
+													if (imgUrlStatusCode != 200) {
+														System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
+														System.out.println("Error message:	"
+																+ imgUrlHttpConnection.getResponseMessage());
+													}
+												}
+
+												InputStream inputStream = imgUrlConnection.getInputStream();
+
+//												gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
+
+												int movie_no = gmap_Movie_DAO.getMovie_noWithTitle(title, conn);
+
+												int result = gmap_Movie_DAO.insertIntoLocation(movie_no, address,
+														Double.valueOf(lat), Double.valueOf(lng), inputStream, conn);
+
+												System.out.println(title + "의 장소 location 테이블에 성공적으로 추가 하였습니다.");
+
+												inputStream.close();
+//												posterinputStream.close();
+											}
+										}
+									}
+								} else {
+									System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
+								}
+							}
+						} else {
+							System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
+						}
+					}
+				}
+			}
+		}
+	}
 }

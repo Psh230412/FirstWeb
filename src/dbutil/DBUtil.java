@@ -32,8 +32,8 @@ public class DBUtil {
 			ds.setUsername(PROPS.getProperty("jdbc.USER"));
 			ds.setPassword(PROPS.getProperty("jdbc.PASSWARD"));
 			
-			ds.setInitialSize(6);
-			ds.setMaxTotal(20);
+			ds.setInitialSize(20);
+			ds.setMaxTotal(50);
 			
 			dataSource = ds;
 		} 

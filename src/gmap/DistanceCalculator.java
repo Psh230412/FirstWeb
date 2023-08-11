@@ -192,7 +192,7 @@ public class DistanceCalculator implements Runnable {
 	public static List<Location> getSecondLocation(List<Location> firstLocation, List<Location> entireSelectedList) {
 //      전체 관광지 몇십개
 
-		entireSelectedList.removeAll(getFirstLocation(firstLocation));
+		entireSelectedList.removeAll(firstLocation);
 
 		Random random = new Random();
 
@@ -202,6 +202,7 @@ public class DistanceCalculator implements Runnable {
 		Location randomLocation = entireSelectedList.get(randomIndex);
 
 		List<Distance> resultList = distanceCalculate(randomLocation, entireSelectedList);
+		
 
 		System.out.println("resultList의 크기: "+resultList.size());
 		
@@ -240,7 +241,7 @@ public class DistanceCalculator implements Runnable {
 
 //      전체 관광지-가고싶은곳 4곳-랜덤 4곳
 
-		entireSelectedList.removeAll(getFirstLocation(firstLocation));
+		entireSelectedList.removeAll(firstLocation);
 		entireSelectedList.removeAll(secondLocation);
 
 		Random random = new Random();

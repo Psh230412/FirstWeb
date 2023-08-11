@@ -35,6 +35,7 @@ public class MyPageModifyServlet extends HttpServlet {
 		req.setAttribute("nickname", nickname);
 		req.setAttribute("porfileImg", profileImg);
 		String id = (String) session.getAttribute("loggedUserId");
+		
 		Blob profile = dao.getProfile(id);
 
 		if (profile != null) {

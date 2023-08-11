@@ -157,7 +157,7 @@ body.active {
 }
 
 .logo img{
-	   width: 130px;
+      width: 130px;
     height: 40px;
 }
 
@@ -357,12 +357,12 @@ body.active {
 
 
 .user-info img{
-	    width: 25px;
-	    height: 25px;
+       width: 25px;
+       height: 25px;
 }
 .user-info p{
 
-	
+   
 }
 
 .navbar.active {
@@ -450,7 +450,7 @@ body.active {
 
 
 .movie-view-container {
-	margin-top:150px;
+   margin-top:150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -459,7 +459,7 @@ body.active {
     flex-wrap: wrap;
 
 }
-}
+
 
 .poster-container {
     width: 270px;
@@ -486,7 +486,7 @@ body.active {
 
 .locations-container {
 
-	        width: 1450px;
+           width: 1450px;
     gap: 50px;
     flex-wrap: wrap;
     border: 3px solid black;
@@ -567,7 +567,7 @@ body.active {
 }
 
 .nextPage{
-	    margin-top : 100px;
+       margin-top : 100px;
     margin-bottom : 50px;
 }
 
@@ -1290,8 +1290,8 @@ body.active {
 
 
 @media (min-width: 1460px) {
-	
-	.locations-container{
+   
+   .locations-container{
         max-width: 1450px;
             column-count: 2;
 

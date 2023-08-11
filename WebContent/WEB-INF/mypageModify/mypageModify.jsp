@@ -50,7 +50,7 @@
 							<i class='bx bxs-cog' style='color: #ffffff'></i>
 						</button>
 					</form>
-					<img class="fixed-size-image" src="data:image/jpeg;base64,${ myProfile }" />
+					<img class="fixed-size-image" src="data:image/jpeg3;base64,${ myProfile }" />
 					<div class="textitemDiv">
 						<div id="nickname">
 							<p>닉네임변경</p>

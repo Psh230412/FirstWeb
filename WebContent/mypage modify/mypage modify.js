@@ -53,9 +53,11 @@ document.getElementById('fileInput').addEventListener('change', function() {
 
         reader.onload = function(e) {
             // 미리보기 이미지를 로컬에서 표시
-            document.querySelector('img[src^="data:image/jpeg;base64,"]').src = e.target.result;
+			// 현재의 타임스탬프를 추가하여 캐시 방지
+            var newSrc = e.target.result + "#" + new Date().getTime();
+            document.querySelector('.fixed-size-image').src = newSrc;
         };
-
         reader.readAsDataURL(this.files[0]);
     }
 });
+

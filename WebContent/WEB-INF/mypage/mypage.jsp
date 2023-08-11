@@ -53,9 +53,9 @@
 						<div class="myRoot">
 							<form method="post">
 								<div class="cancelBtn">
-									<input type="hidden" value="${ path.pathNo }" name="pathPk"> <input type="hidden" value="cancel" name="input_type">
+									<input type="hidden" value="${ path.pathNo }" name="pathPk"> 
+									<input type="hidden" value="cancel" name="input_type">
 									<button class="button-x-image"></button>
-
 								</div>
 							</form>
 							<div class="detailRoot">
@@ -65,7 +65,9 @@
 										<p class="detailRootBigText">
 											<span id="pathText${path.pathNo}">${path.rootName}</span>
 										<form id="pathForm${path.pathNo}" method="post">
-											<input type="hidden" value="${path.pathNo}" name="pathPk"> <input type="hidden" value="inputName" name="input_type"> <input type="text" name="pathName" id="pathNameInput${path.pathNo}" style="display: none;" value="${path.rootName}">
+											<input type="hidden" value="${path.pathNo}" name="pathPk"> 
+											<input type="hidden" value="inputName" name="input_type"> 
+											<input type="text" name="pathName" id="pathNameInput${path.pathNo}" style="display: none;" value="${path.rootName}">
 											<button class="bx bxs-pencil" data-pathno="${path.pathNo}"></button>
 										</form>
 										</p>

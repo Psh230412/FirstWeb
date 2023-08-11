@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 
 import myPage.MyPageDao;
 
@@ -35,7 +36,7 @@ public class MyPageModifyServlet extends HttpServlet {
 		req.setAttribute("nickname", nickname);
 		req.setAttribute("porfileImg", profileImg);
 		String id = (String) session.getAttribute("loggedUserId");
-		
+
 		Blob profile = dao.getProfile(id);
 
 		if (profile != null) {
@@ -132,6 +133,16 @@ public class MyPageModifyServlet extends HttpServlet {
 					if (!item.isFormField()) {
 						// 파일 처리
 						InputStream fileContent = item.getInputStream();
+
+						// InputStream을 바이트 배열로 변환
+						byte[] imageData = IOUtils.toByteArray(fileContent);
+
+						// 바이트 배열을 Base64로 인코딩
+						String encodedImage = Base64.getEncoder().encodeToString(imageData);
+
+						// 세션에 Data URI 저장
+						session.setAttribute("loggedUserProfileImg", encodedImage);
+
 						dao.uploadImg(id, fileContent);
 					}
 				}

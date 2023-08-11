@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,25 +6,18 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="mypage/mypage.css" />
 <title>MyPage</title>
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
-	rel='stylesheet'>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
 	<header class="header">
 		<nav class="navbar">
 			<div class="navbar-item">
-				<img src="/login/Untitled-1_0000_Group-3-copy.png" class="logo"
-					alt=""> <a href="#" class="navbar-menu"><span>영화선택</span></a>
-				<a href="#" class="navbar-menu"><span>경로보기</span></a>
+				<img src="/login/Untitled-1_0000_Group-3-copy.png" class="logo" alt=""> <a href="#" class="navbar-menu"><span>영화선택</span></a> <a href="#" class="navbar-menu"><span>경로보기</span></a>
 
 				<button class="btn btn-primary">로그아웃</button>
 				<div class="social-icon">
-					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i
-						class='bx bxl-twitter'></i></a> <a href="#"><i
-						class='bx bxl-youtube'></i></a> <a href="#"><i
-						class='bx bxl-instagram'></i></a> <a href="#"><i
-						class='bx bxl-linkedin'></i></a>
+					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i class='bx bxl-twitter'></i></a> <a href="#"><i class='bx bxl-youtube'></i></a> <a href="#"><i class='bx bxl-instagram'></i></a> <a href="#"><i class='bx bxl-linkedin'></i></a>
 				</div>
 			</div>
 
@@ -61,8 +53,7 @@
 						<div class="myRoot">
 							<form method="post">
 								<div class="cancelBtn">
-									<input type="hidden" value="${ path.pathNo }" name="pathPk">
-									<input type="hidden" value="cancel" name="input_type">
+									<input type="hidden" value="${ path.pathNo }" name="pathPk"> <input type="hidden" value="cancel" name="input_type">
 									<button class="button-x-image"></button>
 
 								</div>
@@ -72,11 +63,9 @@
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
 										<p class="detailRootBigText">
-										<span id="pathText${path.pathNo}">${path.rootName}</span>
+											<span id="pathText${path.pathNo}">${path.rootName}</span>
 										<form id="pathForm${path.pathNo}" method="post">
-											<input type="hidden" value="${path.pathNo}" name="pathPk">
-											<input type="hidden" value="inputName" name="input_type">
-											<input type="text" name="pathName" id="pathNameInput${path.pathNo}" style="display: none;" value="${path.rootName}">
+											<input type="hidden" value="${path.pathNo}" name="pathPk"> <input type="hidden" value="inputName" name="input_type"> <input type="text" name="pathName" id="pathNameInput${path.pathNo}" style="display: none;" value="${path.rootName}">
 											<button class="bx bxs-pencil" data-pathno="${path.pathNo}"></button>
 										</form>
 										</p>

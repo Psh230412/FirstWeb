@@ -259,9 +259,11 @@ picitme
     top: 50px;
     left: 0%;
     transform: translate(-150%, 0%);
-    background-color: var(--vlet);
+/*     background-color: var(--vlet); */
+    background-color: rgba(0, 0, 0, 0.5);
     width: 450px;
     height: 650px;
+    
 }
 
 .left-section-poster img{
@@ -295,7 +297,8 @@ picitme
     top: 50px;
     left: 0%;
     transform: translate(50%, 0%);
-    background-color: var(--vlet);
+/*     background-color: var(--vlet); */
+	background-color: rgba(0, 0, 0, 0.5);
     width: 450px;
     height: 650px;
 }

@@ -34,11 +34,11 @@ public class PathServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Connection conn = null;
-		
+
 		HttpSession session = req.getSession();
 		String nickname = (String) session.getAttribute("loggedUserNickname");
 		String profileImg = (String) session.getAttribute("loggedUserProfileImg");
-		
+
 		req.setAttribute("nickname", nickname);
 		req.setAttribute("porfileImg", profileImg);
 
@@ -156,30 +156,31 @@ public class PathServlet extends HttpServlet {
 			req.setAttribute("thirdlatAndLngs", thirdlatAndLngs);
 
 			int userno = (int) session.getAttribute("loggedUserNo");
-			
-			SelectPath path1 = new SelectPath(userno, firstLocationList.get(0).getLocation_no(), firstLocationList.get(1).getLocation_no()
-					, firstLocationList.get(2).getLocation_no(), firstLocationList.get(3).getLocation_no(), null);
-			
-			SelectPath path2 = new SelectPath(userno, secondLocationList.get(0).getLocation_no(), secondLocationList.get(1).getLocation_no()
-					, secondLocationList.get(2).getLocation_no(), secondLocationList.get(3).getLocation_no(), null);
-			
-			SelectPath path3 = new SelectPath(userno, thirdLocationList.get(0).getLocation_no(), thirdLocationList.get(1).getLocation_no()
-					, thirdLocationList.get(2).getLocation_no(), thirdLocationList.get(3).getLocation_no(), null);
-			
-			
+
+			SelectPath path1 = new SelectPath(userno, firstLocationList.get(0).getLocation_no(),
+					firstLocationList.get(1).getLocation_no(), firstLocationList.get(2).getLocation_no(),
+					firstLocationList.get(3).getLocation_no(), null);
+
+			SelectPath path2 = new SelectPath(userno, secondLocationList.get(0).getLocation_no(),
+					secondLocationList.get(1).getLocation_no(), secondLocationList.get(2).getLocation_no(),
+					secondLocationList.get(3).getLocation_no(), null);
+
+			SelectPath path3 = new SelectPath(userno, thirdLocationList.get(0).getLocation_no(),
+					thirdLocationList.get(1).getLocation_no(), thirdLocationList.get(2).getLocation_no(),
+					thirdLocationList.get(3).getLocation_no(), null);
+
 			ViewPath viewPath1 = selectPathDao.getViewPathArr(1, path1);
 			ViewPath viewPath2 = selectPathDao.getViewPathArr(2, path2);
 			ViewPath viewPath3 = selectPathDao.getViewPathArr(3, path3);
-			
+
 			req.setAttribute("path1", path1);
 			req.setAttribute("path2", path2);
 			req.setAttribute("path3", path3);
-			
+
 			req.setAttribute("viewPath1", viewPath1);
 			req.setAttribute("viewPath2", viewPath2);
 			req.setAttribute("viewPath3", viewPath3);
-			
-			
+
 			req.getRequestDispatcher("/WEB-INF/selectpathpage/selectpath.jsp").forward(req, resp);
 
 		} catch (SQLException e) {

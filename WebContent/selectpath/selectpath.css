@@ -701,7 +701,15 @@ picitme
     height: 700px;
 }
 
+.hotel {
+	background-color: transparent;
+	border: none;
+}
 
+.food {
+	background-color: transparent;
+	border: none;
+}
 
 .right-section {
     position: absolute;

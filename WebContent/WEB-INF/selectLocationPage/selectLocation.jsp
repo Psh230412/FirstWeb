@@ -13,7 +13,6 @@
 		</head>
 
 
-
 		<body id="top">
 			<!-- 
     - #HEADER
@@ -77,13 +76,13 @@
 										<img src="data:image/jpeg;base64,${entry.value}" class="moviePoster" />
 									</div>
 									<div class="movies-list-name">
-
+										<p>${entry.key}</p>
 									</div>
 									<div class="locations-container">
 										<!-- 문자열로 키를 변환하여 사용 -->
 										<div class="movie-ticket">
 											<c:forEach var="locationObject"
-												items="${movieLocations[String.valueOf(entry.key)]}">
+												items="${movieLocations[entry.key]}">
 												<c:forEach var="imgData" items="${locationObject.imageData}"
 													varStatus="status">
 													<div class="item" data-location_no="${locationObject.location_no}">
@@ -102,8 +101,8 @@
 							</c:forEach>
 							<form action="./selectpath" method="POST" id="form">
 								<!--  <input type="hidden" id="movieNumber" name ="movieNumber"/> -->
-								<c:forEach var="entry" items="${postersMap}">
-									<input type="hidden" name="movieNumber" value="${entry.key}" />
+								<c:forEach var="entry" items="${movieNumber}">
+									<input type="hidden" name="movieNumber" value="${entry}" />
 								</c:forEach>
 								<input type="hidden" id="selectedLocationNos" name="selectedLocationNos" /> <input
 									type="submit" class="btn btn-primary nextPage" value="경로 확인하기" disabled="true">

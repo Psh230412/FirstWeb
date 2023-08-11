@@ -67,6 +67,21 @@
     --section-padding: 100px;
 }
 
+
+@font-face {
+    font-family: 'establishRetrosansOTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*-----------------------------------*\
    * #RESET
   \*-----------------------------------*/
@@ -138,6 +153,11 @@ body.active {
 .logoimg {
     margin-left: 0;
     width: 130px;
+    height: 40px;
+}
+
+.logo img{
+      width: 130px;
     height: 40px;
 }
 
@@ -335,6 +355,16 @@ body.active {
     margin: 0px;
 }
 
+
+.user-info img{
+       width: 25px;
+       height: 25px;
+}
+.user-info p{
+
+   
+}
+
 .navbar.active {
     right: 0;
     visibility: visible;
@@ -420,7 +450,7 @@ body.active {
 
 
 .movie-view-container {
-	margin-top:150px;
+   margin-top:150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -429,7 +459,7 @@ body.active {
     flex-wrap: wrap;
 
 }
-}
+
 
 .poster-container {
     width: 270px;
@@ -456,7 +486,7 @@ body.active {
 
 .locations-container {
 
-	        width: 1450px;
+           width: 1450px;
     gap: 50px;
     flex-wrap: wrap;
     border: 3px solid black;
@@ -537,7 +567,7 @@ body.active {
 }
 
 .nextPage{
-	    margin-top : 100px;
+       margin-top : 100px;
     margin-bottom : 50px;
 }
 
@@ -1260,8 +1290,8 @@ body.active {
 
 
 @media (min-width: 1460px) {
-	
-	.locations-container{
+   
+   .locations-container{
         max-width: 1450px;
             column-count: 2;
 

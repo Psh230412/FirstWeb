@@ -23,7 +23,7 @@
   --gunmetal-1: hsl(229, 15%, 21%);
   --gunmetal-2: hsl(216, 22%, 18%);
   --gainsboro: hsl(0, 7%, 88%);
-  --citrine: hsl(57, 97%, 45%);
+  --vlet: #7937FF;
   --xiketic: hsl(253, 21%, 13%);
   --gray-x: hsl(0, 0%, 74%);
   --white: hsl(0, 100%, 100%);
@@ -126,6 +126,9 @@ body.active {
  * #REUSED STYLE
 \*-----------------------------------*/
 
+
+
+
 .container {
   padding-inline: 15px;
   margin-left: 0;
@@ -135,10 +138,16 @@ body.active {
  * TITLES & SUBTITLES
  */
 .logoimg {
-  margin-left: 0;
-  width: 240px;
-  height: 70px;
+    margin-left: 0;
+    width: 130px;
+    height: 40px;
 }
+
+.logo img{
+	   width: 130px;
+    height: 40px;
+}
+
 .h1,
 .h2,
 .h3 {
@@ -159,7 +168,7 @@ body.active {
 }
 
 .section-subtitle {
-  color: var(--citrine);
+  color: var(--vlet);
   font-size: var(--fs-11);
   font-weight: var(--fw-500);
   text-transform: uppercase;
@@ -215,22 +224,22 @@ body.active {
   gap: 5px 10px;
 }
 
-.ganre-wrapper > a {
+.ganre-wrapper>a {
   color: var(--gainsboro);
   font-size: var(--fs-9);
   font-weight: var(--fw-500);
   transition: var(--transition-1);
 }
 
-.ganre-wrapper > a:is(:hover, :focus) {
-  color: var(--citrine);
+.ganre-wrapper>a:is(:hover, :focus) {
+  color: var(--vlet);
 }
 
 .date-time {
   gap: 15px;
 }
 
-.date-time > div {
+.date-time>div {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -241,7 +250,7 @@ body.active {
 
 .date-time ion-icon {
   --ionicon-stroke-width: 50px;
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 /**
@@ -258,12 +267,12 @@ body.active {
   align-items: center;
   gap: 10px;
   padding: 16px 30px;
-  border: 2px solid var(--citrine);
+  border: 2px solid var(--vlet);
   border-radius: 50px;
   transition: var(--transition-1);
 }
 
-.btn > ion-icon {
+.btn>ion-icon {
   font-size: 18px;
 }
 
@@ -272,7 +281,7 @@ body.active {
 }
 
 .btn-primary:is(:hover, :focus) {
-  background: var(--citrine);
+  background: var(--vlet);
   color: var(--xiketic);
 }
 
@@ -340,11 +349,11 @@ body.active {
 }
 
 .movie-card .card-title:is(:hover, :focus) {
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .movie-card .title-wrapper time {
-  color: var(--citrine);
+  color: var(--vlet);
   font-size: var(--fs-9);
   font-weight: var(--fw-500);
 }
@@ -357,7 +366,7 @@ body.active {
 }
 
 .movie-card .badge {
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .movie-card .duration {
@@ -376,7 +385,7 @@ body.active {
 .movie-card :is(.duration, .rating) ion-icon {
   font-size: 13px;
   --ionicon-stroke-width: 50px;
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 /**
@@ -398,7 +407,7 @@ body.active {
 
 .has-scrollbar::-webkit-scrollbar-track {
   background: transparent;
-  box-shadow: 0 0 0 2px var(--citrine);
+  box-shadow: 0 0 0 2px var(--vlet);
   border-radius: 10px;
 }
 
@@ -432,6 +441,23 @@ body.active {
   justify-content: space-between;
   align-items: center;
 }
+
+.header .user-info {
+  padding: 0px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px;
+
+}
+
+.user-info img {
+  width: 35px;
+  height: 35px;
+}
+
+.header.user-info p {}
+
 
 .header-actions {
   display: none;
@@ -494,7 +520,7 @@ body.active {
 }
 
 .navbar-link:is(:hover, :focus) {
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .navbar-social-list {
@@ -511,7 +537,7 @@ body.active {
 }
 
 .navbar-social-link:is(:hover, :focus) {
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .overlay {
@@ -529,6 +555,20 @@ body.active {
   pointer-events: all;
 }
 
+.fixed-size-navi-image {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    color: black;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
 /*-----------------------------------*\
  * choose
 \*-----------------------------------*/
@@ -544,10 +584,12 @@ body.active {
   align-items: center;
   padding-block: 20px 0 20px;
 }
+
 .choose-container {
   position: relative;
   display: flex;
-  justify-content: center; /* 가운데 정렬 */
+  justify-content: center;
+  /* 가운데 정렬 */
   align-items: center;
   width: 1600px;
   height: 120px;
@@ -555,11 +597,16 @@ body.active {
   border-radius: 150px;
   background: #363636;
 }
+
 .choose-content {
-  display: flex; /* Flexbox를 사용 */
-  justify-content: flex-start; /* 왼쪽부터 시작 */
-  align-items: center; /* 중앙 수직 정렬 */
-  width: 90%; /* choose-container의 너비의 90%로 설정 */
+  display: flex;
+  /* Flexbox를 사용 */
+  justify-content: flex-start;
+  /* 왼쪽부터 시작 */
+  align-items: center;
+  /* 중앙 수직 정렬 */
+  width: 90%;
+  /* choose-container의 너비의 90%로 설정 */
   flex-wrap: wrap;
 }
 
@@ -576,23 +623,33 @@ body.active {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 250px; /* 이름의 최대 너비를 지정 */
+  max-width: 250px;
+  /* 이름의 최대 너비를 지정 */
   cursor: pointer;
 }
+
 .selected-movie-name button {
-  border: none; /* 테두리 제거 */
-  color: rgb(255, 255, 255); /* 글자색 */
-  padding: 5px 5px; /* 패딩 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  cursor: pointer; /* 마우스 커서를 포인터로 */
-  margin-left: 10px; /* 버튼의 왼쪽 마진 */
+  border: none;
+  /* 테두리 제거 */
+  color: rgb(255, 255, 255);
+  /* 글자색 */
+  padding: 5px 5px;
+  /* 패딩 */
+  border-radius: 5px;
+  /* 모서리 둥글게 */
+  cursor: pointer;
+  /* 마우스 커서를 포인터로 */
+  margin-left: 10px;
+  /* 버튼의 왼쪽 마진 */
 }
+
 .selected-movie-name button i {
   background: linear-gradient(to right, red, orange, yellow, #31e7e7, violet);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .choose-confirm-btn {
   position: absolute;
   top: 50%;
@@ -608,10 +665,14 @@ body.active {
   cursor: pointer;
   font-size: 30px;
 }
+
 .choose-confirm-btn.disabled {
-  opacity: 0.5; /* 흐리게 표시 */
-  pointer-events: none; /* 클릭 방지 */
-  cursor: not-allowed; /* 마우스 커서 변경 */
+  opacity: 0.5;
+  /* 흐리게 표시 */
+  pointer-events: none;
+  /* 클릭 방지 */
+  cursor: not-allowed;
+  /* 마우스 커서 변경 */
 }
 
 /*-----------------------------------*\
@@ -672,7 +733,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 .upcoming .filter-btn:focus {
-  border-color: var(--citrine);
+  border-color: var(--vlet);
 }
 
 .upcoming .movies-list > li {
@@ -705,7 +766,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
   position: absolute;
   bottom: 0;
   right: 86px;
-  background: var(--citrine);
+  background: var(--vlet);
   color: var(--rich-black-fogra-29);
   font-size: var(--fs-11);
   text-transform: uppercase;
@@ -743,7 +804,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
   left: 0;
   width: 40px;
   height: 3px;
-  background: var(--citrine);
+  background: var(--vlet);
 }
 
 .service-title {
@@ -776,7 +837,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
   place-items: center;
   font-size: 40px;
   border-radius: 50%;
-  outline: 1px dashed var(--citrine);
+  outline: 1px dashed var(--vlet);
   outline-offset: 5px;
   margin: 5px;
   margin-bottom: 20px;
@@ -784,7 +845,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 .service-card:hover .card-icon {
-  background: var(--citrine);
+  background: var(--vlet);
 }
 
 .service-card .card-title {
@@ -822,7 +883,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 .top-rated .filter-btn:focus {
-  color: var(--citrine);
+  color: var(--vlet);
   text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
 }
 
@@ -832,7 +893,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--citrine);
+  background: var(--vlet);
   width: 2px;
   height: 15px;
 }
@@ -869,26 +930,34 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 .cta-more-btn {
-  font-size: 24px; /* 원하는 크기로 수정 */
-  padding: 15px 30px; /* 원하는 패딩으로 수정 */
+  font-size: 24px;
+  /* 원하는 크기로 수정 */
+  padding: 15px 30px;
+  /* 원하는 패딩으로 수정 */
   border: none;
-  background-color: var(--rich-black-fogra-29); /* 배경색 설정 */
-  color: white; /* 글자 색상 설정 */
+  background-color: var(--rich-black-fogra-29);
+  /* 배경색 설정 */
+  color: white;
+  /* 글자 색상 설정 */
   cursor: pointer;
-  border-radius: 5px; /* 버튼 모서리 둥글게 설정 */
+  border-radius: 5px;
+  /* 버튼 모서리 둥글게 설정 */
 }
 
 .cta-more-btn:hover,
 .cta-more-btn:focus {
-  background-color: var(--citrine); /* 호버 또는 포커스될 때 배경색 변경 */
-  color: var(--xiketic); /* 호버 또는 포커스될 때 글자 색상 변경 */
+  background-color: var(--vlet);
+  /* 호버 또는 포커스될 때 배경색 변경 */
+  color: var(--xiketic);
+  /* 호버 또는 포커스될 때 글자 색상 변경 */
 }
 
 .cta-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* 추가: 부모 요소의 높이를 설정해줍니다. */
+  height: 100%;
+  /* 추가: 부모 요소의 높이를 설정해줍니다. */
 }
 
 /*-----------------------------------*\
@@ -928,7 +997,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 :is(.footer-link, .quicklink-link, .social-link):is(:hover, :focus) {
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .divider {
@@ -981,9 +1050,9 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
   margin-bottom: 15px;
 }
 
-.copyright > a {
+.copyright>a {
   display: inline-block;
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .footer-bottom-img {
@@ -1000,7 +1069,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: var(--citrine);
+  background: var(--vlet);
   color: var(--eerie-black);
   width: 50px;
   height: 50px;
@@ -1063,7 +1132,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 
 .detail-subtitle {
   font-size: var(--fs-5);
-  color: var(--citrine);
+  color: var(--vlet);
   font-weight: var(--fw-700);
   margin-bottom: 10px;
 }
@@ -1073,7 +1142,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 .detail-title strong {
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .movie-detail .meta-wrapper {
@@ -1114,7 +1183,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 .details-actions .share:is(:hover, :focus) span {
-  color: var(--citrine);
+  color: var(--vlet);
 }
 
 .details-actions .title {
@@ -1135,12 +1204,12 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
 }
 
 .details-actions .btn-primary:is(:hover, :focus) {
-  background: var(--citrine);
+  background: var(--vlet);
 }
 
 .download-btn {
   max-width: max-content;
-  background: var(--citrine);
+  background: var(--vlet);
   color: var(--rich-black-fogra-29);
   font-size: var(--fs-11);
   font-weight: var(--fw-500);
@@ -1210,7 +1279,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
    * UPCOMING
    */
 
-  .upcoming .movies-list > li {
+  .upcoming .movies-list>li {
     min-width: calc(50% - 15px);
   }
 
@@ -1218,7 +1287,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
    * SERVICE
    */
 
-  .service-list > li:first-child {
+  .service-list>li:first-child {
     padding-bottom: 30px;
   }
 
@@ -1319,7 +1388,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
   }
 
   .lang-wrapper label {
-    color: var(--citrine);
+    color: var(--vlet);
     font-size: 20px;
   }
 
@@ -1513,7 +1582,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
     margin-bottom: 0;
   }
 
-  .upcoming .movies-list > li {
+  .upcoming .movies-list>li {
     min-width: calc(33.33% - 20px);
   }
 
@@ -1652,7 +1721,7 @@ upcoming 클래스에 대한 배경 스타일을 설정합니다.
    * UPCOMING
    */
 
-  .upcoming .movies-list > li {
+  .upcoming .movies-list>li {
     min-width: calc(25% - 22.5px);
   }
 

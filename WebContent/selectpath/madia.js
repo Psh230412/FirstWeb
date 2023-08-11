@@ -1,49 +1,4 @@
 "use strict";
-/**
-body js
- */
-
-const items = document.querySelectorAll(".item");
-const selectedLocationNos = [];
-
-document.querySelector('#form').addEventListener('submit', (e) => {
-    if (selectedLocationNos.length !== 4) {
-        e.preventDefault(); // 폼 제출을 막음
-        alert("영화 촬영지를 4개 선택해주세요.");
-        return;
-    }
-    document.getElementById("movieNumber").value = selectedLocationNos.join(',');
-});
-
-items.forEach((item) => {
-    item.addEventListener("click", () => {
-        const locationNo = item.getAttribute("data-location_no");
-
-        if (selectedLocationNos.includes(locationNo)) {
-            // 이미 선택된 촬영지인 경우 선택 해제
-            const index = selectedLocationNos.indexOf(locationNo);
-            if (index !== -1) {
-                selectedLocationNos.splice(index, 1);
-            }
-            item.classList.remove("selected");
-        } else if (selectedLocationNos.length < 4) {
-            // 선택되지 않은 촬영지인 경우 선택
-            selectedLocationNos.push(locationNo);
-            item.classList.add("selected");
-        }
-
-        const selectedLocationsInput = document.getElementById("selectedLocationNos");
-        selectedLocationsInput.value = selectedLocationNos.join(',');
-
-        SubmitButtonState();
-    });
-});
-
-function SubmitButtonState() {
-    const submitButton = document.querySelector(".nextPage");
-        submitButton.removeAttribute("disabled");
-}
-
 
 /**
  * navbar variables
@@ -264,6 +219,3 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMoreMovies();
     updateConfirmButtonState();
 });
-
-  
-

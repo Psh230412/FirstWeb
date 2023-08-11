@@ -156,6 +156,11 @@ body.active {
     height: 40px;
 }
 
+.logo img{
+	   width: 130px;
+    height: 40px;
+}
+
 .h1,
 .h2,
 .h3 {
@@ -348,6 +353,16 @@ body.active {
     justify-content: space-between;
     align-items: center;
     margin: 0px;
+}
+
+
+.user-info img{
+	    width: 25px;
+	    height: 25px;
+}
+.user-info p{
+
+	
 }
 
 .navbar.active {

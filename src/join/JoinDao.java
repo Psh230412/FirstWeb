@@ -1,5 +1,6 @@
 package join;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,5 +58,26 @@ public class JoinDao {
 			DBUtil.close(conn);
 		}
 		return true;
+	}
+	
+	public void insertId(String joinNickname, String joinId, String joinPassword, InputStream fileContent) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("INSERT INTO user (id, password, nickname, profile) VALUES (?, ?, ?, ?)");
+
+			stmt.setString(1, joinId);
+			stmt.setString(2, joinPassword);
+			stmt.setString(3, joinNickname);
+			stmt.setBlob(4, fileContent);
+
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
 	}
 }

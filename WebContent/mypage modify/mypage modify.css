@@ -169,7 +169,7 @@ body {
     flex-direction: column;
 }
 
-.profileimg {
+.fixed-size-image {
     width: 250px;
     height: 250px;
     flex-shrink: 0;
@@ -216,6 +216,11 @@ body {
     margin: 0;
     cursor: pointer;
     outline: none;
+}
+
+.bxs-cog {
+	position: relative;
+	bottom: 65px;
 }
 
 #photoset-Button {

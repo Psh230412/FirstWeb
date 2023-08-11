@@ -46,22 +46,22 @@ public class MyPageServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String inputType = req.getParameter("input_type");
-		if (inputType.equals("cancel")) {
+		if (inputType != null && inputType.equals("cancel")) {
 			String pathNo = req.getParameter("pathPk");
 			if (pathNo != null) {
 				dao.deletePath(pathNo);
 				resp.sendRedirect("/ScreenSceneP/mypage");
 				return;
 			}
-		} else if(inputType.equals("inputName")) {
+		}
+		if (inputType != null && inputType.equals("inputName")) {
 			String pathNo = req.getParameter("pathPk");
 			String pathName = req.getParameter("pathName");
-			
+
 			dao.updatePathName(pathNo, pathName);
 			resp.sendRedirect("/ScreenSceneP/mypage");
 			return;
 		}
 		resp.sendRedirect("/ScreenSceneP/mypagemodify");
-
 	}
 }

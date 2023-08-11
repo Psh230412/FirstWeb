@@ -173,15 +173,17 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath1.location[0].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath1.location[0].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+											<div>
+												<button type="submit" class="hotel" name="search" value="lodging">
+													<img src="img/호텔.png" alt="Hotel">
+												</button>
+												<br>
+												<button type="submit" class="food" name="search" value="restaurant">
+													<img src="img/레스토랑.png" alt="Food">
+												</button>
+											</div>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
@@ -201,15 +203,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath1.location[1].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath1.location[1].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
@@ -228,15 +231,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath1.location[2].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath1.location[2].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
@@ -257,15 +261,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath1.location[3].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath1.location[3].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
@@ -297,15 +302,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath2.location[0].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath2.location[0].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
@@ -325,15 +331,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath2.location[1].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath2.location[1].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
@@ -352,15 +359,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath2.location[2].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath2.location[2].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
@@ -380,15 +388,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath2.location[3].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath2.location[3].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
@@ -419,15 +428,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath3.location[0].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath3.location[0].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
@@ -447,15 +457,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath3.location[1].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath3.location[1].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">
@@ -474,15 +485,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="left-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath3.location[2].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath3.location[2].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-1">
@@ -502,15 +514,16 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 							<div class="right-section-content">
 								<div class="photoTop">
 									<div class="location-mark" id="mark1">
-										<form action="./hotelFood">
+										<form action="./hotelFood" class="search">
 											<input type="hidden" name="locationName" value="${viewPath3.location[3].locationName}">
-											<input type="hidden" name="search" value="lodging">
-											<input type="image" src="img/피커 1.png" alt="Submit">
-										</form>
-										<form action="./hotelFood">
-											<input type="hidden" name="locationName" value="${viewPath3.location[3].locationName}">
-											<input type="hidden" name="search" value="restaurant">
-											<input type="image" src="img/피커 1.png" alt="Submit">
+
+											<button type="submit" class="hotel" name="search" value="lodging">
+												<img src="img/호텔.png" alt="Hotel">
+											</button>
+											<br>
+											<button type="submit" class="food" name="search" value="restaurant">
+												<img src="img/레스토랑.png" alt="Food">
+											</button>
 										</form>
 									</div>
 									<div class="location_photo" id="photo1-2">

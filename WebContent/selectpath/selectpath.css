@@ -282,7 +282,15 @@ picitme
     height: 700px;
 }
 
+.hotel {
+	background-color: transparent;
+	border: none;
+}
 
+.food {
+	background-color: transparent;
+	border: none;
+}
 
 .right-section {
     position: absolute;
@@ -335,6 +343,10 @@ picitme
     top: 0;
     left: 120px;
     overflow: hidden;
+}
+
+.location-mark {
+	display: flex;
 }
 
 .location_photo img{
@@ -1322,8 +1334,6 @@ picitme
 }
 
 
-
-
 #topbutton {
     z-index: 99;
     width: 100px;
@@ -2080,5 +2090,4 @@ picitme
         font-size: 30px;
         transform: rotate(-0.25turn);
     }
->>>>>>> branch 'master' of https://github.com/Psh230412/FirstWeb.git
 }

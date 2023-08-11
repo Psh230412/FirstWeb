@@ -67,6 +67,21 @@
     --section-padding: 100px;
 }
 
+
+@font-face {
+    font-family: 'establishRetrosansOTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*-----------------------------------*\
    * #RESET
   \*-----------------------------------*/
@@ -138,6 +153,11 @@ body.active {
 .logoimg {
     margin-left: 0;
     width: 130px;
+    height: 40px;
+}
+
+.logo img{
+	   width: 130px;
     height: 40px;
 }
 
@@ -333,6 +353,16 @@ body.active {
     justify-content: space-between;
     align-items: center;
     margin: 0px;
+}
+
+
+.user-info img{
+	    width: 25px;
+	    height: 25px;
+}
+.user-info p{
+
+	
 }
 
 .navbar.active {

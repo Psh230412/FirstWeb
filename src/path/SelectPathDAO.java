@@ -1,5 +1,6 @@
 package path;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -156,13 +157,19 @@ public class SelectPathDAO {
 		PreparedStatement stmt = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "INSERT INTO path (userno, location1, location2, location3, location4) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO path (userno, location1, location2, location3, location4, pathMapImage) VALUES (?, ?, ?, ?, ?, ?)";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, path.getUserno());
 			stmt.setInt(2, path.getLocation1());
 			stmt.setInt(3, path.getLocation2());
 			stmt.setInt(4, path.getLocation3());
 			stmt.setInt(5, path.getLocation4());
+			
+			String base64Image = path.getPathMapImage().split(",")[1];  // 데이터 URL 접두어 제거
+			byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+			ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+			System.out.println(base64Image);
+			stmt.setBlob(6, bis);
 			return stmt.executeUpdate();
 
 		} finally {

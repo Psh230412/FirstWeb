@@ -601,18 +601,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else if (document.querySelector('.index3').classList.contains('active')) {
             activeSection = 3;
         }
-        
-        let mapElementId;
-        switch (activeSection) {
-            case 1: mapElementId = 'map1'; break;
-            case 2: mapElementId = 'map2'; break;
-            case 3: mapElementId = 'map3'; break;
-        }
-
-        html2canvas(document.getElementById(mapElementId)).then(canvas => {
-            var imgData = canvas.toDataURL("image/png");
-            
-            let pathData = {};
+        let pathData = {};
             switch (activeSection) {
                 case 1:
                     pathData = {
@@ -621,7 +610,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         location2: '<%= path1.getLocation2() %>',
                         location3: '<%= path1.getLocation3() %>',
                         location4: '<%= path1.getLocation4() %>',
-                        pathMapImage: imgData
                     };
                     break;
                 case 2:
@@ -631,7 +619,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         location2: '<%= path2.getLocation2() %>',
                         location3: '<%= path2.getLocation3() %>',
                         location4: '<%= path2.getLocation4() %>',
-                        pathMapImage: imgData
                     };
                     break;
                 case 3:
@@ -641,7 +628,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         location2: '<%= path3.getLocation2() %>',
                         location3: '<%= path3.getLocation3() %>',
                         location4: '<%= path3.getLocation4() %>',
-                        pathMapImage: imgData
                     };
                     break;
             }
@@ -666,7 +652,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             })
             .catch(error => console.error('An error occurred:', error));
-        });
     });
 });
 

@@ -74,34 +74,34 @@
 									</div>
 									<div class="detailRootAdressDiv">
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress1 }</p>
+											<p class="detailRootAdress">${ path.locationAddress1.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress1 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress1.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>
 										</div>
 
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress2 }</p>
+											<p class="detailRootAdress">${ path.locationAddress2.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress2 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress2.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>
 										</div>
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress3 }</p>
+											<p class="detailRootAdress">${ path.locationAddress3.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress3 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress3.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>
 										</div>
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress4 }</p>
+											<p class="detailRootAdress">${ path.locationAddress4.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress4 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress4.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>

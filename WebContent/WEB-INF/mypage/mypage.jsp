@@ -1,3 +1,5 @@
+<%@page import="com.google.gson.Gson"%>
+<%@page import="object.MyPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -58,8 +60,11 @@
 									<button class="button-x-image"></button>
 								</div>
 							</form>
-							<div class="detailRoot">
-								<img src="img/춘식15.png" class="rootImg" />
+							<div class="detailRoot" >
+								<form action="./mypath" method="post">
+									 <input type="hidden" name="pathNo" value="${path.pathNo}" >
+            							<button class="rootImg" onclick="setPathValue(${path.pathNo})"></button>
+								</form>
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
 										<p class="detailRootBigText">
@@ -74,34 +79,34 @@
 									</div>
 									<div class="detailRootAdressDiv">
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress1 }</p>
+											<p class="detailRootAdress">${ path.locationAddress1.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress1 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress1.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>
 										</div>
 
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress2 }</p>
+											<p class="detailRootAdress">${ path.locationAddress2.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress2 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress2.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>
 										</div>
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress3 }</p>
+											<p class="detailRootAdress">${ path.locationAddress3.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress3 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress3.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>
 										</div>
 										<div class="searchDiv">
-											<p class="detailRootAdress">${ path.locationAddress4 }</p>
+											<p class="detailRootAdress">${ path.locationAddress4.address }</p>
 											<form action="./hotelFood">
-												<input type="hidden" name="locationName" value="${ path.locationAddress4 }">
+												<input type="hidden" name="locationName" value="${ path.locationAddress4.address }">
 												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
 												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
 											</form>
@@ -118,7 +123,7 @@
 	</main>
 	<footer></footer>
 	<script src="mypage/mypage.js">
-		
+	
 	</script>
 </body>
 </html>

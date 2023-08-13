@@ -33,3 +33,15 @@ window.addEventListener('load', function() {
 		window.scrollTo(0, parseInt(savedScrollPosition, 10));
 	}
 });
+
+
+document.querySelectorAll('.rootImg').forEach(function(button) {
+    button.addEventListener("click", function() {
+        console.log(1);
+		
+		
+
+
+
+    });
+});

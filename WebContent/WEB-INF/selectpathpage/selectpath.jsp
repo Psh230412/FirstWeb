@@ -17,6 +17,7 @@
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ&callback=initMap" async defer></script>
 
+
 <script>
 	
 	<%LatAndLng[] firstlatAndLngs = (LatAndLng[]) request.getAttribute("firstlatAndLngs");
@@ -31,7 +32,12 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
     var secondLocationList = JSON.parse(secondLocationListJson);
     var thirdLocationList = JSON.parse(thirdLocationListJson);
 	
-	
+    console.log("지도의 location 리스트 : " + firstLocationList);
+    
+<%--     <%= System.out.println(firstLocationList) %> --%>
+
+    
+    
 	function addMarkersToMap(locations, map) {
 	    locations.forEach(location => {
 	        var marker = new google.maps.Marker({
@@ -567,88 +573,92 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
 
 <script src="selectpath/selectpath.js"></script>
 <script>
+function captureMap(mapElementId) {
+    return new Promise((resolve, reject) => {
+        html2canvas(document.getElementById(mapElementId), {
+            useCORS: true, // 외부 리소스에 대한 CORS를 활성화
+            logging: true, // 문제 해결을 위한 로깅 활성화
+        }).then(canvas => {
+            resolve(canvas.toDataURL("image/png"));
+        }).catch(err => reject(err));
+    });
+}
 
 document.addEventListener('DOMContentLoaded', (event) => {
-	   let selectpath = document.getElementById("select-path");
-	   if (!selectpath) return; // select-path가 없는 경우 종료
-	   
-	   let group1 = document.getElementById("group-1");
-	   
-	   const indexsec1 = document.querySelector('.index1');
-	   const indexsec2 = document.querySelector('.index2');
-	   const indexsec3 = document.querySelector('.index3');
-	   
-	   <%
-	      SelectPath path1 = (SelectPath)request.getAttribute("path1");
-	      SelectPath path2 = (SelectPath)request.getAttribute("path2");
-	      SelectPath path3 = (SelectPath)request.getAttribute("path3");
-	   %>
+    let selectpath = document.getElementById("select-path");
+    if (!selectpath) return;
+    
+    <%
+    SelectPath path1 = (SelectPath)request.getAttribute("path1");
+    SelectPath path2 = (SelectPath)request.getAttribute("path2");
+    SelectPath path3 = (SelectPath)request.getAttribute("path3");
+	%>
 
-	   selectpath.addEventListener("click", function(e) {
-	      console.log("경로 선택 버튼 누름");
-	      
-	      if (indexsec1.classList.contains('active')) {
-	         console.log("인덱스 1 활성화");
-	         var usernoParse = <%= path1.getUserno() %>;
-	          var location1Parse = '<%= path1.getLocation1() %>';
-	          var location2Parse = '<%= path1.getLocation2() %>';
-	          var location3Parse = '<%= path1.getLocation3() %>';
-	          var location4Parse = '<%= path1.getLocation4() %>';
-	          var pathMapImageParse = '<%= path1.getPathMapImage() %>';
-	         
-	      } else if (indexsec2.classList.contains('active')) {
-	         console.log("인덱스 2 활성화");
-	         var usernoParse = <%= path2.getUserno() %>;
-	         var location1Parse = '<%= path2.getLocation1() %>';
-	         var location2Parse = '<%= path2.getLocation2() %>';
-	         var location3Parse = '<%= path2.getLocation3() %>';
-	         var location4Parse = '<%= path2.getLocation4() %>';
-	         var pathMapImageParse = '<%= path2.getPathMapImage() %>';
-	          
-	      } else if (indexsec3.classList.contains('active')) {
-	         console.log("인덱스 3 활성화");
-	         var usernoParse = <%= path3.getUserno() %>;
-	         var location1Parse = '<%= path3.getLocation1() %>';
-	         var location2Parse = '<%= path3.getLocation2() %>';
-	         var location3Parse = '<%= path3.getLocation3() %>';
-	         var location4Parse = '<%= path3.getLocation4() %>';
-	         var pathMapImageParse = '<%= path3.getPathMapImage() %>';
-	      }
-	      
-	      var path = {
-	            // 올바른 값을 넣어야 함
-	            userno: usernoParse,
-	            location1: location1Parse,
-	            location2: location2Parse,
-	            location3: location3Parse,
-	            location4: location4Parse,
-	            pathMapImage: pathMapImageParse
-	      };
-	      var pathJson = JSON.stringify(path);
+    selectpath.addEventListener("click", function(e) {
+        console.log("경로 선택 버튼 누름");
 
-	        // 서버에 path 값을 전송
-	      fetch('http://localhost:8080/ScreenSceneP/savePath', {
-	          method: 'POST',
-	          headers: {
-	              'Content-Type': 'application/json'
-	          },
-	          body: pathJson
-	      })
-	      .then(response => response.json())
-	      .then(data => {
-	          console.log(data);
-	          if (data.status === "success") {
-	              // 성공적으로 데이터를 저장한 후의 동작
-	             alert('경로 선택이 완료되었습니다.');
-	          } else if (data.status === "false") {
-	             alert('이미 선택 완료한 경로입니다. 다른 경로를 선택하세요.');
-	          } else {
-	              console.error("서버에서 문제가 발생했습니다:", data.error);
-	          }
-	      })
-	      .catch(error => console.error('An error occurred:', error));
-	    });
-	});
+        let activeSection = null;
+        if (document.querySelector('.index1').classList.contains('active')) {
+            activeSection = 1;
+        } else if (document.querySelector('.index2').classList.contains('active')) {
+            activeSection = 2;
+        } else if (document.querySelector('.index3').classList.contains('active')) {
+            activeSection = 3;
+        }
+        let pathData = {};
+            switch (activeSection) {
+                case 1:
+                    pathData = {
+                        userno: <%= path1.getUserno() %>,
+                        location1: '<%= path1.getLocation1() %>',
+                        location2: '<%= path1.getLocation2() %>',
+                        location3: '<%= path1.getLocation3() %>',
+                        location4: '<%= path1.getLocation4() %>',
+                    };
+                    break;
+                case 2:
+                    pathData = {
+                        userno: <%= path2.getUserno() %>,
+                        location1: '<%= path2.getLocation1() %>',
+                        location2: '<%= path2.getLocation2() %>',
+                        location3: '<%= path2.getLocation3() %>',
+                        location4: '<%= path2.getLocation4() %>',
+                    };
+                    break;
+                case 3:
+                    pathData = {
+                        userno: <%= path3.getUserno() %>,
+                        location1: '<%= path3.getLocation1() %>',
+                        location2: '<%= path3.getLocation2() %>',
+                        location3: '<%= path3.getLocation3() %>',
+                        location4: '<%= path3.getLocation4() %>',
+                    };
+                    break;
+            }
+
+            var pathJson = JSON.stringify(pathData);
+
+            fetch('http://localhost:8080/ScreenSceneP/savePath', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: pathJson
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert('경로 선택이 완료되었습니다.');
+                } else if (data.status === "false") {
+                    alert('이미 선택 완료한 경로입니다. 다른 경로를 선택하세요.');
+                } else {
+                    console.error("서버에서 문제가 발생했습니다:", data.error);
+                }
+            })
+            .catch(error => console.error('An error occurred:', error));
+    });
+});
 
 </script>
+
 </html>

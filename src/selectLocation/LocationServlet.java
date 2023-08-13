@@ -118,6 +118,6 @@ public class LocationServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		req.getRequestDispatcher("/WEB-INF/selectLocationPage/selectLocation.jsp").forward(req, resp);
+		req.getRequestDispatcher("/movie/selectLocation.jsp").forward(req, resp);
 	}
 }

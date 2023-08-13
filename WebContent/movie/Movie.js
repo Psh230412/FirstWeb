@@ -1,10 +1,6 @@
-"use strict";
-/**
-body js
- */
-
 const items = document.querySelectorAll(".item");
 const selectedLocationNos = [];
+const markersMap = {};
 
 document.querySelector('#form').addEventListener('submit', (e) => {
     if (selectedLocationNos.length !== 4) {
@@ -26,23 +22,68 @@ items.forEach((item) => {
                 selectedLocationNos.splice(index, 1);
             }
             item.classList.remove("selected");
+            
+            if (markersMap[locationNo]) {
+        markersMap[locationNo].setMap(null);
+        delete markersMap[locationNo];
+    }
+            
+            
         } else if (selectedLocationNos.length < 4) {
             // 선택되지 않은 촬영지인 경우 선택
+          
             selectedLocationNos.push(locationNo);
             item.classList.add("selected");
         }
-
+	if (item.classList.contains("selected")) {
+            // 선택된 촬영지의 location_no를 바탕으로 서블릿에 요청
+            fetch(`http://localhost:8080/ScreenSceneP/mapchoice`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ location_no: locationNo }) // location_no를 JSON 형식으로 보냅니다.
+            })
+            .then(response => response.json())
+            .then(data => {
+				console.log(data);
+                // 응답에서 위도와 경도를 가져와 지도에 마커를 추가합니다.
+                data.forEach(location => {
+                    addMarkerToMap(location.filminglocationlat, location.filminglocationlng,locationNo);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    });
         const selectedLocationsInput = document.getElementById("selectedLocationNos");
         selectedLocationsInput.value = selectedLocationNos.join(',');
 
         SubmitButtonState();
     });
-});
 
 function SubmitButtonState() {
     const submitButton = document.querySelector(".nextPage");
         submitButton.removeAttribute("disabled");
 }
+let map;
+
+function initMap() {
+    const center = { lat: 37.5665, lng: 126.9780 }; // 서울의 기본 좌표
+    map = new google.maps.Map(document.getElementById("mapContainer"), {
+        zoom: 2,
+        center: center
+    });
+    document.getElementById("mapContainer").style.display = "none";
+    
+}
+function addMarkerToMap(lat, lng , locationNo) {
+    const marker = new google.maps.Marker({
+        position: { lat, lng },
+        map: map
+    });
+     markersMap[locationNo] = marker;
+}
+window.onload = initMap;
 
 
 /**
@@ -88,182 +129,16 @@ window.addEventListener("scroll", function () {
         : goTopBtn.classList.remove("active");
 });
 
-const moviesNumber = [];
-function createMovieCard(title, posterImage, movienumber) {
-    const li = document.createElement("li");
-    li.innerHTML = `
-  <div class="movie-card">
-  <figure class="card-banner">
-  <img class="card-banner img" src="data:image/jpeg;base64,${posterImage}" alt="${title} movie poster">
-  </figure>
-  <div class="title-wrapper">
-  <h3 class="card-title">${title}</h3>
-  </div>
-  <div class="card-meta">
-  </div>
-  <input type = "hidden" id ="movieNumber" value='${movienumber}'/>
-  </div>
-  `;
-    const movieCard = li.querySelector(".movie-card");
-    const movieNumber = li.querySelector("#movieNumber");
+const mapContainer = document.getElementById("mapContainer");
+const toggleMapBtn = document.getElementById("toggleMap");
 
-    movieCard.addEventListener("mouseenter", () => {
-        if (movieCard.style.opacity !== "0.5") {
-            movieCard.style.transform = "scale(1.1)";
-        }
-    });
-
-    movieCard.addEventListener("mouseleave", () => {
-        movieCard.style.transform = "scale(1)";
-    });
-
-    movieCard.addEventListener("click", () => {
-        const movieNumberValue = movieNumber.value;
-        const index = moviesNumber.indexOf(movieNumberValue);
-        const chooseContent = document.querySelector(".choose-content");
-
-        if (moviesNumber.length < 5) {
-            if (index === -1) {
-                moviesNumber.push(movieNumberValue);
-                console.log(moviesNumber);
-                movieCard.style.opacity = "0.5";
-                const movieNameElem = document.createElement("div");
-                movieNameElem.classList.add("selected-movie-name");
-                movieNameElem.innerText =
-                    title.length > 15 ? title.substring(0, 12) + "..." : title;
-                movieNameElem.dataset.movieNumber = movieNumberValue;
-                // Add delete button inside the label
-                const deleteButton = document.createElement("button");
-                deleteButton.innerHTML = '<i class="fa-solid fa-eraser"></i>';
-                deleteButton.addEventListener("click", (event) => {
-                    event.stopPropagation();
-
-                    const idx = moviesNumber.indexOf(movieNumberValue);
-                    if (idx !== -1) {
-                        moviesNumber.splice(idx, 1);
-                        console.log(moviesNumber);
-                        movieCard.style.opacity = "1";
-                        chooseContent.removeChild(movieNameElem);
-                        updateConfirmButtonState();
-                    }
-                });
-                movieNameElem.appendChild(deleteButton);
-
-                // Label click scrolls to the associated movie card
-                movieNameElem.addEventListener("click", () => {
-                    movieCard.scrollIntoView({ behavior: "smooth", block: "center" });
-                });
-
-                chooseContent.appendChild(movieNameElem);
-            } else {
-                moviesNumber.splice(index, 1);
-                console.log(moviesNumber);
-                movieCard.style.opacity = "1";
-                const movieToRemove = document.querySelector(
-                    `.selected-movie-name[data-movie-number="${movieNumberValue}"]`
-                );
-                if (movieToRemove) {
-                    chooseContent.removeChild(movieToRemove);
-                }
-            }
-        } else {
-            if (index !== -1) {
-                moviesNumber.splice(index, 1);
-                movieCard.style.opacity = "1";
-                const movieToRemove = document.querySelector(
-                    `.selected-movie-name[data-movie-number="${movieNumberValue}"]`
-                );
-                if (movieToRemove) {
-                    chooseContent.removeChild(movieToRemove);
-                }
-            } else {
-                updateConfirmButtonState();
-                alert("최대 5개의 영화를 선택할 수 있습니다.");
-            }
-        }
-        updateConfirmButtonState();
-    });
-
-    return li;
-}
-
-function updateConfirmButtonState() {
-    const confirmButton = document.querySelector(".choose-confirm-btn");
-    if (moviesNumber.length < 5) {
-        confirmButton.classList.add("disabled");
+toggleMapBtn.addEventListener('click', function() {
+    const mapContainer = document.getElementById("mapContainer");
+    if (mapContainer.style.display === "none" || !mapContainer.style.display) {
+        mapContainer.style.display = "block";
+        toggleMapBtn.textContent = "Collapse Map";
     } else {
-        confirmButton.classList.remove("disabled");
-    }
-}
-const confirmButton = document.querySelector(".choose-confirm-btn");
-confirmButton.addEventListener("click", () => {
-    confirmMovies();
-
-});
-
-function confirmMovies() {
-    document.getElementById('selectedMovies').value = JSON.stringify({ movieNumbers: moviesNumber });
-    document.getElementById('movieSelectionForm').submit();
-}
-
-window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        loadMoreMovies();
+        mapContainer.style.display = "none";
+        toggleMapBtn.textContent = "Expand Map";
     }
 });
-
-let loadedMovieIds = [];
-function loadMoreMovies() {
-    let totalMovies;
-    const moviesList = document.querySelector(".movies-list");
-
-    const requestOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            length: moviesList.children.length,
-            loadedMovieIds: loadedMovieIds,
-        }),
-    };
-
-    fetch("http://localhost:8080/ScreenSceneP/userchoice", requestOptions)
-        .then((response) => {
-            if (!response.ok) {
-                console.error(
-                    "Error fetching movies:",
-                    response.status,
-                    response.statusText
-                );
-                return;
-            }
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
-            data.forEach(function (movieInfo) {
-                if (!loadedMovieIds.includes(movieInfo.movieNumber)) {
-                    loadedMovieIds.push(movieInfo.movieNumber);
-                    const movieCard = createMovieCard(
-                        movieInfo.title,
-                        movieInfo.poster,
-                        movieInfo.movieNumber
-                    );
-                    totalMovies = movieInfo.count;
-                    moviesList.appendChild(movieCard);
-                }
-            });
-        })
-        .catch((error) => {
-            console.error("Error fetching movies:", error);
-        });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    loadMoreMovies();
-    updateConfirmButtonState();
-});
-
-  
-

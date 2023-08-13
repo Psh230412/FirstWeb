@@ -56,7 +56,5 @@ public class SavePathServlet extends HttpServlet {
 		} finally {
 			DBUtil.close(conn);
 		}
-
 	}
-
 }

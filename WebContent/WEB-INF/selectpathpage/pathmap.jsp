@@ -40,6 +40,7 @@
     var secondLocationList = JSON.parse(secondLocationListJson);
     var thirdLocationList = JSON.parse(thirdLocationListJson);
 	
+    
 	
 	function addMarkersToMap(locations, map) {
 	    locations.forEach(location => {

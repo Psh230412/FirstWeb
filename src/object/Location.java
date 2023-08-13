@@ -20,6 +20,14 @@ public class Location {
 		this.image = image;
 	}
 
+	public Location(int location_no, String address, double latitude, double longitude) {
+		super();
+		this.location_no = location_no;
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
 	public int getLocation_no() {
 		return location_no;
 	}

@@ -9,11 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.taglibs.standard.extra.spath.Path;
-
 import dbutil.DBUtil;
+import object.Location;
 import object.MyPath;
-import object.SelectPath;
 
 public class MyPageDao {
 
@@ -86,15 +84,14 @@ public class MyPageDao {
 				int location3 = rs.getInt("location3");
 				int location4 = rs.getInt("location4");
 				String rootName = rs.getString("pathName");
-				Blob pathMapImage = rs.getBlob("pathMapImage");
 
-				String locationAddress1 = getAddress(location1, conn);
-				String locationAddress2 = getAddress(location2, conn);
-				String locationAddress3 = getAddress(location3, conn);
-				String locationAddress4 = getAddress(location4, conn);
+				Location locationAddress1 = getLocationInfo(location1, conn);
+				Location locationAddress2 = getLocationInfo(location2, conn);
+				Location locationAddress3 = getLocationInfo(location3, conn);
+				Location locationAddress4 = getLocationInfo(location4, conn);
 
 				list.add(new MyPath(pathNo, locationAddress1, locationAddress2, locationAddress3, locationAddress4,
-						rootName, pathMapImage));
+						rootName));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,20 +103,24 @@ public class MyPageDao {
 		return list;
 	}
 
-	public String getAddress(int location, Connection conn) {
+	public Location getLocationInfo(int location, Connection conn) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
-		String address = "";
+		Location locationInfo = null;
 
 		try {
-			stmt = conn.prepareStatement("SELECT location_no, address\r\n" + "						FROM location\r\n"
+			stmt = conn.prepareStatement("SELECT *\r\n" + "						FROM location\r\n"
 					+ "						WHERE location_no = ?");
 			stmt.setInt(1, location);
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				address = rs.getString("address");
+				String address = rs.getString("address");
+				double latitude = rs.getDouble("latitude");
+				double longitude = rs.getDouble("longitude");
+				
+				locationInfo = new Location(location, address, latitude, longitude);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -127,7 +128,7 @@ public class MyPageDao {
 			DBUtil.close(rs);
 			DBUtil.close(stmt);
 		}
-		return address;
+		return locationInfo;
 	}
 
 	public void deletePath(String pathNo) {
@@ -206,6 +207,46 @@ public class MyPageDao {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
+	}
+	
+	public List<Location> getOnePathLocationList(int pathNo) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Location> list = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("SELECT *\r\n" + "FROM path\r\n" + "WHERE path_no = ?");
+			stmt.setInt(1, pathNo);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int pathNoParse = rs.getInt("path_no");
+				int location1 = rs.getInt("location1");
+				int location2 = rs.getInt("location2");
+				int location3 = rs.getInt("location3");
+				int location4 = rs.getInt("location4");
+				String rootName = rs.getString("pathName");
+
+				Location locationAddress1 = getLocationInfo(location1, conn);
+				Location locationAddress2 = getLocationInfo(location2, conn);
+				Location locationAddress3 = getLocationInfo(location3, conn);
+				Location locationAddress4 = getLocationInfo(location4, conn);
+				
+				list.add(locationAddress1);
+				list.add(locationAddress2);
+				list.add(locationAddress3);
+				list.add(locationAddress4);
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return null;
 	}
 }
 

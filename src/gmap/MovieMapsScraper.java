@@ -6,13 +6,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,29 +19,34 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
+
 import dbutil.DBUtil;
+import log.Write;
 
 public class MovieMapsScraper implements Runnable {
 
 	private static final String BASE_URL = "https://moviemaps.org/movies/";
 	private MovieTitleAndURL titleAndURL;
 
-	Connection conn = null;
-
 	public MovieMapsScraper(MovieTitleAndURL titleAndURL, Connection conn) {
 		this.titleAndURL = titleAndURL;
 		this.conn = conn;
 	}
 
-	public static int sleep(int primaryMillesecond, int millesecond) throws InterruptedException {
-		Random rand = new Random();
-		int randomDelay = primaryMillesecond + rand.nextInt(millesecond);
-//		System.out.println(placeImageUrlrandomDelay + "	초 취침");
+	private static GeoApiContext instance;
 
-		Thread.sleep(randomDelay);
-
-		return randomDelay / 1000;
+	public static synchronized GeoApiContext getInstance() {
+		if (instance == null) {
+			instance = new GeoApiContext.Builder().apiKey("AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ").build();
+		}
+		return instance;
 	}
+
+	Connection conn = null;
 
 	public static List<MovieTitleAndURL> getMovieTitleAndURLList() {
 		try {
@@ -64,7 +66,8 @@ public class MovieMapsScraper implements Runnable {
 
 				Elements movieLinks = document.select("a[href^='/movies/']");
 
-				System.out.println(movieLinks.size() + "이것은 개별 영화 페이지 링크들의 갯수 입니다.");
+
+				Count.setEntireSize(movieLinks.size());
 
 				for (Element link : movieLinks) {
 
@@ -79,7 +82,7 @@ public class MovieMapsScraper implements Runnable {
 						MovieTitleAndURLList.add(new MovieTitleAndURL(title, movieUrl));
 
 					} else {
-						System.out.println(title + " 는 movie 테이블에서 중복을 발견하여 제외되었습니다.");
+						Count.incrementDupCount();
 					}
 
 				}
@@ -104,11 +107,6 @@ public class MovieMapsScraper implements Runnable {
 
 		try {
 
-//			System.out.println(movieUrl + "	접속 전  취침");
-//			sleep(5000, 10000);
-
-//			System.out.println(title+"리스트 내의 마지막 영화입니다.");
-
 			org.jsoup.Connection movieUrlConnection = Jsoup.connect(movieUrl);
 			Response movieUrlResponse = movieUrlConnection.execute();
 			int movieUrlStatusCode = movieUrlResponse.statusCode();
@@ -121,17 +119,12 @@ public class MovieMapsScraper implements Runnable {
 
 				if (hasMoreSix(document, title)) {
 
-					activateInsertMovie(document, title, conn);
-
-
-					int count = gmap_Movie_DAO.getCountByTitle(conn, title);
-//
-//					System.out.println(title + "이 가지고 있는 장소의 갯수:	" + count);
-//
-					if (count <= 30) {
-						activateInsertLocation(document, title, conn);
+					if(activateInsertMovie(movieUrl, document, title, conn)) {
+						activateInsertLocation(movieUrl, document, title, conn);
 						
 					}
+
+
 				}
 
 			} else {
@@ -139,34 +132,34 @@ public class MovieMapsScraper implements Runnable {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (NoSuchElementException e) {
-			System.out.println(e.getMessage());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		} finally {
+		} catch (ApiException e) {
+			e.printStackTrace();
+		}finally {
+
 			DBUtil.close(conn);
 
 		}
 
 	}
 
-	public static void main(String[] args) {
+	public static void executeMovieMapsScraper() {
 
 		Connection conn = null;
 
 		try {
 
-			ExecutorService executor = Executors.newFixedThreadPool(32);
+			int cores = Runtime.getRuntime().availableProcessors();
+			ExecutorService executor = Executors.newFixedThreadPool(cores * 2);
 
 			List<MovieTitleAndURL> MovieTitleAndURLList = getMovieTitleAndURLList();
 
-			List<MovieMapsScraper> workers = new ArrayList<>();
 
 			for (MovieTitleAndURL titleAndURL : MovieTitleAndURLList) {
 				conn = DBUtil.getConnection();
 
 				MovieMapsScraper worker = new MovieMapsScraper(titleAndURL, conn);
-				workers.add(worker);
 				executor.execute(worker);
 
 			}
@@ -175,6 +168,9 @@ public class MovieMapsScraper implements Runnable {
 
 			while (!executor.isTerminated()) {
 			}
+			
+			
+			Write.WriteLogResult();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,7 +193,6 @@ public class MovieMapsScraper implements Runnable {
 				Elements tinyThumbnailFigureTags = article.select("figure.tiny.thumbnail");
 
 				if (!tinyThumbnailFigureTags.isEmpty()) {
-//                        이미지가 있다는 뜻!!
 					count++;
 
 				}
@@ -207,204 +202,253 @@ public class MovieMapsScraper implements Runnable {
 		if (count >= 6) {
 			return true;
 		}
-		System.out.println(title + " 은 이미지를 가지고 있는 장소의 갯수가 6개 미만이라서 제외 됐습니다. ");
+		System.out.println(title + " 은 이미지를 가지고 있는 장소의 갯수가 6개 미만입니다.");
+		Count.incrementlessCount();
 		return false;
 	}
 
 // 영화 하나를 삽입하는  메서드
-	public static void activateInsertMovie(Document document, String title, Connection conn)
+	public static boolean activateInsertMovie(String movieUrl, Document document, String title, Connection conn)
 			throws IOException, InterruptedException {
+		
+		try {
+		Count.incrementtryInsertMovieCount();
+		
+		
 
 		Element aElement = document.select("figure.small.poster.gallery a").first();
 		if (aElement == null) {
-			System.out.println("aElement이 null 입니다.");
 
-			System.out.println("figure.small.poster.gallery a 를 찾지 못했습니다 다음 영화를 탐색하겠습니다.");
-			throw new NoSuchElementException();
+			throw new ElementNotFoundException(
+					movieUrl + "\nElement aElement = document.select(\"figure.small.poster.gallery a\").first();");
 		}
 
-		if (aElement != null) {
+		String hrefposter = aElement.attr("href");
 
-			String hrefposter = aElement.attr("href");
+		String posterUrl = "https://moviemaps.org" + hrefposter;
 
-			String posterUrl = "https://moviemaps.org" + hrefposter;
-			System.out.println("poster를 다운로드 받기 위한 url: " + posterUrl);
+		org.jsoup.Connection posterUrlConnection = Jsoup.connect(posterUrl);
+		Response posterUrlResponse = posterUrlConnection.execute();
+		int posterUrlStatusCode = posterUrlResponse.statusCode();
 
-//			System.out.println(posterUrl + "	접속 전 취침");
-//			sleep(5000, 10000);
+		if (posterUrlStatusCode == 200) {
+			System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
 
-			org.jsoup.Connection posterUrlConnection = Jsoup.connect(posterUrl);
-			Response posterUrlResponse = posterUrlConnection.execute();
-			int posterUrlStatusCode = posterUrlResponse.statusCode();
+			Document posterdocument = posterUrlResponse.parse();
 
-			if (posterUrlStatusCode == 403) {
-				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
-			} else if (posterUrlStatusCode == 200) {
-				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
-				System.out.println(posterUrl + "으로 이동 완료");
+			Element posterElement = posterdocument.select("figure img").first();
+			if (posterElement == null) {
 
-				Document posterdocument = posterUrlResponse.parse();
-
-				Element posterElement = posterdocument.select("figure img").first();
-				if (posterElement == null) {
-					System.out.println("posterElement이 null 입니다.");
-
-				}
-				if (posterElement != null) {
-
-					String posterimgUrl = posterElement.attr("abs:src");
-
-					URL posterimgURL = new URL(posterimgUrl);
-
-//					System.out.println(posterimgURL + "	접속 전	취침");
-//					sleep(5000, 10000);
-					URLConnection posterimgURLConnection = posterimgURL.openConnection();
-
-					if (posterimgURLConnection instanceof HttpURLConnection) {
-						HttpURLConnection posterimgURLHttpConnection = (HttpURLConnection) posterimgURLConnection;
-						int posterimgURLStatusCode = posterimgURLHttpConnection.getResponseCode();
-						System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
-						System.out.println(posterimgUrl + "연결 성공");
-
-						if (posterimgURLStatusCode != 200) {
-							System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
-							System.out.println("Error message:	" + posterimgURLHttpConnection.getResponseMessage());
-						}
-					}
-					InputStream posterinputStream = posterimgURLConnection.getInputStream();
-
-					gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
-
-					posterinputStream.close();
-
-					System.out.println("insertIntoMovie 메서드로 movie 테이블에 " + title + " 을 삽입 했습니다.");
-
-				}
-
-			} else {
-				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
+				throw new ElementNotFoundException(
+						posterUrl + "\nElement posterElement = posterdocument.select(\"figure img\").first();");
 			}
+
+			String posterimgUrl = posterElement.attr("abs:src");
+
+			URL posterimgURL = new URL(posterimgUrl);
+
+			URLConnection posterimgURLConnection = posterimgURL.openConnection();
+
+			if (posterimgURLConnection instanceof HttpURLConnection) {
+				HttpURLConnection posterimgURLHttpConnection = (HttpURLConnection) posterimgURLConnection;
+				int posterimgURLStatusCode = posterimgURLHttpConnection.getResponseCode();
+				System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
+
+				if (posterimgURLStatusCode != 200) {
+					System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
+					System.out.println("Error message:	" + posterimgURLHttpConnection.getResponseMessage());
+				}
+				InputStream posterinputStream = posterimgURLConnection.getInputStream();
+
+				gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
+
+				posterinputStream.close();
+
+				System.out.println(title + " movie 테이블 추가 성공");
+
+				Count.incrementInsertMovieCount();
+				return true;
+			}
+
+		} else {
+			System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
 		}
+		}catch (ElementNotFoundException e) {
+			ExceptionHandler.ElementNotFoundExceptionToFile(e);
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 //  한개의 영화에 딸린 장소들을 삽입하는 메서드 
 
-	public static void activateInsertLocation(Document document, String title, Connection conn
-			) throws IOException, InterruptedException {
+	public static void activateInsertLocation(String movieUrl, Document document, String title, Connection conn)
+			throws IOException, InterruptedException, ApiException{
+			
+			
+		
+		
 
+		int movie_no = gmap_Movie_DAO.getMovie_noWithTitle(title, conn);
 		Elements articles = document.select("article");
 
-		for (Element article : articles) {
-			System.out.println(title + "을 location 테이블에 넣는 작업을 tinyThumbnailFigureTags != null 에서 시작하겠습니다.");
-			Element h4Link = article.select("h4 > a[href^='/locations/']").first();
 
-			if (h4Link != null) {
+		for(int i=1;i<=articles.size();i++) {
+			try {
+			Element article = articles.get(i-1);
+			if(article == null) {
+				throw new ElementNotFoundException(
+						movieUrl + "\nElement article = articles.get(i);\n"
+								+ i + "번째 article IN "+articles.size());
+				
+			}
+			int count = gmap_Movie_DAO.getCountByTitle(conn, title);
+
+			if (count < 30) {
+
+				Count.incrementTryInsertLocationCount();
+				System.out.println(title + " location 테이블 추가 시도");
+				Element h4Link = article.select("h4 > a[href^='/locations/']").first();
+				if (h4Link == null) {
+					throw new ElementNotFoundException(
+							movieUrl + "\nElement h4Link = article.select(\"h4 > a[href^='/locations/']\").first();\n"
+									+ i +  "번째 article IN "+articles.size());
+
+				}
 				Element tinyThumbnailInFigureTag = article.selectFirst("figure.tiny.thumbnail");
 
-				if (tinyThumbnailInFigureTag != null) {
-					Element a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst("a");
+				if (tinyThumbnailInFigureTag == null) {
+					throw new ElementNotFoundException(movieUrl
+							+ "\nElement tinyThumbnailInFigureTag = article.selectFirst(\"figure.tiny.thumbnail\");\n"
+							+ i +  "번째 article IN "+articles.size());
 
-					if (a_tagInTinythumbnail != null) {
-						String imagehrefInA_tag = a_tagInTinythumbnail.attr("href");
-						String placeImageUrl = "https://moviemaps.org" + imagehrefInA_tag;
-
-//						System.out.println(placeImageUrl + "	접속전 취침");
-//						sleep(5000, 10000);
-
-						org.jsoup.Connection placeImageUrlConnection = Jsoup.connect(placeImageUrl);
-						Response placeImageresponse = placeImageUrlConnection.execute();
-						int placeImageStatusCode = placeImageresponse.statusCode();
-
-						if (placeImageStatusCode == 403) {
-							System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
-						} else if (placeImageStatusCode == 200) {
-							System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
-							Document placeImagedocument = placeImageresponse.parse();
-							Element movieLink = placeImagedocument
-									.selectFirst("section#description a[href^=/locations/]");
-
-							if (movieLink != null) {
-								String placeDetailhref = movieLink.attr("href");
-								String placeDetailUrl = "https://moviemaps.org" + placeDetailhref;
-
-//								System.out.println(placeDetailUrl + "	접속전 취침");
-//								sleep(5000, 10000);
-
-								org.jsoup.Connection placeDetailUrlConnection = Jsoup.connect(placeDetailUrl);
-								Response placeDetailUrlresponse = placeDetailUrlConnection.execute();
-
-								int placeDetailUrlStatusCode = placeDetailUrlresponse.statusCode();
-								if (placeDetailUrlStatusCode == 403) {
-									System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
-								} else if (placeDetailUrlStatusCode == 200) {
-									System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
-									Document placeDetaildocument = placeDetailUrlresponse.parse();
-									Element addressElement = placeDetaildocument.select("address").first();
-
-									if (addressElement != null) {
-										String address = addressElement.text();
-										Element a_tagHaveLatLng = placeDetaildocument.select("a[href~=(\\?|&)lat=]")
-												.first();
-
-										if (a_tagHaveLatLng != null) {
-											String latLnghref = a_tagHaveLatLng.attr("href");
-											String lat = latLnghref.substring(latLnghref.indexOf("lat=") + 4,
-													latLnghref.indexOf("&"));
-											int startIndexOfLng = latLnghref.indexOf("lng=") + 4;
-											int endIndexOfLng = latLnghref.indexOf("&", startIndexOfLng);
-											if (endIndexOfLng == -1) {
-												endIndexOfLng = latLnghref.length();
-											}
-											String lng = latLnghref.substring(startIndexOfLng, endIndexOfLng);
-											Element imgElement = placeImagedocument.select("figure img").first();
-
-											if (imgElement != null) {
-												String imgUrl = imgElement.attr("abs:src");
-												URL imgURL = new URL(imgUrl);
-
-//												System.out.println(imgUrl + "	접속전 취침");
-//												sleep(5000, 10000);
-												URLConnection imgUrlConnection = imgURL.openConnection();
-
-												if (imgUrlConnection instanceof HttpURLConnection) {
-													HttpURLConnection imgUrlHttpConnection = (HttpURLConnection) imgUrlConnection;
-													int imgUrlStatusCode = imgUrlHttpConnection.getResponseCode();
-													System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
-													System.out.println(imgUrl + "	연결 성공");
-
-													if (imgUrlStatusCode != 200) {
-														System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
-														System.out.println("Error message:	"
-																+ imgUrlHttpConnection.getResponseMessage());
-													}
-												}
-
-												InputStream inputStream = imgUrlConnection.getInputStream();
-
-//												gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
-
-												int movie_no = gmap_Movie_DAO.getMovie_noWithTitle(title, conn);
-
-												int result = gmap_Movie_DAO.insertIntoLocation(movie_no, address,
-														Double.valueOf(lat), Double.valueOf(lng), inputStream, conn);
-
-												System.out.println(title + "의 장소 location 테이블에 성공적으로 추가 하였습니다.");
-
-												inputStream.close();
-//												posterinputStream.close();
-											}
-										}
-									}
-								} else {
-									System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
-								}
-							}
-						} else {
-							System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
-						}
-					}
 				}
+
+				Element a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst("a");
+
+				if (a_tagInTinythumbnail == null) {
+
+					throw new ElementNotFoundException(
+							movieUrl + "\nElement a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst(\"a\");"
+									+ "\n" + i +  "번째 article IN "+articles.size());
+
+				}
+
+				String imagehrefInA_tag = a_tagInTinythumbnail.attr("href");
+				String placeImageUrl = "https://moviemaps.org" + imagehrefInA_tag;
+
+				org.jsoup.Connection placeImageUrlConnection = Jsoup.connect(placeImageUrl);
+
+				Response placeImageresponse = placeImageUrlConnection.execute();
+
+				int placeImageStatusCode = placeImageresponse.statusCode();
+
+				if (placeImageStatusCode == 200) {
+					System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
+					Document placeImagedocument = placeImageresponse.parse();
+					Element movieLink = placeImagedocument.selectFirst("section#description a[href^=/locations/]");
+
+					if (movieLink == null) {
+						throw new ElementNotFoundException(placeImageUrl + "\nElement movieLink = placeImagedocument\n"
+								+ "									.selectFirst(\"section#description a[href^=/locations/]\");"
+								+ "\n" + i +  "번째 article IN "+articles.size());
+
+					}
+					String placeDetailhref = movieLink.attr("href");
+					String placeDetailUrl = "https://moviemaps.org" + placeDetailhref;
+
+					org.jsoup.Connection placeDetailUrlConnection = Jsoup.connect(placeDetailUrl);
+					Response placeDetailUrlresponse = placeDetailUrlConnection.execute();
+
+					int placeDetailUrlStatusCode = placeDetailUrlresponse.statusCode();
+					if (placeDetailUrlStatusCode == 200) {
+						System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
+						Document placeDetaildocument = placeDetailUrlresponse.parse();
+						Element addressElement = placeDetaildocument.select("address").first();
+
+						if (addressElement == null) {
+							throw new ElementNotFoundException(placeDetailUrl
+									+ "\nElement addressElement = placeDetaildocument.select(\"address\").first();"
+									+ "\n" + i +  "번째 article IN "+articles.size());
+
+						}
+						String address = addressElement.text();
+
+						GeoApiContext context = getInstance();
+
+						GeocodingResult[] results = GeocodingApi.geocode(context, address).await();
+
+						if (results == null || results.length == 0) {
+
+							throw new GeocodingException(placeDetailUrl
+									+ "\nGeocodingResult[] results = GeocodingApi.geocode(context, address).await();"
+									+ "\n" + i +  "번째 article IN "+articles.size());
+						}
+						System.out.println("Latitude: " + results[0].geometry.location.lat);
+						System.out.println("Longitude: " + results[0].geometry.location.lng);
+						Double lat = results[0].geometry.location.lat;
+						Double lng = results[0].geometry.location.lng;
+
+						Element imgElement = placeImagedocument.select("figure img").first();
+
+						if (imgElement == null) {
+							throw new ElementNotFoundException(placeImageUrl
+									+ "\nElement imgElement = placeImagedocument.select(\"figure img\").first();" + "\n"
+									+ i +  "번째 article IN "+articles.size());
+
+						}
+						String imgUrl = imgElement.attr("abs:src");
+						URL imgURL = new URL(imgUrl);
+
+						URLConnection imgUrlConnection = imgURL.openConnection();
+
+						if (imgUrlConnection instanceof HttpURLConnection) {
+							HttpURLConnection imgUrlHttpConnection = (HttpURLConnection) imgUrlConnection;
+							int imgUrlStatusCode = imgUrlHttpConnection.getResponseCode();
+							System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
+
+							if (imgUrlStatusCode != 200) {
+
+								System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
+								System.out.println("Error message:	" + imgUrlHttpConnection.getResponseMessage());
+							}
+
+						}
+
+						InputStream inputStream = imgUrlConnection.getInputStream();
+
+						try {
+							int result = gmap_Movie_DAO.insertIntoLocation(movie_no, address, lat, lng, inputStream,
+									conn);
+						} catch (SQLIntegrityConstraintViolationException e) {
+							System.out.println(movie_no);
+							e.printStackTrace();
+						}
+
+						System.out.println(title + " location 테이블 추가 성공");
+
+						Count.incrementLocationInsertCount();
+
+						inputStream.close();
+					} else {
+						System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
+					}
+				} else {
+					System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
+				}
+
+			} else {
+				return;
 			}
+			
+			}catch (ElementNotFoundException e) {
+				ExceptionHandler.ElementNotFoundExceptionToFile(e);
+				e.printStackTrace();
+			} catch (GeocodingException e) {
+				ExceptionHandler.GeocodingExceptionToFile(e);
+				e.printStackTrace();
+			}
+			
 		}
 	}
 }

@@ -104,6 +104,7 @@ public class PathServlet extends HttpServlet {
 				entireSelectedList.addAll(entireSelectedListPerMovie);
 
 			}
+			
 
 			List<Location> firstLocationList = DistanceCalculator.getFirstLocation(selectedLocation);
 

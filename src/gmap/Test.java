@@ -1,78 +1,46 @@
 package gmap;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import dbutil.DBUtil;
+import java.io.File;
 
 public class Test {
 
-//	public static AtomicInteger counter = new AtomicInteger(0);
-	public static AtomicInteger counter = new AtomicInteger(0);
 
 	public static void main(String[] args) {
-//		List<Distance> list = DistanceCalculator.distanceCalculate( "34.4656639099121", "-118.405334472656");
-//		
-//		int avail = Runtime.getRuntime().availableProcessors();
-//		System.out.println("코어의 갯수"+avail);
-//		System.out.println("count of distances: "+list.size());
-////		System.out.println(list.contains(0));
-//		
-//		for(int i=0;i<list.size();i++) {
-//			
-//			System.out.println(list.get(i));
-//		}
-//		System.out.println(list.get(0));
-
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-			conn = DBUtil.getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT count(*) as cnt FROM movie.location where movie_no=5;");
-
-			if (conn != null) {
-				if (rs.next()) {
-					System.out.println("The connection is active.");
-					System.out.println(rs.getInt("cnt"));
-				}
-			} else {
-				System.out.println("The connection is null.");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBUtil.close(rs);
-			DBUtil.close(stmt);
-			DBUtil.close(conn);
-
-		}
-	}
-
-//	public static void main(String[] args) {
-//		List<Distance> list = DistanceCalculator.distanceCalculate(counter, "34.4656639099121", "-118.405334472656");
-//		
-//		int avail = Runtime.getRuntime().availableProcessors();
-//		System.out.println("코어의 갯수"+avail);
-//		System.out.println("count of distances: "+list.size());
-////		System.out.println(list.contains(0));
-//		
-//		for(int i=0;i<list.size();i++) {
-//			
-//			System.out.println(list.get(i));
-//		}
-//		System.out.println(list.get(0));
-//		
-//		
-//		
-//		
+		
+//		 try {
+//	            GeoApiContext context = new GeoApiContext.Builder()
+//	                    .apiKey("AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ") // 여기에 발급받은 API 키를 입력하세요
+//	                    .build();
 //
+//	            GeocodingResult[] results = GeocodingApi.geocode(context, "1300 Ocean Blvd, Isle of Palms, SC 29451, USA").await();
+//
+//	            if (results != null && results.length > 0) {
+//	                System.out.println("Latitude: " + results[0].geometry.location.lat);
+//	                System.out.println("Longitude: " + results[0].geometry.location.lng);
+//	            } else {
+//	                System.out.println("No results found.");
+//	            }
+//	        } catch (Exception e) {
+//	            e.printStackTrace();
+//	        }
+
+//		Connection conn = null;
 //		
-//	\	
-//	}
+//		try {
+//			conn = DBUtil.getConnection();
+//			String title = "The Magicians";
+//			
+//			int count = gmap_Movie_DAO.getCountByTitle(conn, title);	
+//			
+//			System.out.println(count);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+		MovieMapsScraper.executeMovieMapsScraper();
+//		System.out.println(System.getProperty("user.dir"));
+//		File logFile = new File(System.getProperty("user.dir"), "src/log/log.txt");
+//		System.out.println(logFile.exists());
+	}
 
 }

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -112,15 +113,12 @@ public class gmap_Movie_DAO {
 	}
 
 	public synchronized static int insertIntoLocation(int movie_no,String address, Double latitude, Double longitude,
-			InputStream inputStream,Connection conn) {
+			InputStream inputStream,Connection conn) throws SQLIntegrityConstraintViolationException{
 		PreparedStatement pstmt = null;
 
 		try {
 			conn.setAutoCommit(false);
 
-//			gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
-			
-//			int movie_no = gmap_Movie_DAO.getMovie_noWithTitle(title, conn);
 			
 			String sql = "INSERT INTO location (movie_no,address,latitude,longitude,image) VALUES (?,?,?,?,?)";
 

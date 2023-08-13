@@ -59,7 +59,7 @@
 								</div>
 							</form>
 							<div class="detailRoot">
-								<img src="img/춘식15.png" class="rootImg" />
+								<button class="rootImg" ></button>
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
 										<p class="detailRootBigText">

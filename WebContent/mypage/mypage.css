@@ -277,6 +277,14 @@ body {
 	width: 300px;
 	height: 300px;
 	flex-shrink: 0;
+	
+	background-image: url('../img/종이지도.png'); 
+	background-size : cover;
+	border : none;
+	text-align: center;
+	background-color: transparent;
+	background-size: cover;
+	border: none;
 }
 
 .detailRootLeft {

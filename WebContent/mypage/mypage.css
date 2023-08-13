@@ -1,10 +1,10 @@
 :root {
 	/**
      * colors
-     */ -
-	-white: #fff; -
-	-black: #000; -
-	-vlet: #7937FF;
+     */ 
+     --white: #fff; 
+     --black: #000; 
+     --vlet: #7937FF;
 }
 
 @font-face {

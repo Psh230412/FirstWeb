@@ -1,3 +1,4 @@
+<%@page import="com.google.gson.Gson"%>
 <%@page import="object.MyPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -61,8 +62,8 @@
 							</form>
 							<div class="detailRoot" >
 								<form action="./mypath" method="post">
-									<input type="hidden" value="${ path }" name="myPath" >
-									<button class="rootImg"></button>
+									 <input type="hidden" name="pathNo" value="${path.pathNo}" >
+            							<button class="rootImg" onclick="setPathValue(${path.pathNo})"></button>
 								</form>
 								<div class="detailRootLeft">
 									<div class="detailRootTitle">
@@ -123,34 +124,6 @@
 	<footer></footer>
 	<script src="mypage/mypage.js">
 	
-	<%
-		MyPath path = (MyPath) request.getAttribute("list");
-	%>
-	
-	let pathObject = {
-			pathNo = <%= path.getPathNo() %>
-			locationAddress1 = <%= path.getLocationAddress1() %>
-			locationAddress2 = <%= path.getLocationAddress2() %>
-			locationAddress3 = <%= path.getLocationAddress3() %>
-			locationAddress4 = <%= path.getLocationAddress4() %>
-			rootName = <%= path.getRootName() %>
-			
-		};
-
-		var pathString = JSON.stringify(pathObject);
-
-        fetch('http://localhost:8080/ScreenSceneP/mypath', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: pathString
-        })
-        .then(response => response.json())
-        .catch(error => console.error('An error occurred:', error));
-});
-	
-		
 	</script>
 </body>
 </html>

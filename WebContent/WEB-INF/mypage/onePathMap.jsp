@@ -1,7 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="object.Location"%>
-<%@page import="object.MyPath"%>
-<%@page import="path.SelectPathDAO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper"%>
@@ -20,15 +18,19 @@
 </head>
 
 <body>
+<p> 나와주세요 ㅠㅠ</p>
 	<div id="map1" style="height: 330px; width: 300px"></div>
 	
 </body>
 
 
 <script>
+	console.log("onePathMap.jsp로 이동 완료");
+	
+    var firstLocationList = <%= request.getAttribute("latLngList") %>
 
-	var locationList = <%= (List<Location>) request.getAttribute("locationList") %>
-
+	console.log("firstLocationList");
+	
 	function addMarkersToMap(locations, map) {
 	    locations.forEach(location => {
 	        var marker = new google.maps.Marker({
@@ -38,6 +40,7 @@
 	    });
 	}
 	
+	// 지도에 선을 그리는 함수
 	function addPathToMap(locations, map) {
 	    var pathCoordinates = locations.map(location => {
 	        return {lat: location.latitude, lng: location.longitude};
@@ -57,11 +60,13 @@
 	    // 첫 번째 지도
 	    var map1 = new google.maps.Map(document.getElementById('map1'), {
 	        zoom: 10,
-	        center: {lat: locationList[0].latitude, lng: locationList[0].longitude}
+	        center: {lat: firstLocationList[0].latitude, lng: firstLocationList[0].longitude}
 	    });
-	    addMarkersToMap(locationList, map1);
-	    addPathToMap(locationList, map1);
+	    addMarkersToMap(firstLocationList, map1);
+	    addPathToMap(firstLocationList, map1);
 	}
+	
+	<%= System.out.println("initMap 실행") %>
 	
 	</script>
 

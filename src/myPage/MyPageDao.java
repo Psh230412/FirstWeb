@@ -208,6 +208,46 @@ public class MyPageDao {
 			DBUtil.close(conn);
 		}
 	}
+	
+	public List<Location> getOnePathLocationList(int pathNo) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Location> list = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement("SELECT *\r\n" + "FROM path\r\n" + "WHERE path_no = ?");
+			stmt.setInt(1, pathNo);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				int pathNoParse = rs.getInt("path_no");
+				int location1 = rs.getInt("location1");
+				int location2 = rs.getInt("location2");
+				int location3 = rs.getInt("location3");
+				int location4 = rs.getInt("location4");
+				String rootName = rs.getString("pathName");
+
+				Location locationAddress1 = getLocationInfo(location1, conn);
+				Location locationAddress2 = getLocationInfo(location2, conn);
+				Location locationAddress3 = getLocationInfo(location3, conn);
+				Location locationAddress4 = getLocationInfo(location4, conn);
+				
+				list.add(locationAddress1);
+				list.add(locationAddress2);
+				list.add(locationAddress3);
+				list.add(locationAddress4);
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return null;
+	}
 }
 
 //    public List<Path> getMyPath(String id) {

@@ -33,7 +33,12 @@ LatAndLng[] thirdlatAndLngs = (LatAndLng[]) request.getAttribute("thirdlatAndLng
     var secondLocationList = JSON.parse(secondLocationListJson);
     var thirdLocationList = JSON.parse(thirdLocationListJson);
 	
-	
+    console.log("지도의 location 리스트 : " + firstLocationList);
+    
+<%--     <%= System.out.println(firstLocationList) %> --%>
+
+    
+    
 	function addMarkersToMap(locations, map) {
 	    locations.forEach(location => {
 	        var marker = new google.maps.Marker({

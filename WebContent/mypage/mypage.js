@@ -38,5 +38,10 @@ window.addEventListener('load', function() {
 document.querySelectorAll('.rootImg').forEach(function(button) {
     button.addEventListener("click", function() {
         console.log(1);
+		
+		
+
+
+
     });
 });

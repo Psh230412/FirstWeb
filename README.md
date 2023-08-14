@@ -69,6 +69,8 @@
    <img src="https://img.shields.io/badge/GEOCODING-00874D?style=for-the-badge&logo=geocaching&logoColor=white" />
 	<img src="https://img.shields.io/badge/maildotru-005FF9?style=for-the-badge&logo=geocaching&logoColor=white" />
  <img src="https://img.shields.io/badge/jsoup-005FF9?style=for-the-badge&logo=maildotru&logoColor=white" />
+  <img src="https://img.shields.io/badge/SLF4J-005FF9?style=for-the-badge&logo=maildotru&logoColor=white" />
+   <img src="https://img.shields.io/badge/commons-fileupload-005FF9?style=for-the-badge&logo=maildotru&logoColor=white" />
 	
 </div>
 <h4>협업도구</h4>

@@ -5,7 +5,7 @@ pageEncoding="UTF-8" %>
   <head>
     <meta charset="utf-8" />
     <title>Page Title</title>
-    <link rel="stylesheet" href="login/login.css" />
+    <link rel="stylesheet" href="./login/login.css" />
   </head>
 
   <body>
@@ -183,6 +183,6 @@ pageEncoding="UTF-8" %>
       </div>
     </div>
     <!-- SIGN UP FORM CREATION -->
-    <script src="login/login.js"></script>
+    <script src="./login/login.js"></script>
   </body>
 </html>

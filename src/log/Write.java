@@ -5,8 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import gmap.Count;
-import gmap.ExceptionHandler;
+import object.Count;
 
 public class Write {
 

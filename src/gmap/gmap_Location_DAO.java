@@ -14,56 +14,56 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dbutil.DBUtil;
-import object.Gmap_Location;
+import object.Location;
 
 public class gmap_Location_DAO {
 
-	public String getRequestBody(HttpServletRequest request) throws IOException {
-		StringBuilder requestBodyBuilder = new StringBuilder();
+    public String getRequestBody(HttpServletRequest request) throws IOException {
+	StringBuilder requestBodyBuilder = new StringBuilder();
 
-		try (InputStream requestBodyStream = request.getInputStream();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(requestBodyStream, "UTF-8"));) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				requestBodyBuilder.append(line);
-			}
-		}
-
-		return requestBodyBuilder.toString();
+	try (InputStream requestBodyStream = request.getInputStream();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(requestBodyStream, "UTF-8"));) {
+	    String line;
+	    while ((line = reader.readLine()) != null) {
+		requestBodyBuilder.append(line);
+	    }
 	}
 
-	public List<Gmap_Location> getLatLongList() {
-		List<Gmap_Location> entireDestinationList = new ArrayList<>();
+	return requestBodyBuilder.toString();
+    }
 
-		Connection JdbcConn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+    public List<Location> getLatLongList() {
+	List<Location> entireDestinationList = new ArrayList<>();
 
-		try {
-			JdbcConn = DBUtil.getConnection();
-			String sql = "SELECT latitude,longitude FROM movie.location;";
+	Connection JdbcConn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
-			pstmt = JdbcConn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+	try {
+	    JdbcConn = DBUtil.getConnection();
+	    String sql = "SELECT latitude,longitude FROM movie.location;";
 
-			while (rs.next()) {
-				double destinationLatitude = rs.getDouble("latitude");
-				double destinationLongitude = rs.getDouble("longitude");
+	    pstmt = JdbcConn.prepareStatement(sql);
+	    rs = pstmt.executeQuery();
 
-				entireDestinationList.add(new Gmap_Location(destinationLatitude, destinationLongitude));
+	    while (rs.next()) {
+		double destinationLatitude = rs.getDouble("latitude");
+		double destinationLongitude = rs.getDouble("longitude");
 
-			}
+		entireDestinationList.add(new Location(destinationLatitude, destinationLongitude));
 
-			return entireDestinationList;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBUtil.close(rs);
-			DBUtil.close(pstmt);
-			DBUtil.close(JdbcConn);
+	    }
 
-		}
-		return entireDestinationList;
+	    return entireDestinationList;
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	} finally {
+	    DBUtil.close(rs);
+	    DBUtil.close(pstmt);
+	    DBUtil.close(JdbcConn);
+
 	}
+	return entireDestinationList;
+    }
 
 }

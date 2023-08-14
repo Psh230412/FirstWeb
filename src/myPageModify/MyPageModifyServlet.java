@@ -24,136 +24,134 @@ import myPage.MyPageDao;
 
 @WebServlet("/mypagemodify")
 public class MyPageModifyServlet extends HttpServlet {
-	MyPageDao dao = new MyPageDao();
-	MyPageModifyDao modifyDao = new MyPageModifyDao();
+    MyPageDao dao = new MyPageDao();
+    MyPageModifyDao modifyDao = new MyPageModifyDao();
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		String nickname = (String) session.getAttribute("loggedUserNickname");
-		String profileImg = (String) session.getAttribute("loggedUserProfileImg");
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	HttpSession session = req.getSession();
+	String nickname = (String) session.getAttribute("loggedUserNickname");
+	String profileImg = (String) session.getAttribute("loggedUserProfileImg");
 
-		req.setAttribute("nickname", nickname);
-		req.setAttribute("porfileImg", profileImg);
-		String id = (String) session.getAttribute("loggedUserId");
+	req.setAttribute("nickname", nickname);
+	req.setAttribute("profileImg", profileImg);
+	String id = (String) session.getAttribute("loggedUserId");
 
-		Blob profile = dao.getProfile(id);
+	Blob profile = dao.getProfile(id);
 
-		if (profile != null) {
-			InputStream inputStream;
-			try {
-				inputStream = profile.getBinaryStream();
-				byte[] bytes = new byte[(int) profile.length()];
-				inputStream.read(bytes);
-				String img = Base64.getEncoder().encodeToString(bytes);
-				req.setAttribute("myProfile", img);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		req.setAttribute("nickname", nickname);
-
-		req.getRequestDispatcher("/WEB-INF/mypageModify/mypageModify.jsp").forward(req, resp);
+	if (profile != null) {
+	    InputStream inputStream;
+	    try {
+		inputStream = profile.getBinaryStream();
+		byte[] bytes = new byte[(int) profile.length()];
+		inputStream.read(bytes);
+		String img = Base64.getEncoder().encodeToString(bytes);
+		req.setAttribute("myProfile", img);
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Cache-Control", "no-store");
-		String form = req.getParameter("form_type");
-		HttpSession session = req.getSession();
-		String id = (String) session.getAttribute("loggedUserId");
-		boolean isCheck = true;
+	req.setAttribute("nickname", nickname);
 
-		if (form != null) {
+	req.getRequestDispatcher("/WEB-INF/myPageModify/myPageModify.jsp").forward(req, resp);
+    }
 
-			if (form.equals("changeNicknameForm")) {
-				String changeNickname = req.getParameter("changeNickname");
-				String checkPassword = req.getParameter("passwordCheck");
-				String nowNickname = modifyDao.getNickname(id);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	resp.setHeader("Cache-Control", "no-store");
+	String form = req.getParameter("form_type");
+	HttpSession session = req.getSession();
+	String id = (String) session.getAttribute("loggedUserId");
+	boolean isCheck = true;
 
-				if (!modifyDao.duplicateNickname(changeNickname)) {
-					req.removeAttribute("changeNicknameError");
-				} else if (nowNickname.equals(changeNickname)) {
-					req.setAttribute("changeNicknameError", "현재 닉네임과 동일한 닉네입입니다");
-					System.out.println("여기로오니?");
-					isCheck = false;
-				} else {
-					req.setAttribute("changeNickname", changeNickname);
-					req.setAttribute("changeNicknameError", "같은 닉네임이 존재합니다.");
-					isCheck = false;
-				}
+	if (form != null) {
 
-				if (modifyDao.checkPassword(id, checkPassword)) {
-					req.removeAttribute("failCheckPassword");
-				} else {
-					req.setAttribute("failCheckPassword", "비밀번호를 틀렸습니다. 다시 확인해주세요.");
-					isCheck = false;
-				}
+	    if (form.equals("changeNicknameForm")) {
+		String changeNickname = req.getParameter("changeNickname");
+		String checkPassword = req.getParameter("passwordCheck");
+		String nowNickname = modifyDao.getNickname(id);
 
-				if (isCheck) {
-					modifyDao.updateUserNickname(nowNickname, changeNickname);
-				}
-			}
-
-			if (form.equals("changePasswordForm")) {
-				String passwordNow = req.getParameter("passwordNow");
-				String passwordChange = req.getParameter("passwordChange");
-				String passwordChangeRe = req.getParameter("passwordChangeRe");
-
-				if (modifyDao.checkPassword(id, passwordNow)) {
-					req.removeAttribute("failCheckPasswordChange");
-				} else {
-					req.setAttribute("failCheckPasswordChange", "비밀번호를 틀렸습니다. 다시 확인해주세요.");
-					isCheck = false;
-				}
-
-				if (passwordChange.equals(passwordChangeRe)) {
-					req.removeAttribute("passwordInputError");
-				} else {
-					req.setAttribute("passwordInputError", "두 비밀번호 입력이 다릅니다. 다시 확인해주세요.");
-					isCheck = false;
-				}
-
-				if (isCheck) {
-					modifyDao.updateUserPassword(passwordNow, passwordChange);
-				}
-			}
+		if (!modifyDao.duplicateNickname(changeNickname)) {
+		    req.removeAttribute("changeNicknameError");
+		} else if (nowNickname.equals(changeNickname)) {
+		    req.setAttribute("changeNicknameError", "현재 닉네임과 동일한 닉네입입니다");
+		    System.out.println("여기로오니?");
+		    isCheck = false;
+		} else {
+		    req.setAttribute("changeNickname", changeNickname);
+		    req.setAttribute("changeNicknameError", "같은 닉네임이 존재합니다.");
+		    isCheck = false;
 		}
 
-		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-		if (isMultipart) {
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
-
-			try {
-				List<FileItem> items;
-				items = upload.parseRequest(req);
-				for (FileItem item : items) {
-					if (!item.isFormField()) {
-						// 파일 처리
-						InputStream fileContent = item.getInputStream();
-						dao.uploadImg(id, fileContent);
-
-						// InputStream을 바이트 배열로 변환
-						byte[] imageData = IOUtils.toByteArray(fileContent);
-
-						// 바이트 배열을 Base64로 인코딩
-						String encodedImage = Base64.getEncoder().encodeToString(imageData);
-
-						// 세션에 Data URI 저장
-						session.setAttribute("loggedUserProfileImg", encodedImage);
-						session.setAttribute("myProfile", encodedImage);
-						session.setAttribute("porfileImg", encodedImage);
-
-					}
-				}
-				resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-			} catch (FileUploadException e) {
-				e.printStackTrace();
-			} finally {
-			}
+		if (modifyDao.checkPassword(id, checkPassword)) {
+		    req.removeAttribute("failCheckPassword");
+		} else {
+		    req.setAttribute("failCheckPassword", "비밀번호를 틀렸습니다. 다시 확인해주세요.");
+		    isCheck = false;
 		}
-		req.getRequestDispatcher("/WEB-INF/mypageModify/mypageModify.jsp").forward(req, resp);
+
+		if (isCheck) {
+		    modifyDao.updateUserNickname(nowNickname, changeNickname);
+		}
+	    }
+
+	    if (form.equals("changePasswordForm")) {
+		String passwordNow = req.getParameter("passwordNow");
+		String passwordChange = req.getParameter("passwordChange");
+		String passwordChangeRe = req.getParameter("passwordChangeRe");
+
+		if (modifyDao.checkPassword(id, passwordNow)) {
+		    req.removeAttribute("failCheckPasswordChange");
+		} else {
+		    req.setAttribute("failCheckPasswordChange", "비밀번호를 틀렸습니다. 다시 확인해주세요.");
+		    isCheck = false;
+		}
+
+		if (passwordChange.equals(passwordChangeRe)) {
+		    req.removeAttribute("passwordInputError");
+		} else {
+		    req.setAttribute("passwordInputError", "두 비밀번호 입력이 다릅니다. 다시 확인해주세요.");
+		    isCheck = false;
+		}
+
+		if (isCheck) {
+		    modifyDao.updateUserPassword(passwordNow, passwordChange);
+		}
+	    }
 	}
+
+	boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+	if (isMultipart) {
+	    DiskFileItemFactory factory = new DiskFileItemFactory();
+	    ServletFileUpload upload = new ServletFileUpload(factory);
+
+	    try {
+		List<FileItem> items;
+		items = upload.parseRequest(req);
+		for (FileItem item : items) {
+		    if (!item.isFormField()) {
+			// 파일 처리
+			InputStream fileContent = item.getInputStream();
+
+			// InputStream을 바이트 배열로 변환
+			byte[] imageData = IOUtils.toByteArray(fileContent);
+
+			// 바이트 배열을 Base64로 인코딩
+			String encodedImage = Base64.getEncoder().encodeToString(imageData);
+
+			// 세션에 Data URI 저장
+			session.setAttribute("loggedUserProfileImg", encodedImage);
+
+			dao.uploadImg(id, fileContent);
+		    }
+		}
+		resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	    } catch (FileUploadException e) {
+		e.printStackTrace();
+	    } finally {
+	    }
+	}
+	req.getRequestDispatcher("/WEB-INF/myPageModify/myPageModify.jsp").forward(req, resp);
+    }
 }

@@ -78,3 +78,13 @@
    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white" />
    <img src="https://img.shields.io/badge/FIGMA-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
 </div>
+
+# :scroll: <a name="erd">ERD</a>
+
+## 초기 ERD
+
+<img src="https://github.com/Psh230412/FirstWeb/assets/134483516/3b352032-c2c4-4e8b-b76b-4f2a3e6e805a" width="100%"/>
+
+## 현재 ERD
+
+<img src="https://github.com/Psh230412/FirstWeb/assets/134483516/71ce82e5-07df-423d-9f2f-30ee45f48631" width="100%"/>

@@ -47,7 +47,7 @@
 
 <h4>데이터베이스</h4>
 <div align="left">
-   <img src="https://img.shields.io/badge/mysql-#4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
+   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white" />
 </div> 
 <h4>백엔드</h4>
 <div align="left">

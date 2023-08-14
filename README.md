@@ -47,8 +47,8 @@
 
 <h4>데이터베이스</h4>
 <div align="left">
-   <img src="https://img.shields.io/badge/ORACLE-F80000?style=for-the-badge&logo=oracle&logoColor=white" />
-   <img src="https://img.shields.io/badge/H2-232F3E?style=for-the-badge&logo=h2&logoColor=white" />
+   <img src="" />
+   <img src="https://img.shields.io/badge/H2-232F3E?style=for-the-badge&logo=MYSQL&logoColor=white" />
    <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
 </div> 
 <h4>백엔드</h4>

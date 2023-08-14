@@ -96,6 +96,6 @@
 # :family: <a name="team">팀원 역할 소개</a>
 <br/>
 
-| 이름 | &nbsp;&nbsp;&nbsp;박상현&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;김명완&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;선보라&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;성지수&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;이강현&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이정빈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+| 이름 | 박상현 | 김명완 | 선보라 | 성지수 | 이강현 | 이정빈
 | :---: | :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
-| 역할 | 팀장 </br> 지도제작 </br> 기획 </br> 영화선택 | 지도제작 </br> 크롤링 | CSS | 경로선택로직 </br> 마이페이지 경로 표시 | 영화촬영지선택로직 </br> 호텔, 음식점 지도 | 회원가입 </br> 마이페이지 |
+| 역할 | 팀장 </br> 지도제작 </br> 기획 </br> 영화선택 | 지도제작 </br> 크롤링 | CSS | 경로선택 </br> 마이페이지 경로 | 영화촬영지선택 </br> 호텔, 음식점 지도 | 회원가입 </br> 마이페이지 |

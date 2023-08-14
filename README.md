@@ -30,7 +30,6 @@
 # :books: <a name="outline">개요</a>
 <br/>
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/d47f4916-dc44-4d24-ad16-1a850bb14f0a"/>
-<br/>
 
 > **프로젝트** : 여행 경로 탐색
 >
@@ -41,3 +40,13 @@
 > **제작 기간** : 2023.08.01 ~ 2023.08.16
 >
 > **프로젝트 주제** : 관심있는 영화의 촬영지를 찾아 여행 경로를 탐색해주는 웹사이트
+
+<br/>
+
+# :wrench: <a name="tech">기술 스택</a>
+
+<h4>협업도구</h4>
+<div align="left">
+   <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white" />
+   <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white" />
+   <img src="https://img.shields.io/badge/FIGMA-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />

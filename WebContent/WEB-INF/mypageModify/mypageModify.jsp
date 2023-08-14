@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% String changeNicknameError = (String)request.getAttribute("changeNicknameError"); %>
+<% String failCheckPassword = (String)request.getAttribute("failCheckPassword"); %>
+<% String failCheckPasswordChange = (String)request.getAttribute("failCheckPasswordChange"); %>
+<% String passwordInputError = (String)request.getAttribute("passwordInputError"); %>
 <!DOCTYPE html>
 
 <html>
@@ -98,4 +102,20 @@
 	<footer></footer>
 	<script src="mypage modify/mypage modify.js"></script>
 </body>
+<script>
+<% if(changeNicknameError != null) { %>
+alert('<%= changeNicknameError %>');
+<% } %>
+
+<% if(failCheckPassword != null) { %>
+alert('<%= failCheckPassword %>');
+<% } %>
+
+<% if(failCheckPasswordChange != null) { %>
+alert('<%= failCheckPasswordChange %>');
+<% } %>
+
+<% if(passwordInputError != null) { %>
+alert('<%= passwordInputError %>');
+<% } %></script>
 </html>

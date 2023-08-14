@@ -154,6 +154,7 @@ public class MyPageDao {
 		PreparedStatement stmt = null;
 
 		try {
+			System.out.println(fileContent);
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement("UPDATE user SET profile = ? WHERE id = ?");
 			stmt.setBlob(1, fileContent);

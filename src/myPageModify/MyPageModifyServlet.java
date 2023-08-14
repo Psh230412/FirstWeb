@@ -133,6 +133,7 @@ public class MyPageModifyServlet extends HttpServlet {
 					if (!item.isFormField()) {
 						// 파일 처리
 						InputStream fileContent = item.getInputStream();
+						dao.uploadImg(id, fileContent);
 
 						// InputStream을 바이트 배열로 변환
 						byte[] imageData = IOUtils.toByteArray(fileContent);
@@ -142,8 +143,9 @@ public class MyPageModifyServlet extends HttpServlet {
 
 						// 세션에 Data URI 저장
 						session.setAttribute("loggedUserProfileImg", encodedImage);
+						session.setAttribute("myProfile", encodedImage);
+						session.setAttribute("porfileImg", encodedImage);
 
-						dao.uploadImg(id, fileContent);
 					}
 				}
 				resp.setStatus(HttpServletResponse.SC_NO_CONTENT);

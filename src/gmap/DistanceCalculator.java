@@ -1,7 +1,6 @@
 package gmap;
 
 import java.io.BufferedReader;
-
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,8 +11,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +29,6 @@ import object.Location;
 경로 1번 (가보고싶은 여행지 4개를 포함한 촬영지4개로 구성된 경로)
 경로 2번 (전체에서 가보고싶은 여행지 4개를 제외한 것 중에서 기준이 랜덤으로 잡힌다 기준에서 가까운곳 4개로 구성된경로)
 경로 3번 (전체에서 1번+2번 제외한 것기준이 랜덤으로 잡힌다 기준에서 가까운곳 4개로 구성된경로)
-
 
 */
 
@@ -71,12 +67,12 @@ public class DistanceCalculator implements Runnable {
 
 				HttpURLConnection Httpconn = (HttpURLConnection) url.openConnection();
 				Httpconn.setRequestMethod("GET");
-				
+
 				int responseCode = Httpconn.getResponseCode();
 				String responseMessage = Httpconn.getResponseMessage();
-				
-				System.out.println("구글 googleapis 응답 코드:	"+responseCode);
-				System.out.println("구글 googleapis 응답 메시지:	"+responseMessage);
+
+				System.out.println("구글 googleapis 응답 코드:	" + responseCode);
+				System.out.println("구글 googleapis 응답 메시지:	" + responseMessage);
 
 				BufferedReader in = new BufferedReader(new InputStreamReader(Httpconn.getInputStream()));
 				String inputLine;
@@ -104,14 +100,13 @@ public class DistanceCalculator implements Runnable {
 
 //                     System.out.println("Response Content: " + content.toString());
 //                     System.out.println(distanceValue);
-							
-							if(distanceValue>=100) {
-								
-								distances.add(new Distance(distanceValue, destination,originLocation));
-							}
-							
-							System.out.println(distances.size());
 
+							if (distanceValue >= 100) {
+
+								distances.add(new Distance(distanceValue, destination, originLocation));
+							}
+
+							System.out.println(distances.size());
 
 						}
 					}
@@ -124,23 +119,23 @@ public class DistanceCalculator implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	public static List<Distance> allDistanceCalculate(List<Location> fourLocation){
+
+	public static List<Distance> allDistanceCalculate(List<Location> fourLocation) {
 		ExecutorService executor = Executors.newFixedThreadPool(16);
-		String API_KEY = "AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ";
-		
+		String API_KEY = "AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY";
+
 		List<Distance> allDistances = new ArrayList<>();
 		List<DistanceCalculator> workers = new ArrayList<>();
-		
-		
-		for(int i=0;i<fourLocation.size();i++) {
-			for(int j=i+1;j<fourLocation.size();j++) {
-				
+
+		for (int i = 0; i < fourLocation.size(); i++) {
+			for (int j = i + 1; j < fourLocation.size(); j++) {
+
 				DistanceCalculator worker = new DistanceCalculator(fourLocation.get(i), fourLocation.get(j), API_KEY);
 				workers.add(worker);
 				executor.execute(worker);
 			}
 		}
-		
+
 		executor.shutdown();
 
 		while (!executor.isTerminated()) {
@@ -149,21 +144,17 @@ public class DistanceCalculator implements Runnable {
 		for (DistanceCalculator worker : workers) {
 			allDistances.addAll(worker.getDistances());
 		}
-		
-		
+
 		return allDistances;
-		
+
 	}
 
 	public static List<Distance> distanceCalculate(Location originLocation, List<Location> entireSelectedList) {
-		
-		
-		
+
 		int cores = Runtime.getRuntime().availableProcessors();
 		ExecutorService executor = Executors.newFixedThreadPool(cores * 2);
-		
-		String API_KEY = "AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ";
 
+		String API_KEY = "AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY";
 
 		List<Distance> allDistances = new ArrayList<>();
 		List<DistanceCalculator> workers = new ArrayList<>();
@@ -174,19 +165,16 @@ public class DistanceCalculator implements Runnable {
 			executor.execute(worker);
 		}
 
-		
 		executor.shutdown();
 
 		while (!executor.isTerminated()) {
 		}
-		
 
 		for (DistanceCalculator worker : workers) {
 			allDistances.addAll(worker.getDistances());
 		}
-		
-		System.out.println("allDistances의 크기:	"+allDistances.size());
 
+		System.out.println("allDistances의 크기:	" + allDistances.size());
 
 //      거리 오름차순으로 정렬
 		Collections.sort(allDistances, new Comparator<Distance>() {
@@ -210,8 +198,6 @@ public class DistanceCalculator implements Runnable {
 	public static List<Location> getSecondLocation(List<Location> firstLocation, List<Location> entireSelectedList) {
 //      전체 관광지 몇십개
 
-		
-		
 		entireSelectedList.removeAll(firstLocation);
 
 		Random random = new Random();
@@ -222,10 +208,9 @@ public class DistanceCalculator implements Runnable {
 		Location randomLocation = entireSelectedList.get(randomIndex);
 
 		List<Distance> resultList = distanceCalculate(randomLocation, entireSelectedList);
-		
 
-		System.out.println("두번째 resultList의 크기: "+resultList.size());
-		
+		System.out.println("두번째 resultList의 크기: " + resultList.size());
+
 //		int count = 0;
 //		for(int i=0;i<resultList.size();i++) {
 //			if(resultList.get(i).getDistance()>=100) {
@@ -233,7 +218,6 @@ public class DistanceCalculator implements Runnable {
 //			}
 //		}
 //		System.out.println("거리가 100이상인 경우의 수: "+count);
-
 
 		List<Location> secondLocation = new ArrayList<Location>();
 
@@ -271,8 +255,8 @@ public class DistanceCalculator implements Runnable {
 		Location randomLocation = entireSelectedList.get(randomIndex);
 
 		List<Distance> resultList = distanceCalculate(randomLocation, entireSelectedList);
-		System.out.println("세번째 resultList의 크기: "+resultList.size());
-		
+		System.out.println("세번째 resultList의 크기: " + resultList.size());
+
 //		int count = 0;
 //		for(int i=0;i<resultList.size();i++) {
 //			if(resultList.get(i).getDistance()>=100) {
@@ -280,7 +264,6 @@ public class DistanceCalculator implements Runnable {
 //			}
 //		}
 //		System.out.println("거리가 100이상인 경우의 수: "+count);
-
 
 		List<Location> thirdLocation = new ArrayList<Location>();
 

@@ -10,8 +10,7 @@
 <link rel="stylesheet" type="text/css" href="movie/Movie.css" />
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ"></script>
-
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY"></script>
 </head>
 
 

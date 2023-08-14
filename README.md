@@ -88,3 +88,7 @@
 ## 현재 ERD
 
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/71ce82e5-07df-423d-9f2f-30ee45f48631" width="100%"/>
+
+### 변경이유
+
+대부분의 데이터를 request와 session으로 이동시켜서 초기 구상 시 보다 간소화할 수 있었음.

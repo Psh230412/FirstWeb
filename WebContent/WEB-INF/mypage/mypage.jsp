@@ -82,8 +82,10 @@
 											<p class="detailRootAdress">${ path.locationAddress1.address }</p>
 											<form action="./hotelFood">
 												<input type="hidden" name="locationName" value="${ path.locationAddress1.address }">
-												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
-												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
+											<div class="markDiv">
+												<button type="submit" class="hotel" name="search" value="lodging"><img class="markImg" src="img/호텔.png"></button>
+												<button type="submit" class="food" name="search" value="restaurant"><img class="markImg" src="img/레스토랑.png"></button>
+											</div>
 											</form>
 										</div>
 
@@ -91,24 +93,30 @@
 											<p class="detailRootAdress">${ path.locationAddress2.address }</p>
 											<form action="./hotelFood">
 												<input type="hidden" name="locationName" value="${ path.locationAddress2.address }">
-												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
-												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
+											<div class="markDiv">
+												<button type="submit" class="hotel" name="search" value="lodging"><img class="markImg" src="img/호텔.png"></button>
+												<button type="submit" class="food" name="search" value="restaurant"><img class="markImg" src="img/레스토랑.png"></button>
+											</div>
 											</form>
 										</div>
 										<div class="searchDiv">
 											<p class="detailRootAdress">${ path.locationAddress3.address }</p>
 											<form action="./hotelFood">
 												<input type="hidden" name="locationName" value="${ path.locationAddress3.address }">
-												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
-												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
+											<div class="markDiv">
+												<button type="submit" class="hotel" name="search" value="lodging"><img class="markImg" src="img/호텔.png"></button>
+												<button type="submit" class="food" name="search" value="restaurant"><img class="markImg" src="img/레스토랑.png"></button>
+											</div>
 											</form>
 										</div>
 										<div class="searchDiv">
 											<p class="detailRootAdress">${ path.locationAddress4.address }</p>
 											<form action="./hotelFood">
 												<input type="hidden" name="locationName" value="${ path.locationAddress4.address }">
-												<button type="submit" class="hotel" name="search" value="lodging"><img src="img/호텔.png"></button>
-												<button type="submit" class="food" name="search" value="restaurant"><img src="img/레스토랑.png"></button>
+											<div class="markDiv">
+												<button type="submit" class="hotel" name="search" value="lodging"><img class="markImg" src="img/호텔.png"></button>
+												<button type="submit" class="food" name="search" value="restaurant"><img class="markImg" src="img/레스토랑.png"></button>
+											</div>
 											</form>
 										</div>
 									</div>

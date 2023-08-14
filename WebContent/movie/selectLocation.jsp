@@ -23,12 +23,13 @@
 		<div class="container">
 			<div class="overlay" data-overlay></div>
 
-			<a href="./index.html" class="logo"> </a> <img
+			<a href="./" class="logo">  <img
 				src="img/Untitled-1_0000_Group-3-copy.png" alt="Filmlane logo"
 				class="logoimg" />
+				</a>
 			<div class="header-actions">
 				<div class="user-info">
-					<a href="#" class="navbar-link"><img src="춘식19.png" alt="" /></a>
+					<a class="navbar-link"><img src="data:image/jpeg;base64,${ porfileImg }" /></a>
 					<p class="navbar-link">${ nickname }</p>
 				</div>
 				<button class="btn btn-primary">로그아웃</button>
@@ -40,7 +41,7 @@
 
 			<nav class="navbar" data-navbar>
 				<div class="navbar-top">
-					<a href="./index.html" class="logo"> </a>
+					<a href="./" class="logo"> </a>
 
 					<button class="menu-close-btn" data-menu-close-btn>
 						<ion-icon name="close-outline"></ion-icon>
@@ -48,8 +49,8 @@
 				</div>
 
 				<ul class="navbar-list">
-					<li><a href="#" class="navbar-link">영화선택</a></li>
-					<li><a href="#" class="navbar-link">경로확인</a></li>
+					<li><a href="./movie" class="navbar-link">영화선택</a></li>
+					<li><a href="./mypage" class="navbar-link">경로확인</a></li>
 				</ul>
 
 				<ul class="navbar-social-list">

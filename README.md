@@ -95,32 +95,10 @@
 
 # :family: <a name="team">팀원 역할 소개</a>
 <div><br/>
-
-
- |   Name   | 박상현 | 김명완 | 선보라 | 성지수 | 이강현 | 이정빈
+|   이름   | 박상현 | 김명완 | 선보라 | 성지수 | 이강현 | 이정빈
 | :------: | --- | --- | --- | --- | --- | ---
-| Position | 팀장 & 예약 기능 | 여행준비 기능 | 여행일지 기능 | 마일리지 기능 | Backend & UI | 무엇인가
-<h3>● 박상현</h3>
-
-##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
-
-<h3>● 김명완</h3>
-
-##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
-
-<h3>● 선보라</h3>
-
-##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
-
-<h3>● 성지수</h3>
-
-##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
-
-<h3>● 이강현</h3>
-
-##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
-
-<h3>● 이정빈</h3>
-
-##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
+| <img src="angular/angular-ja"> | | | | | 
+| :------: | --- | --- | --- | --- | --- | ---
+| 역할 | 팀장 & 예약 기능 | 여행준비 기능 | 여행일지 기능 | 마일리지 기능 | Backend & UI | 무엇인가
+	
 </div><br/>

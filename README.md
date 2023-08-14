@@ -65,7 +65,8 @@
 <h4>API</h4>
 <div align="left">
    <img src="https://img.shields.io/badge/Google%20Maps-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white" />
-   <img src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=docker&json=white" />
+   <img src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white" />
+	<img src="https://img.shields.io/badge/GEOCODING-00874D?style=for-the-badge&logo=geocaching&logoColor=white" />
 </div>
 <h4>협업도구</h4>
 <div align="left">

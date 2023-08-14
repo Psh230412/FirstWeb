@@ -62,7 +62,7 @@
 </div>
 <h4>API</h4>
 <div align="left">
-   <img src="https://img.shields.io/badge/GoogleMaps-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white" />
+   <img src="https://img.shields.io/badge/Google%20Maps-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white" />
    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
 </div>
 <h4>협업도구</h4>

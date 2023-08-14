@@ -24,6 +24,8 @@
 	- 6-1. 프로필 사진 변경
   - 6-2. 닉네임 변경
   - 6-3. 비밀번호 변경
-    
 - :bulb: <a href="#result">후기</a>
 - :mag_right: <a href="#fullfill">보완할점</a>
+
+# :books: <a name="outline">개요</a>
+<br/>

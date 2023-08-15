@@ -9,8 +9,12 @@
 <link rel="stylesheet" type="text/css" href="myPage/myPage.css" />
 <title>MyPage</title>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="jsUtil/header.js"></script>
 </head>
-
 <body>
 	<header class="header">
 		<nav class="navbar">
@@ -22,9 +26,45 @@
 					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i class='bx bxl-twitter'></i></a> <a href="#"><i class='bx bxl-youtube'></i></a> <a href="#"><i class='bx bxl-instagram'></i></a> <a href="#"><i class='bx bxl-linkedin'></i></a>
 				</div>
 			</div>
-		</nav>
-	</header>
 
+			<button class="menu-open-btn" data-menu-open-btn>
+				<ion-icon name="reorder-two"></ion-icon>
+			</button>
+
+			<nav class="navbar" data-navbar>
+				<div class="navbar-top">
+					<a href="./" class="logo"> </a>
+
+					<button class="menu-close-btn" data-menu-close-btn>
+						<ion-icon name="close-outline"></ion-icon>
+					</button>
+				</div>
+
+				<ul class="navbar-list">
+					<li><a href="./movie" class="navbar-link">영화선택</a></li>
+					<li><a href="./mypage" class="navbar-link">경로확인</a></li>
+				</ul>
+
+				<ul class="navbar-social-list">
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-twitter"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-facebook"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-pinterest"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-instagram"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-youtube"></ion-icon>
+					</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 	<main>
 		<div class="container">
 
@@ -125,12 +165,10 @@
 					</div>
 				</c:forEach>
 			</section>
-
 		</div>
 	</main>
 	<footer></footer>
 	<script src="myPage/myPage.js">
-	
 	</script>
 </body>
 </html>

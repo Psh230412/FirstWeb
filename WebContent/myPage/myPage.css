@@ -712,11 +712,6 @@ body {
 }
 
 .bxs-pencil {
-    z-index: 1000; 
-    position: relative;
-}
-
-.bxs-pencil {
     position: absolute;
     top:	22px;
     left: 800px;

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<link rel="stylesheet" type="text/css" href="myPage/myPage.css" />
+<link rel="stylesheet" type="text/css" href="mypage/mypage.css" />
 <title>MyPage</title>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -30,10 +30,10 @@
 
 			<section>
 				<div class="profile">
-					<img class="fixed-size-image" src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
+					<img class="fixed-size-image" src="data:image/jpeg;base64,${ porfileImg }" />
 					<div id="nicknameDiv">
 						<div id="nickname">
-							<p>${ loggedUserNickname }</p>
+							<p>${ nickname }</p>
 						</div>
 						<form method="post">
 							<button id="NicknameButton">
@@ -129,7 +129,7 @@
 		</div>
 	</main>
 	<footer></footer>
-	<script src="myPage/myPage.js">
+	<script src="mypage/mypage.js">
 	
 	</script>
 </body>

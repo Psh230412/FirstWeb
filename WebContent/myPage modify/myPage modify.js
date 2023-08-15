@@ -61,3 +61,6 @@ document.getElementById('fileInput').addEventListener('change', function() {
     }
 });
 
+function redirectToLogout() {
+        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+    }

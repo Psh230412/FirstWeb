@@ -101,3 +101,7 @@ function showGroup(groupNumber) {
 window.addEventListener('DOMContentLoaded', () => {
     indexsec1.classList.add('active');
 });
+
+function redirectToLogout() {
+        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+    }

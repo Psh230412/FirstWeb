@@ -32,8 +32,10 @@ public class MyPageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	String inputType = req.getParameter("input_type");
+	System.out.println(inputType);
 	if (inputType != null && inputType.equals("cancel")) {
 	    String pathNo = req.getParameter("pathPk");
+	    System.out.println("여기까지 오니?");
 	    if (pathNo != null) {
 		dao.deletePath(pathNo);
 		resp.sendRedirect("/ScreenSceneP/mypage");

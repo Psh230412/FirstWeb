@@ -1,3 +1,8 @@
+"use strict";
+/**
+body js
+ */
+
 document.querySelectorAll('.bxs-pencil').forEach(function(button) {
 	button.addEventListener('click', function(event) {
 		event.preventDefault();
@@ -22,6 +27,11 @@ document.querySelectorAll('.button-x-image').forEach(function(button) {
 		event.preventDefault();
 
 		localStorage.setItem('scrollPosition', window.scrollY);
+		
+		const form = button.closest('form');
+        if (form) {
+            form.submit();
+        }
 	})
 });
 
@@ -32,10 +42,6 @@ window.addEventListener('load', function() {
 	if (savedScrollPosition) {
 		window.scrollTo(0, parseInt(savedScrollPosition, 10));
 	}
-});
-
-window.addEventListener('beforeunload', function() {
-	localStorage.removeItem('scrollPosition');
 });
 
 document.querySelectorAll('button:not(.bxs-pencil):not(.button-x-image)').forEach(function(button) {

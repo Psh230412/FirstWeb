@@ -219,3 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadMoreMovies();
   updateConfirmButtonState();
 });
+
+function redirectToLogout() {
+        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+    }

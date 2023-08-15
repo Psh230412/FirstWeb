@@ -142,3 +142,7 @@ toggleMapBtn.addEventListener('click', function() {
         toggleMapBtn.textContent = "Expand Map";
     }
 });
+
+function redirectToLogout() {
+        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+    }

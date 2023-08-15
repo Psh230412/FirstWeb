@@ -138,7 +138,7 @@
 					<img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
 					<p class="navbar-link">${ loggedUserNickname }</p>
 				</div>
-				<button class="btn btn-primary">로그아웃</button>
+				<button class="btn btn-primary" onclick="redirectToLogout()">로그아웃</button>
 			</div>
 
 			<button class="menu-open-btn" data-menu-open-btn>

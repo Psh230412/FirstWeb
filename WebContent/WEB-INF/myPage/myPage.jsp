@@ -17,7 +17,7 @@
 			<div class="navbar-item">
 				<img src="/login/Untitled-1_0000_Group-3-copy.png" class="logo" alt=""> <a href="#" class="navbar-menu"><span>영화선택</span></a> <a href="#" class="navbar-menu"><span>경로보기</span></a>
 
-				<button class="btn btn-primary">로그아웃</button>
+				<button class="btn btn-primary" onclick="redirectToLogout()">로그아웃</button>
 				<div class="social-icon">
 					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i class='bx bxl-twitter'></i></a> <a href="#"><i class='bx bxl-youtube'></i></a> <a href="#"><i class='bx bxl-instagram'></i></a> <a href="#"><i class='bx bxl-linkedin'></i></a>
 				</div>

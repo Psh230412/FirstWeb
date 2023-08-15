@@ -49,3 +49,7 @@ document.querySelectorAll('button:not(.bxs-pencil):not(.button-x-image)').forEac
 		localStorage.removeItem('scrollPosition');
 	});
 });
+
+function redirectToLogout() {
+        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+    }

@@ -129,33 +129,33 @@ pageEncoding="UTF-8" %>
 
               <div class="input-box">
                 <span class="icon"><i class="bx bxs-envelope"></i></span>
-								<div class="join-input-box">
-                <input
-                  type="text"
-                  id="joinId"
-                  name="joinId"
-                  value="${ inputId }"
-                  required
-                />
-                <label for="">Id</label>
-                <p class="joinError" id="joinIdError">${ joinIdError }</p>
-								</div>
+                <div class="join-input-box">
+                  <input
+                    type="text"
+                    id="joinId"
+                    name="joinId"
+                    value="${ inputId }"
+                    required
+                  />
+                  <label for="">Id</label>
+                  <p class="joinError" id="joinIdError">${ joinIdError }</p>
+                </div>
               </div>
               <div class="input-box">
                 <span class="icon"><i class="bx bxs-lock-alt"></i></span>
-								<div class="join-input-box">
-                <input
-                  type="password"
-                  id="joinPassword"
-                  name="joinPassword"
-                  value="${ joinPassword }"
-                  required
-                />
-                <label for="">password</label>
-                <p class="joinError" id="joinPasswordError">
-                  ${ joinPasswordError }
-                </p>
-							</div>
+                <div class="join-input-box">
+                  <input
+                    type="password"
+                    id="joinPassword"
+                    name="joinPassword"
+                    value="${ joinPassword }"
+                    required
+                  />
+                  <label for="">password</label>
+                  <p class="joinError" id="joinPasswordError">
+                    ${ joinPasswordError }
+                  </p>
+                </div>
               </div>
               <div class="input-box">
                 <span class="icon"

@@ -7,7 +7,7 @@
 <%@page import="object.SelectPath"%>
 
 <!DOCTYPE html>
-
+<html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -126,30 +126,56 @@
 
 	</script>
 </head>
-
-<body background="img/대지1 1.png" style="overflow-x: hidden">
-	<header class="header">
-		<nav class="navbar">
-			<div class="navbar-item">
-				<img src="img/Untitled-1_0000_Group-3-copy.png" class="logo" alt=""> <a href="http://localhost:8080/ScreenSceneP/movie" class="navbar-menu"><span>영화선택</span></a> <a href="http://localhost:8080/ScreenSceneP/mypage" class="navbar-menu"><span>경로보기</span></a>
-
-				                <div id="profileImgDiv">
-				                <img src="data:image/jpeg;base64,${ loggedUserProfileImg }" alt="대체이미지" />
-				                </div>
-				                <div id="nickname">
-									<p>${ loggedUserNickname }</p>
-								</div>
-
-				<form action="logout" method="get">
-					<button class="btn btn-primary">로그아웃</button>
-				</form>
-				<div class="social-icon">
-
-
-					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i class='bx bxl-twitter'></i></a> <a href="#"><i class='bx bxl-youtube'></i></a> <a href="#"><i class='bx bxl-instagram'></i></a> <a href="#"><i class='bx bxl-linkedin'></i></a>
+	<body>
+	<header class="header" data-header>
+		<div class="container">
+			<div class="overlay" data-overlay></div>
+			<a href="./" class="logo">  <img src="img/Untitled-1_0000_Group-3-copy.png" class="logoimg" /></a>
+			<div class="header-actions">
+				<div class="user-info">
+					<img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
+					<p class="navbar-link">${ loggedUserNickname }</p>
 				</div>
+				<button class="btn btn-primary">로그아웃</button>
 			</div>
-		</nav>
+
+			<button class="menu-open-btn" data-menu-open-btn>
+				<ion-icon name="reorder-two"></ion-icon>
+			</button>
+
+			<nav class="navbar" data-navbar>
+				<div class="navbar-top">
+					<a href="./" class="logo"> </a>
+
+					<button class="menu-close-btn" data-menu-close-btn>
+						<ion-icon name="close-outline"></ion-icon>
+					</button>
+				</div>
+
+				<ul class="navbar-list">
+					<li><a href="./movie" class="navbar-link">영화선택</a></li>
+					<li><a href="./mypage" class="navbar-link">경로확인</a></li>
+				</ul>
+
+				<ul class="navbar-social-list">
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-twitter"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-facebook"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-pinterest"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-instagram"></ion-icon>
+					</a></li>
+					<li><a href="#" class="navbar-social-link"> <ion-icon
+								name="logo-youtube"></ion-icon>
+					</a></li>
+				</ul>
+			</nav>
+		</div>
 	</header>
 	<div class="background">
 		<div class="container">
@@ -547,6 +573,7 @@
 			</div>
 
 			<div class="guide-text">
+				<button class="btn btn-primary" id="select-path">경로 선택</button>
 				<h1>추천 받은 경로가 마음에 들지 않으세요?</h1>
 				<p>재 테스트를 통해, 새로 경로를 추천 받을 수 있습니다.</p>
 				<p>원하는 항목을 선택후 새로운 경로를 추천받으세요.</p>
@@ -557,21 +584,102 @@
 				<form method="get" action="/ScreenSceneP/movie">
 					<button class="btn btn-primary" id="reselect-movie">영화다시선택하기</button>
 				</form>
-				<button class="btn btn-primary" id="select-path">경로 선택</button>
 			</div>
 
 		</div>
 	</div>
-	<div class="footer">
-		<p>푸터내용~</p>
+	    <!-- 
+        - #CTA
+      -->
 
-	</div>
-	<form>
-		<button id="topbutton" type="button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">▲</button>
-	</form>
+        <section class="cta">
+          <div class="cta-container"></div>
+        </section>
+      </article>
+    </main>
+
+    <!-- 
+    - #FOOTER
+  -->
+
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-container">
+          <div class="footer-brand-wrapper">
+            <a href="./index.html" class="logo">
+              <img src="img/Untitled-1_0000_Group-3-copy.png" alt="Filmlane logo" />
+            </a>
+
+            <ul class="footer-list">
+ 					<li><a href="#" class="navbar-link">영화선택</a></li>
+					<li><a href="#" class="navbar-link">경로확인</a></li>
+            </ul>
+          </div>
+
+          <div class="divider"></div>
+
+         
+
+            <ul class="social-list">
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="logo-pinterest"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="copyright">
+            &copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
+          </p>
+
+          <img
+            src="./assets/images/footer-bottom-img.png"
+            alt="Online banking companies logo"
+            class="footer-bottom-img"
+          />
+        </div>
+      </div>
+    </footer>
+      <!-- 
+    - #GO TO TOP
+  -->
+
+    <a href="#top" class="go-top" data-go-top>
+      <ion-icon name="chevron-up"></ion-icon>
+    </a>
+
+    <!-- 
+    - custom js link
+  -->
+    <script src="selectPath/selectPath.js"></script>
+    <!-- 
+    - ionicon link
+  -->
+    
 </body>
 
-<script src="selectPath/selectPath.js"></script>
 <script>
 function captureMap(mapElementId) {
     return new Promise((resolve, reject) => {
@@ -658,7 +766,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .catch(error => console.error('An error occurred:', error));
     });
 });
-
 </script>
-
 </html>

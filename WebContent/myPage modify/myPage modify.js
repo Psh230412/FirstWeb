@@ -64,3 +64,28 @@ document.getElementById('fileInput').addEventListener('change', function() {
 function redirectToLogout() {
         window.location.href = "http://localhost:8080/ScreenSceneP/logout";
     }
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    const errorData = document.getElementById('errorData');
+    
+    let errorMessage = '';
+    if (errorData.getAttribute('data-has-change-nickname-error') === 'true') {
+        errorMessage += '동일한 이름의 닉네임이 존재합니다.\n';
+    }
+    if (errorData.getAttribute('data-has-fail-check-password') === 'true') {
+        errorMessage += '비밀번호를 잘못 입력하셨습니다.\n';
+    }
+    if (errorData.getAttribute('data-has-fail-check-password-change') === 'true') {
+        errorMessage += '비밀번호를 잘못 입력하셨습니다.\n';
+    }
+    if (errorData.getAttribute('data-has-password-input-error') === 'true') {
+        errorMessage += '변경할 비밀번호를 서로 다르게 입력하셨습니다.\n';
+    }
+
+    // 에러 메시지가 있으면 알림창을 표시합니다.
+    if (errorMessage) {
+        alert(errorMessage);
+    }
+});
+    

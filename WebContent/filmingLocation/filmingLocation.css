@@ -253,6 +253,20 @@ body.active {
   color: var(--vlet);
 }
 
+.fixed-size-navi-image {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    color: black;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
 /**
  * BUTTONS
  */

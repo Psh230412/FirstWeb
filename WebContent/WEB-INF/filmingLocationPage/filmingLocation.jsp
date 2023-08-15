@@ -33,7 +33,7 @@ prefix="c"%>
         <div class="header-actions">
           <div class="user-info">
             <p class="navbar-link">
-              <img src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
+              <img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
             </p>
             <p class="navbar-link">${ loggedUserNickname }</p>
           </div>

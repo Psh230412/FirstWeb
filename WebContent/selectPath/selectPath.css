@@ -831,7 +831,7 @@ background-color: hsla(204, 18%, 11%, 0.8);
 
 .guide-text {
     position: absolute;
-    top: 6300px;
+    top: 6600px;
     left: 50%;
     transform: translate(-50%, 0%);
 
@@ -845,10 +845,13 @@ background-color: hsla(204, 18%, 11%, 0.8);
 }
 
 .guide-text #select-path{
-	    position: relative;
+	position: relative;
     align-items: center;
     left: 110%;
-margin-bottom: 300px;
+    top: 100%;
+    
+    margin-top: 200px;
+	margin-bottom: 50px;
 }
 
 #reselect-location {

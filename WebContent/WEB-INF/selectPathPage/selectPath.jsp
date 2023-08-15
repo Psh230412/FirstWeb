@@ -16,7 +16,9 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY&callback=initMap" async defer></script>
-
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="jsUtil.header.js"></script>
 
 <script>
 	
@@ -626,6 +628,8 @@
                   <ion-icon name="logo-facebook"></ion-icon>
                 </a>
               </li>
+              
+              
 
               <li>
                 <a href="#" class="social-link">

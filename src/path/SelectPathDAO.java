@@ -56,22 +56,22 @@ public class SelectPathDAO {
 		try {
 			conn = DBUtil.getConnection();
 
-				List<ViewLocation> viewLocList = new ArrayList<>();
-				int userno = path.getUserno();
-				List<Location> locationList = candidatePathLocation(conn, path);
+			List<ViewLocation> viewLocList = new ArrayList<>();
+			int userno = path.getUserno();
+			List<Location> locationList = candidatePathLocation(conn, path);
 
-				for (int j = 0; j < locationList.size(); j++) {
-					Location location = locationList.get(j);
-					
-					int locationNo = location.getLocation_no();
-					String locationName = location.getAddress();
-					String locationImgStr = encodeBlobToStr(location.getImage());
-					String posterImgStr = candidateMoviePoster(conn, location.getMovie_no());
-					
-					ViewLocation viewLoc1 = new ViewLocation(locationNo, locationName, locationImgStr, posterImgStr);
-					viewLocList.add(viewLoc1);
-				}
-				return new ViewPath(num, userno, viewLocList);
+			for (int j = 0; j < locationList.size(); j++) {
+				Location location = locationList.get(j);
+
+				int locationNo = location.getLocation_no();
+				String locationName = location.getAddress();
+				String locationImgStr = encodeBlobToStr(location.getImage());
+				String posterImgStr = candidateMoviePoster(conn, location.getMovie_no());
+
+				ViewLocation viewLoc1 = new ViewLocation(locationNo, locationName, locationImgStr, posterImgStr);
+				viewLocList.add(viewLoc1);
+			}
+			return new ViewPath(num, userno, viewLocList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -88,25 +88,27 @@ public class SelectPathDAO {
 		int location2 = path.getLocation2();
 		int location3 = path.getLocation3();
 		int location4 = path.getLocation4();
+
+		int[] locations = { location1, location2, location3, location4 };
+
 		List<Location> list = new ArrayList<>();
 
 		try {
-			String sql = "SELECT * FROM Location WHERE location_no IN (?, ?, ?, ?)";
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, location1);
-			stmt.setInt(2, location2);
-			stmt.setInt(3, location3);
-			stmt.setInt(4, location4);
-			rs = stmt.executeQuery();
+			for (int i = 0; i < locations.length; i++) {
+				String sql = "SELECT * FROM Location WHERE location_no = ?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, locations[i]);
+				rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				int location_no = rs.getInt("location_no");
-				int movie_no = rs.getInt("movie_no");
-				String address = rs.getString("address");
-				double latitude = rs.getDouble("latitude");
-				double longitude = rs.getDouble("longitude");
-				Blob image = rs.getBlob("image");
-				list.add(new Location(location_no, movie_no, address, latitude, longitude, image));
+				while (rs.next()) {
+					int location_no = rs.getInt("location_no");
+					int movie_no = rs.getInt("movie_no");
+					String address = rs.getString("address");
+					double latitude = rs.getDouble("latitude");
+					double longitude = rs.getDouble("longitude");
+					Blob image = rs.getBlob("image");
+					list.add(new Location(location_no, movie_no, address, latitude, longitude, image));
+				}
 			}
 			return list;
 		} finally {
@@ -170,7 +172,7 @@ public class SelectPathDAO {
 			DBUtil.close(stmt);
 		}
 	}
-	
+
 	// false면 중복이므로 생성금지, true면 생성가능
 	public boolean searchDuplPath(Connection conn, SelectPath path) throws SQLException {
 		int userno = path.getUserno();
@@ -178,7 +180,7 @@ public class SelectPathDAO {
 		int location2 = path.getLocation2();
 		int location3 = path.getLocation3();
 		int location4 = path.getLocation4();
-		
+
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {

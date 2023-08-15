@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css"
-	href="mypage modify/mypage modify.css" />
+	href="myPage modify/myPage modify.css" />
 <title>MyPage</title>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
 	rel='stylesheet'>
@@ -96,6 +96,6 @@
 		</div>
 	</main>
 	<footer></footer>
-	<script src="mypage modify/mypage modify.js"></script>
+	<script src="myPage modify/myPage modify.js"></script>
 </body>
 </html>

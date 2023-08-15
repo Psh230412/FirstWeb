@@ -92,14 +92,6 @@ public class MovieInformationServlet extends HttpServlet {
 	    HttpSession session = req.getSession();
 	    movieNumbersJson = (String) session.getAttribute("movieNumbers");
 	}
-
-	HttpSession session = req.getSession();
-	String nickname = (String) session.getAttribute("loggedUserNickname");
-	String profileImg = (String) session.getAttribute("loggedUserProfileImg");
-
-	req.setAttribute("nickname", nickname);
-	req.setAttribute("porfileImg", profileImg);
-
 	ObjectMapper mapper = new ObjectMapper();
 
 	try {

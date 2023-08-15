@@ -133,12 +133,12 @@
 			<div class="navbar-item">
 				<img src="img/Untitled-1_0000_Group-3-copy.png" class="logo" alt=""> <a href="http://localhost:8080/ScreenSceneP/movie" class="navbar-menu"><span>영화선택</span></a> <a href="http://localhost:8080/ScreenSceneP/mypage" class="navbar-menu"><span>경로보기</span></a>
 
-				<!--                 <div id="profileImgDiv"> -->
-				<%--                 <img src="data:image/jpeg;base64,${ porfileImg }" alt="대체이미지" /> --%>
-				<!--                 </div> -->
-				<!--                 <div id="nickname"> -->
-				<%-- 					<p>${ nickname }</p> --%>
-				<!-- 				</div> -->
+				                <div id="profileImgDiv">
+				                <img src="data:image/jpeg;base64,${ loggedUserProfileImg }" alt="대체이미지" />
+				                </div>
+				                <div id="nickname">
+									<p>${ loggedUserNickname }</p>
+								</div>
 
 				<form action="logout" method="get">
 					<button class="btn btn-primary">로그아웃</button>

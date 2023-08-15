@@ -28,8 +28,8 @@
 				class="logoimg" />
 			<div class="header-actions">
 				<div class="user-info">
-					<a href="#" class="navbar-link"><img src="춘식19.png" alt="" /></a>
-					<p class="navbar-link">${ nickname }</p>
+					<a href="#" class="navbar-link"><img src="data:image/jpeg;base64,${ loggedUserProfileImg }" /></a>
+					<p class="navbar-link">${ loggedUserNickname }</p>
 				</div>
 				<button class="btn btn-primary">로그아웃</button>
 			</div>

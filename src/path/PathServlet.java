@@ -34,13 +34,6 @@ public class PathServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	Connection conn = null;
 
-	HttpSession session = req.getSession();
-	String nickname = (String) session.getAttribute("loggedUserNickname");
-	String profileImg = (String) session.getAttribute("loggedUserProfileImg");
-
-	req.setAttribute("nickname", nickname);
-	req.setAttribute("profileImg", profileImg);
-
 	int[] selectedNos = new int[4];
 
 	String selectedLocationNos = req.getParameter("selectedLocationNos");
@@ -153,7 +146,8 @@ public class PathServlet extends HttpServlet {
 	    req.setAttribute("firstlatAndLngs", firstlatAndLngs);
 	    req.setAttribute("secondlatAndLngs", secondlatAndLngs);
 	    req.setAttribute("thirdlatAndLngs", thirdlatAndLngs);
-
+	    
+	    HttpSession session = req.getSession();
 	    int userno = (int) session.getAttribute("loggedUserNo");
 
 	    SelectPath path1 = new SelectPath(userno, firstLocationList.get(0).getLocation_no(),

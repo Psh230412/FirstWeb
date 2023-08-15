@@ -31,10 +31,10 @@
 
 			<section>
 				<div class="profile">
-					<img class="fixed-size-image" src="data:image/jpeg;base64,${ porfileImg }" />
+					<img class="fixed-size-image" src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
 					<div id="nicknameDiv">
 						<div id="nickname">
-							<p>${ nickname }</p>
+							<p>${ loggedUserNickname }</p>
 						</div>
 						<form method="post">
 							<button id="NicknameButton">

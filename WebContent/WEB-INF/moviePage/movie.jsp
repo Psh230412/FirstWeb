@@ -44,8 +44,8 @@
 				</a>
 			<div class="header-actions">
 				<div class="user-info">
-					<img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ porfileImg }" />
-					<p class="navbar-link">${ nickname }</p>
+					<img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
+					<p class="navbar-link">${ loggedUserNickname }</p>
 				</div>
 				<button class="btn btn-primary">로그아웃</button>
 			</div>

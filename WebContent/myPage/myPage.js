@@ -1,8 +1,6 @@
-/**
-body js
- */
-
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // .bxs-pencil 버튼에 대한 이벤트 리스너 추가
     document.querySelectorAll('.bxs-pencil').forEach(function(button) {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -23,37 +21,39 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // .button-x-image 버튼에 대한 이벤트 리스너 추가
+    document.querySelectorAll('.button-x-image').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            localStorage.setItem('scrollPosition', window.scrollY);
+            
+            const form = button.closest('form');
+            if (form) {
+                form.submit();
+            }
+        });
+    });
+
+    // 다른 버튼들에 대한 이벤트 리스너 추가
+    document.querySelectorAll('button:not(.bxs-pencil):not(.button-x-image)').forEach(function(button) {
+        button.addEventListener('click', function() {
+            localStorage.removeItem('scrollPosition');
+        });
+    });
+
 });
 
-
-document.querySelectorAll('.button-x-image').forEach(function(button) {
-	button.addEventListener('click', function(event) {
-		event.preventDefault();
-
-		localStorage.setItem('scrollPosition', window.scrollY);
-		
-		const form = button.closest('form');
-        if (form) {
-            form.submit();
-        }
-	})
-});
-
-
+// 페이지의 모든 리소스가 로드된 후에 실행됩니다.
 window.addEventListener('load', function() {
-	const savedScrollPosition = localStorage.getItem('scrollPosition');
+    const savedScrollPosition = localStorage.getItem('scrollPosition');
 
-	if (savedScrollPosition) {
-		window.scrollTo(0, parseInt(savedScrollPosition, 10));
-	}
-});
-
-document.querySelectorAll('button:not(.bxs-pencil):not(.button-x-image)').forEach(function(button) {
-	button.addEventListener('click', function() {
-		localStorage.removeItem('scrollPosition');
-	});
+    if (savedScrollPosition) {
+        window.scrollTo(0, parseInt(savedScrollPosition, 10));
+    }
 });
 
 function redirectToLogout() {
-        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
-    }
+    window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+}

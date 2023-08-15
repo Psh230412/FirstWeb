@@ -27,6 +27,14 @@ public class PathServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    String selectedLocationNos = req.getParameter("selectedLocationNos");
+    String[] movieNumber = req.getParameterValues("movieNumber");
+    
+    if (selectedLocationNos == null || movieNumber == null) {
+    	resp.sendRedirect("http://localhost:8080/ScreenSceneP/movie");
+    	return;
+    }
+    
 	doPost(req, resp);
     }
 

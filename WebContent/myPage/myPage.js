@@ -17,7 +17,7 @@ document.querySelectorAll('.bxs-pencil').forEach(function(button) {
 	});
 });
 
-document.querySelectorAll('.bxs-pencil').forEach(function(button) {
+document.querySelectorAll('.button-x-image').forEach(function(button) {
 	button.addEventListener('click', function(event) {
 		event.preventDefault();
 
@@ -34,14 +34,12 @@ window.addEventListener('load', function() {
 	}
 });
 
+window.addEventListener('beforeunload', function() {
+	localStorage.removeItem('scrollPosition');
+});
 
-document.querySelectorAll('.rootImg').forEach(function(button) {
-    button.addEventListener("click", function() {
-        console.log(1);
-		
-		
-
-
-
-    });
+document.querySelectorAll('button:not(.bxs-pencil):not(.button-x-image)').forEach(function(button) {
+	button.addEventListener('click', function() {
+		localStorage.removeItem('scrollPosition');
+	});
 });

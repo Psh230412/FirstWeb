@@ -1,70 +1,30 @@
-"use strict";
-
-/**
- * navbar variables
- */
-
-const navOpenBtn = document.querySelector("[data-menu-open-btn]");
-const navCloseBtn = document.querySelector("[data-menu-close-btn]");
-const navbar = document.querySelector("[data-navbar]");
-const overlay = document.querySelector("[data-overlay]");
-
-const navElemArr = [navOpenBtn, navCloseBtn, overlay];
-
-for (let i = 0; i < navElemArr.length; i++) {
-  navElemArr[i].addEventListener("click", function () {
-    navbar.classList.toggle("active");
-    overlay.classList.toggle("active");
-    document.body.classList.toggle("active");
-  });
-}
-
-/**
- * header sticky
- */
-
-const header = document.querySelector("[data-header]");
-
-window.addEventListener("scroll", function () {
-  window.scrollY >= 10
-    ? header.classList.add("active")
-    : header.classList.remove("active");
-});
-
-/**
- * go top
- */
-
-const goTopBtn = document.querySelector("[data-go-top]");
-
-window.addEventListener("scroll", function () {
-  window.scrollY >= 500
-    ? goTopBtn.classList.add("active")
-    : goTopBtn.classList.remove("active");
-});
-
 /**
 body js
  */
 
-document.querySelectorAll('.bxs-pencil').forEach(function(button) {
-	button.addEventListener('click', function(event) {
-		event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.bxs-pencil').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
 
-		localStorage.setItem('scrollPosition', window.scrollY);
+            localStorage.setItem('scrollPosition', window.scrollY);
 
-		const pathNo = event.currentTarget.getAttribute('data-pathno');
-		const pathInput = document.getElementById('pathNameInput' + pathNo);
+            const pathNo = event.currentTarget.getAttribute('data-pathno');
+            const pathInput = document.getElementById('pathNameInput' + pathNo);
 
-		if (pathInput.style.display === 'inline-block') {
-			document.getElementById('pathForm' + pathNo).submit();
-		} else {
-			document.getElementById('pathText' + pathNo).style.display = 'none';
-			pathInput.style.display = 'inline-block';
-			pathInput.focus();
-		}
-	});
+            if (pathInput.style.display === 'inline-block') {
+                document.getElementById('pathForm' + pathNo).submit();
+            } else {
+                // 만약 'pathText' 요소가 존재하지 않는다면, 아래 줄은 오류를 발생시킬 것입니다.
+                // 이 부분의 존재 여부를 확인하거나, try-catch로 오류 처리를 추가할 수 있습니다.
+                document.getElementById('pathText' + pathNo).style.display = 'none';
+                pathInput.style.display = 'inline-block';
+                pathInput.focus();
+            }
+        });
+    });
 });
+
 
 document.querySelectorAll('.button-x-image').forEach(function(button) {
 	button.addEventListener('click', function(event) {

@@ -6,24 +6,7 @@
 - :wrench: <a href="#tech">기술 스택</a>
 - :scroll: <a href="#erd">ERD(Entity-Relation Diagram)</a>
 - :family: <a href="#team">팀원 역할 소개</a>
-- :bookmark_tabs: <a href="#function">기능 소개</a>
-  - <a href="#fun0">홈화면
-  - <a href="#fun1">1.&nbsp;로그인</a>
-  	- 1-1. 회원가입
-  - <a href="#fun2">2.&nbsp;영화 선택</a>
-   	- 2-1. 영화 선택
-  - <a href="#fun3">3.&nbsp;영화 촬영지 선택</a>
-   	- 3-1. 영화 촬영지 선택
-  - <a href="#fun4">4.&nbsp;경로 선택</a>
-  	- 4-1. 경로선택
-  - <a href="#fun5">5.&nbsp;마이페이지</a>
-	- 5-1. 경로 확인
-  - 5-2. 촬영지 주변 호텔 & 레스토랑 확인
-  - 5-3. 경로 삭제
-  - <a href="#fun6">6.&nbsp;내 정보 변경</a>
-	- 6-1. 프로필 사진 변경
-  - 6-2. 닉네임 변경
-  - 6-3. 비밀번호 변경
+- :bookmark_tabs: <a href="#function">상세 기능</a>
 - :bulb: <a href="#result">후기</a>
 - :mag_right: <a href="#fullfill">보완할점</a>
 
@@ -101,4 +84,4 @@
 | 역할 | 팀장 </br> 지도제작 </br> 기획 </br> 영화선택 | 경로 계산 알고리즘 </br> 크롤링 | HTML / CSS 레이아웃 총괄 | 경로선택 </br> 마이페이지 경로 | 촬영지선택 </br> 호텔 / 식당 지도 | 회원가입 </br> 마이페이지 |
 
 
-# [프로그램 시현](https://github.com/Psh230412/FirstWeb/blob/master/Presentation.md)
+# [상세기능](https://github.com/Psh230412/FirstWeb/blob/master/Presentation.md)

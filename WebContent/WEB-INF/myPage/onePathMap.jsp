@@ -14,7 +14,6 @@
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY&callback=initMap"></script>
 	
 <body>
-	<p>나와주세요 ㅠㅠ</p>
 	<div class="slidermap">
 		<div id="map1" style="height: 840px; width: 1200px"></div>
 	</div>

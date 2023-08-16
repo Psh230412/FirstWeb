@@ -18,13 +18,18 @@
 
 ### <a name="fun0">홈화면</a>
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/f0a97129-5c69-4ec9-a30e-b1866a206be1"/>
+
 ### <a name="fun1">영화 선택</a>
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/9f481ede-149b-4efd-b42a-5c9fe247c2e0"/>
+
 ### <a name="fun2">영화 촬영지 선택</a>
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/b95ef4d0-7c32-4544-b469-23178b566645"/>
+
 ### <a name="fun3">경로 선택</a>
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/29bc6027-427d-42af-8a49-2740f8a64192"/>
+
 ### <a name="fun4">마이페이지</a>
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/ec9e5b4f-c514-4406-826c-a0853ca015ef"/>
+
 ### <a name="fun5">내 정보 변경</a>
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/f0a97129-5c69-4ec9-a30e-b1866a206be1"/>

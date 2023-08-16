@@ -4,13 +4,13 @@
 <html>
 <head>
     <title>Hotel Map</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA&libraries=places"></script>
 </head>
 <body>
     <div id="map" style="height: 500px;"></div>
 
     <script>
-        const apiKey = 'AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY';
+        const apiKey = 'AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA';
         const latitude = <%= request.getAttribute("latitude") %>; // 경도 값으로 대체
         const longitude = <%= request.getAttribute("longitude") %>; // 위도 값으로 대체
         const center = { lat: latitude, lng: longitude };

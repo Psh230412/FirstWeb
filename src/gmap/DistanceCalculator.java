@@ -127,7 +127,7 @@ public class DistanceCalculator implements Runnable {
 		int cores = Runtime.getRuntime().availableProcessors();
 		ExecutorService executor = Executors.newFixedThreadPool(cores * 2);
 
-		String API_KEY = "AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY";
+		String API_KEY = "AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA";
 
 		List<Distance> allDistances = new ArrayList<>();
 		List<DistanceCalculator> workers = new ArrayList<>();

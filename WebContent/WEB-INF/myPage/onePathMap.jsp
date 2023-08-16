@@ -11,7 +11,7 @@
 <script
 	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY&callback=initMap"></script>
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA&callback=initMap"></script>
 	
 <body>
 	<div class="slidermap">
@@ -55,6 +55,6 @@
             addPathToMap(firstLocationList, map1);
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA&callback=initMap"></script>
 </body>
 </html>

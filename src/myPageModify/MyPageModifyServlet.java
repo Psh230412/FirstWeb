@@ -1,9 +1,7 @@
 package myPageModify;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
 
@@ -99,34 +97,36 @@ public class MyPageModifyServlet extends HttpServlet {
 
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 		if (isMultipart) {
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload(factory);
+			if (isMultipart) {
+			    DiskFileItemFactory factory = new DiskFileItemFactory();
+			    ServletFileUpload upload = new ServletFileUpload(factory);
 
-			try {
-				List<FileItem> items;
-				items = upload.parseRequest(req);
-				for (FileItem item : items) {
-					if (!item.isFormField()) {
-						// 파일 처리
-						InputStream fileContent = item.getInputStream();
-						dao.uploadImg(id, fileContent);
+			    try {
+			        List<FileItem> items = upload.parseRequest(req);
 
-						// InputStream을 바이트 배열로 변환
-						byte[] imageData = IOUtils.toByteArray(fileContent);
+			        for (FileItem item : items) {
+			            if (!item.isFormField()) {
+			                // InputStream을 바이트 배열로 바로 변환
+			                byte[] imageData = IOUtils.toByteArray(item.getInputStream());
 
-						// 바이트 배열을 Base64로 인코딩
-						String encodedImage = Base64.getEncoder().encodeToString(imageData);
+			                // 바이트 배열을 DAO에 저장
+			                dao.uploadImg(id, new ByteArrayInputStream(imageData));
 
-						// 세션에 Data URI 저장
-						session.setAttribute("loggedUserProfileImg", encodedImage);
-					}
-				}
-				resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-			} catch (FileUploadException e) {
-				e.printStackTrace();
-			} finally {
+			                // 바이트 배열을 Base64로 인코딩
+			                String encodedImage = Base64.getEncoder().encodeToString(imageData);
+
+			                // 세션에 Data URI 저장
+			                session.setAttribute("loggedUserProfileImg", encodedImage);
+			            }
+			        }
+			        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			    } catch (FileUploadException e) {
+			        e.printStackTrace();
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    }
 			}
+			req.getRequestDispatcher("/WEB-INF/myPageModify/myPageModify.jsp").forward(req, resp);
 		}
-		req.getRequestDispatcher("/WEB-INF/myPageModify/myPageModify.jsp").forward(req, resp);
 	}
 }

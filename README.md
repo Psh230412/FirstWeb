@@ -85,3 +85,7 @@
 
 # :scroll: <a name="function">기능</a>
 [상세보기](https://github.com/Psh230412/FirstWeb/blob/master/Presentation.md)
+
+# :bulb: <a name="#result">후기</a>
+
+# :mag_right: <a name="#fullfill">보완할점</a>

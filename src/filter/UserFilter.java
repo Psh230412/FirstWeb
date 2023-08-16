@@ -20,8 +20,7 @@ public class UserFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		if (req.getParameter("id") != null || req.getParameter("changeNickname") != null
-				|| req.getParameter("passwordNow") != null || req.getParameter("uploaded_file") != null) {
+		if (req.getParameter("id") != null) {
 			chain.doFilter(request, response);
 			return;
 		}

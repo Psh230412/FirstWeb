@@ -20,6 +20,11 @@ public class UserFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
+		if (req.getParameter("id") != null) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
 		if ("POST".equalsIgnoreCase(req.getMethod())) {
 
 			String joinId = request.getParameter("joinId");

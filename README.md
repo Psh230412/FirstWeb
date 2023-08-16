@@ -6,7 +6,7 @@
 - :wrench: <a href="#tech">기술 스택</a>
 - :scroll: <a href="#erd">ERD(Entity-Relation Diagram)</a>
 - :family: <a href="#team">팀원 역할 소개</a>
-- :bookmark_tabs: <a href="#function">상세 기능</a>
+- :bookmark_tabs: <a href="#function">기능</a>
 - :bulb: <a href="#result">후기</a>
 - :mag_right: <a href="#fullfill">보완할점</a>
 
@@ -83,5 +83,5 @@
 | :---: | :----------: | :----------: | :----------: | :----------: | :----------: | :----------: |
 | 역할 | 팀장 </br> 지도제작 </br> 기획 </br> 영화선택 | 경로 계산 알고리즘 </br> 크롤링 | HTML / CSS 레이아웃 총괄 | 경로선택 </br> 마이페이지 경로 | 촬영지선택 </br> 호텔 / 식당 지도 | 회원가입 </br> 마이페이지 |
 
-# :scroll: <a name="function">상세기능</a>
-[이동하기](https://github.com/Psh230412/FirstWeb/blob/master/Presentation.md)
+# :scroll: <a name="function">기능</a>
+[상세보기](https://github.com/Psh230412/FirstWeb/blob/master/Presentation.md)

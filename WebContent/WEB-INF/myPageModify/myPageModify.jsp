@@ -28,8 +28,8 @@
 				</a>
 			<div class="header-actions">
 				<div class="user-info">
-					<img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ porfileImg }" />
-					<p class="navbar-link">${ nickname }</p>
+					<img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ loggedUserProfileImg }" />
+					<p class="navbar-link">${ loggedUserNickname }</p>
 				</div>
 				<form action="logout" method="get">
 					<button class="btn btn-primary">로그아웃</button>
@@ -94,7 +94,7 @@
 							<i class='bx bxs-cog' style='color: #ffffff'></i>
 						</button>
 					</form>
-					<img class="fixed-size-image" src="data:image/jpeg3;base64,${ myProfile }" />
+					<img class="fixed-size-image" src="data:image/jpeg3;base64,${ loggedUserProfileImg }" />
 					<div class="textitemDiv">
 						<div id="nickname">
 							<p>닉네임변경</p>

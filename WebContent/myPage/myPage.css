@@ -1221,8 +1221,7 @@ body {
 	:root {
 		/**
        * typography
-       */ -
-		-fs-1: 42px;
+       */ --fs-1: 42px;
 	}
 
 	/**
@@ -1278,8 +1277,7 @@ body {
 	:root {
 		/**
        * typography
-       */ -
-		-fs-2: 36px;
+       */ --fs-2: 36px;
 	}
 
 	/**
@@ -1385,11 +1383,9 @@ body {
 	/**
      * MOVIE DETAIL
      */
-	.detail-subtitle { -
-		-fs-5: 26px;
+	.detail-subtitle { --fs-5: 26px;
 	}
-	.detail-title { -
-		-fs-1: 50px;
+	.detail-title { --fs-1: 50px;
 	}
 }
 
@@ -1558,9 +1554,8 @@ body {
 	:root {
 		/**
        * typography
-       */ -
-		-fs-1: 60px; -
-		-fs-4: 26px;
+       */ --fs-1: 60px; 
+       --fs-4: 26px;
 	}
 
 	/**
@@ -1591,8 +1586,8 @@ body {
 		margin-inline: auto;
 	}
 	.header-actions .btn-primary {
-		display: block; -
-		-fs-11: 14px;
+		display: block; 
+		--fs-11: 14px;
 		padding: 10px 35px;
 		letter-spacing: 1px;
 	}
@@ -1640,8 +1635,8 @@ body {
 	.movie-detail-content {
 		max-width: 620px;
 	}
-	.detail-title { -
-		-fs-1: 60px;
+	.detail-title { 
+	--fs-1: 60px;
 	}
 	.download-btn {
 		left: auto;

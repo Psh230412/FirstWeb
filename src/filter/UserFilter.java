@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(urlPatterns = {"/login", "/mypagemodify"})
+@WebFilter(urlPatterns = {"/login", "/mypagemodify44"})
 // 회원가입 규칙
 // 아이디: 소문자, 대문자, 숫자를 이용하여 5~20자
 // 비밀번호: 소문자, 대문자, 숫자, 정해진 특수문자들을 모두 포함 (~ ! @ # $ % ^ & * ( ) _ - + = [ ] , . / < >)

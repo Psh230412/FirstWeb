@@ -224,7 +224,6 @@ prefix="c"%>
             &copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
           </p>
 
-          <img alt="Online banking companies logo" class="footer-bottom-img" />
         </div>
       </div>
     </footer>

@@ -12,18 +12,30 @@
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
-<body>
-	<header class="header">
-		<nav class="navbar">
-			<div class="navbar-item">
-				<img src="/login/Untitled-1_0000_Group-3-copy.png" class="logo" alt=""> <a href="#" class="navbar-menu"><span>영화선택</span></a> <a href="#" class="navbar-menu"><span>경로보기</span></a>
+<body id="top">
+	<!-- 
+    - #HEADER
+  -->
 
-				<button class="btn btn-primary" onclick="redirectToLogout()">로그아웃</button>
-				<div class="social-icon">
-					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i class='bx bxl-twitter'></i></a> <a href="#"><i class='bx bxl-youtube'></i></a> <a href="#"><i class='bx bxl-instagram'></i></a> <a href="#"><i class='bx bxl-linkedin'></i></a>
+	<header class="header" data-header>
+		<div class="container">
+			<div class="overlay" data-overlay></div>
+
+			<a href="./" class="logo">  <img
+				src="img/Untitled-1_0000_Group-3-copy.png" alt="Filmlane logo"
+				class="logoimg" />
+				</a>
+			<div class="header-actions">
+				<div class="user-info">
+					<img class="fixed-size-navi-image" src="data:image/jpeg;base64,${ porfileImg }" />
+					<p class="navbar-link">${ nickname }</p>
 				</div>
+				<form action="logout" method="get">
+					<button class="btn btn-primary">로그아웃</button>
+				</form>
 			</div>
 
 			<button class="menu-open-btn" data-menu-open-btn>
@@ -64,7 +76,7 @@
 			</nav>
 		</div>
 	</header>
-	<main>
+<main>
 		<div class="container">
 
 			<section>
@@ -166,8 +178,76 @@
 			</section>
 		</div>
 	</main>
-	<footer></footer>
-	<script src="myPage/myPage.js">
-	</script>
+<!-- 
+    - #FOOTER
+  -->
+
+	<footer class="footer">
+		<div class="footer-top">
+			<div class="footer-container">
+				<div class="footer-brand-wrapper">
+					<a href="./index.html" class="logo"> <img
+						src="img/Untitled-1_0000_Group-3-copy.png" alt="Filmlane logo" />
+					</a>
+
+					<ul class="footer-list">
+						<li><a href="#" class="navbar-link">영화선택</a></li>
+						<li><a href="#" class="navbar-link">경로확인</a></li>
+					</ul>
+				</div>
+
+				<div class="divider"></div>
+
+
+
+				<ul class="social-list">
+					<li><a href="#" class="social-link"> <ion-icon
+								name="logo-facebook"></ion-icon>
+					</a></li>
+
+					<li><a href="#" class="social-link"> <ion-icon
+								name="logo-twitter"></ion-icon>
+					</a></li>
+
+					<li><a href="#" class="social-link"> <ion-icon
+								name="logo-pinterest"></ion-icon>
+					</a></li>
+
+					<li><a href="#" class="social-link"> <ion-icon
+								name="logo-linkedin"></ion-icon>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+				<p class="copyright">
+					&copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
+				</p>
+
+
+			</div>
+		</div>
+	</footer>
+	<!-- 
+    - #GO TO TOP
+  -->
+
+	<a href="#top" class="go-top" data-go-top> <ion-icon
+			name="chevron-up"></ion-icon>
+	</a>
+	
+		<!-- 
+    - ionicon link
+  -->
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="jsUtil/header.js"></script>
+	<script src="myPage/myPage.js"></script>
+
 </body>
 </html>

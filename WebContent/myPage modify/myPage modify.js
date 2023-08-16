@@ -61,31 +61,64 @@ document.getElementById('fileInput').addEventListener('change', function() {
     }
 });
 
-function redirectToLogout() {
-        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
-    }
-    
-    
-    document.addEventListener('DOMContentLoaded', function() {
-    const errorData = document.getElementById('errorData');
-    
-    let errorMessage = '';
-    if (errorData.getAttribute('data-has-change-nickname-error') === 'true') {
-        errorMessage += '동일한 이름의 닉네임이 존재합니다.\n';
-    }
-    if (errorData.getAttribute('data-has-fail-check-password') === 'true') {
-        errorMessage += '비밀번호를 잘못 입력하셨습니다.\n';
-    }
-    if (errorData.getAttribute('data-has-fail-check-password-change') === 'true') {
-        errorMessage += '비밀번호를 잘못 입력하셨습니다.\n';
-    }
-    if (errorData.getAttribute('data-has-password-input-error') === 'true') {
-        errorMessage += '변경할 비밀번호를 서로 다르게 입력하셨습니다.\n';
-    }
 
-    // 에러 메시지가 있으면 알림창을 표시합니다.
-    if (errorMessage) {
-        alert(errorMessage);
-    }
+
+
+
+
+
+
+
+const textField1 = document.getElementById('textField1');
+const textField2 = document.getElementById('textField2');
+const textField3 = document.getElementById('textField3');
+const passworditem = document.getElementById('passworditem');
+
+const activateButton1 = document.getElementById('activateButton1');
+const activateButton2 = document.getElementById('activateButton2');
+const updateButton = document.getElementById('updateButton');
+
+// 데이터베이스에서 들고온 값 이곳에...
+textField1.value = "닉네임은열자리입니다";
+textField2.value = "제공되는비밀번호열자";
+textField3.value = "오타방지확인비번열자";
+
+activateButton1.addEventListener('click', () => {
+    textField2.style.display = 'inline';
+
+    textField1.disabled = false;
+    textField2.disabled = false;
+    textField3.disabled = true;
+    updateButton.classList.remove('hidden');
+    activateButton1.style.display = 'none';
+    activateButton2.style.display = 'none';
+    passworditem.style.display = 'none';
 });
-    
+
+activateButton2.addEventListener('click', () => {
+    textField2.style.display = 'inline';
+    textField3.style.display = 'inline';
+    textField1.disabled = true;
+    textField2.disabled = false;
+    textField3.disabled = false;
+    updateButton.classList.remove('hidden');
+    activateButton1.style.display = 'none';
+    activateButton2.style.display = 'none';
+});
+
+updateButton.addEventListener('click', () => {
+    const newText1 = textField1.value;
+
+
+    // Here you can update the content as needed, e.g. sending data to a server.
+
+    textField1.disabled = true;
+    textField2.disabled = true;
+    textField3.disabled = true;
+    updateButton.classList.add('hidden');
+    activateButton1.style.display = 'inline';
+    activateButton2.style.display = 'inline';
+    textField2.style.display = 'none';
+    textField3.style.display = 'none';
+    passworditem.style.display = 'inline';
+});

@@ -32,4 +32,4 @@
 <img src="https://github.com/Psh230412/FirstWeb/assets/134483516/ec9e5b4f-c514-4406-826c-a0853ca015ef"/>
 
 ### <a name="fun5">내 정보 변경</a>
-<img src="https://github.com/Psh230412/FirstWeb/assets/134483516/f0a97129-5c69-4ec9-a30e-b1866a206be1"/>
+<img src="https://github.com/Psh230412/0623Start/assets/134483516/14b420c1-7f55-447d-a054-d7e4d51c074a"/>

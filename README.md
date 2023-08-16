@@ -86,6 +86,6 @@
 [상세보기](https://github.com/Psh230412/FirstWeb/blob/master/Presentation.md)
 
 # :mag_right: <a name="#fullfill">보완할점</a>
-### 1. 경로 테이블의 확장성을 고려하지 않아서 수정이 필요하다.
-### 2. api 의존이 심하다.
-### 3. 방대한 db로 검색 기능의 추가가 필요하다.
+### 1. 경로 테이블의 확장성을 고려하지 않아서 수정이 필요
+### 2. api 의존이 심함
+### 3. 방대한 db로 검색 기능의 추가가 필요

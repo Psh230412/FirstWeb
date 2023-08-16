@@ -31,7 +31,7 @@ public class PathServlet extends HttpServlet {
     String[] movieNumber = req.getParameterValues("movieNumber");
     
     if (selectedLocationNos == null || movieNumber == null) {
-    	resp.sendRedirect("http://localhost:8080/ScreenSceneP/movie");
+    	resp.sendRedirect("http://192.168.0.56:8080/ScreenSceneP/movie");
     	return;
     }
     

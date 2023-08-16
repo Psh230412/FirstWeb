@@ -37,7 +37,7 @@ items.forEach((item) => {
         }
 	if (item.classList.contains("selected")) {
             // 선택된 촬영지의 location_no를 바탕으로 서블릿에 요청
-            fetch(`http://localhost:8080/ScreenSceneP/mapchoice`, {
+            fetch(`http://192.168.0.56:8080/ScreenSceneP/mapchoice`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -144,5 +144,5 @@ toggleMapBtn.addEventListener('click', function() {
 });
 
 function redirectToLogout() {
-        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+        window.location.href = "http://192.168.0.56:8080/ScreenSceneP/logout";
     }

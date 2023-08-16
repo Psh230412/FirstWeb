@@ -744,7 +744,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             var pathJson = JSON.stringify(pathData);
 
-            fetch('http://localhost:8080/ScreenSceneP/savepath', {
+            fetch('http://192.168.0.56:8080/ScreenSceneP/savepath', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

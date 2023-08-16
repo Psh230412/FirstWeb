@@ -8,7 +8,7 @@ prefix="c"%>
     <title>Page Title</title>
     <link rel="stylesheet" type="text/css" href="filmingLocation/filmingLocation.css"/>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBodLVKsbfm_E9LyDU8PxrWsinKkUNUbgY"></script>
   </head>
 
   <body id="top">

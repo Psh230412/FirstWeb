@@ -183,7 +183,7 @@ function loadMoreMovies() {
     }),
   };
 
-  fetch("http://localhost:8080/ScreenSceneP/moviechoice", requestOptions)
+  fetch("http://192.168.0.56:8080/ScreenSceneP/moviechoice", requestOptions)
     .then((response) => {
       if (!response.ok) {
         console.error(
@@ -221,5 +221,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function redirectToLogout() {
-        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+        window.location.href = "http://192.168.0.56:8080/ScreenSceneP/logout";
     }

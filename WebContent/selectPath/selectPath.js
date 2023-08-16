@@ -103,5 +103,5 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function redirectToLogout() {
-        window.location.href = "http://localhost:8080/ScreenSceneP/logout";
+        window.location.href = "http://192.168.0.56:8080/ScreenSceneP/logout";
     }

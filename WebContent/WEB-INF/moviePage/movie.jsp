@@ -106,7 +106,7 @@ prefix="c"%>
       -->
         <form
           id="movieSelectionForm"
-          action="http://localhost:8080/ScreenSceneP/flow"
+          action="http://192.168.0.56:8080/ScreenSceneP/flow"
           method="POST"
         >
           <input

@@ -7,7 +7,6 @@
 - :scroll: <a href="#erd">ERD(Entity-Relation Diagram)</a>
 - :family: <a href="#team">팀원 역할 소개</a>
 - :bookmark_tabs: <a href="#function">기능</a>
-- :bulb: <a href="#result">후기</a>
 - :mag_right: <a href="#fullfill">보완할점</a>
 
 # :books: <a name="outline">개요</a>

@@ -1,4 +1,4 @@
-# ScreenSceneP
+# ScreenScenes
 
 ## :clipboard: 목차
 
@@ -15,7 +15,7 @@
 
 > **프로젝트** : 여행 경로 탐색
 >
-> **프로젝트 이름** : ScreenSceneP
+> **프로젝트 이름** : ScreenScenes
 >
 > **분류** : 팀 프로젝트
 >

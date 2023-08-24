@@ -59,7 +59,7 @@
 <div align="left">
    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white" />
    <img src="https://img.shields.io/badge/FIGMA-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
-   <img src="https://github.com/Psh230412/MovieTravelProject/assets/134483516/ca620cbd-9115-41a9-a640-42b82a5411ca" />
+   <img src="https://github.com/0gon/Lotto3/assets/134483516/7144b40a-eeb9-4bbd-9c16-6e8427d40236" />
 </div>
 
 # :scroll: <a name="erd">ERD</a>

@@ -1,8 +1,16 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="java.util.Properties"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper"%>
 <%@ page import="object.Location"%>
+<%
+Properties prop = new Properties();
+InputStream input = getServletContext().getResourceAsStream("/WEB-INF/secret.properties");
+prop.load(input);
+String googleMapsAPIKey = prop.getProperty("google.maps.api.key");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +19,7 @@
 <script
 	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA&callback=initMap"></script>
+	src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsAPIKey %>=initMap"></script>
 	
 <body>
 	<div class="slidermap">

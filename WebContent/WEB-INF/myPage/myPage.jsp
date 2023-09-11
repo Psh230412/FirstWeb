@@ -1,7 +1,16 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="java.util.Properties"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="object.MyPath"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+Properties prop = new Properties();
+InputStream input = getServletContext().getResourceAsStream("/WEB-INF/secret.properties");
+prop.load(input);
+String googleMapsAPIKey = prop.getProperty("google.maps.api.key");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +19,7 @@
 <title>MyPage</title>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsAPIKey %>"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

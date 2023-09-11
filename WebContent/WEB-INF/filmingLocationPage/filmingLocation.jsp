@@ -1,6 +1,15 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="java.util.Properties"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
 prefix="c"%>
+<%
+Properties prop = new Properties();
+InputStream input = getServletContext().getResourceAsStream("/WEB-INF/secret.properties");
+prop.load(input);
+String googleMapsAPIKey = prop.getProperty("google.maps.api.key");
+%>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,7 +17,7 @@ prefix="c"%>
     <title>Page Title</title>
     <link rel="stylesheet" type="text/css" href="filmingLocation/filmingLocation.css"/>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsAPIKey %>"></script>
   </head>
 
   <body id="top">
@@ -250,3 +259,5 @@ prefix="c"%>
     ></script>
   </body>
 </html>
+
+

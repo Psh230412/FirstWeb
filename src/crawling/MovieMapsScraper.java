@@ -32,9 +32,9 @@ import log.GeocodingException;
 import log.Write;
 import object.Count;
 import object.MovieTitleAndURL;
+import secret.LoadAPIKey;
 
 public class MovieMapsScraper implements Runnable {
-
 	private static final String BASE_URL = "https://moviemaps.org/movies/";
 	private MovieTitleAndURL titleAndURL;
 
@@ -46,8 +46,9 @@ public class MovieMapsScraper implements Runnable {
 	private static GeoApiContext instance;
 
 	public static synchronized GeoApiContext getInstance() {
+		String apiKey = LoadAPIKey.loadGoogleMapsAPIKey();
 		if (instance == null) {
-			instance = new GeoApiContext.Builder().apiKey("AIzaSyA0e22ys-P8tLqDUwqH0tcu-OKfeLUm8GQ").build();
+			instance = new GeoApiContext.Builder().apiKey(apiKey).build();
 		}
 		return instance;
 	}
@@ -71,7 +72,6 @@ public class MovieMapsScraper implements Runnable {
 				Document document = BASE_URLResponse.parse();
 
 				Elements movieLinks = document.select("a[href^='/movies/']");
-
 
 				Count.setEntireSize(movieLinks.size());
 
@@ -125,11 +125,10 @@ public class MovieMapsScraper implements Runnable {
 
 				if (hasMoreSix(document, title)) {
 
-					if(activateInsertMovie(movieUrl, document, title, conn)) {
+					if (activateInsertMovie(movieUrl, document, title, conn)) {
 						activateInsertLocation(movieUrl, document, title, conn);
-						
-					}
 
+					}
 
 				}
 
@@ -142,7 +141,7 @@ public class MovieMapsScraper implements Runnable {
 			e.printStackTrace();
 		} catch (ApiException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 
 			DBUtil.close(conn);
 
@@ -161,7 +160,6 @@ public class MovieMapsScraper implements Runnable {
 
 			List<MovieTitleAndURL> MovieTitleAndURLList = getMovieTitleAndURLList();
 
-
 			for (MovieTitleAndURL titleAndURL : MovieTitleAndURLList) {
 				conn = DBUtil.getConnection();
 
@@ -174,8 +172,7 @@ public class MovieMapsScraper implements Runnable {
 
 			while (!executor.isTerminated()) {
 			}
-			
-			
+
 			Write.WriteLogResult();
 
 		} catch (SQLException e) {
@@ -216,70 +213,68 @@ public class MovieMapsScraper implements Runnable {
 // 영화 하나를 삽입하는  메서드
 	public static boolean activateInsertMovie(String movieUrl, Document document, String title, Connection conn)
 			throws IOException, InterruptedException {
-		
+
 		try {
-		Count.incrementtryInsertMovieCount();
-		
-		
+			Count.incrementtryInsertMovieCount();
 
-		Element aElement = document.select("figure.small.poster.gallery a").first();
-		if (aElement == null) {
-
-			throw new ElementNotFoundException(
-					movieUrl + "\nElement aElement = document.select(\"figure.small.poster.gallery a\").first();");
-		}
-
-		String hrefposter = aElement.attr("href");
-
-		String posterUrl = "https://moviemaps.org" + hrefposter;
-
-		org.jsoup.Connection posterUrlConnection = Jsoup.connect(posterUrl);
-		Response posterUrlResponse = posterUrlConnection.execute();
-		int posterUrlStatusCode = posterUrlResponse.statusCode();
-
-		if (posterUrlStatusCode == 200) {
-			System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
-
-			Document posterdocument = posterUrlResponse.parse();
-
-			Element posterElement = posterdocument.select("figure img").first();
-			if (posterElement == null) {
+			Element aElement = document.select("figure.small.poster.gallery a").first();
+			if (aElement == null) {
 
 				throw new ElementNotFoundException(
-						posterUrl + "\nElement posterElement = posterdocument.select(\"figure img\").first();");
+						movieUrl + "\nElement aElement = document.select(\"figure.small.poster.gallery a\").first();");
 			}
 
-			String posterimgUrl = posterElement.attr("abs:src");
+			String hrefposter = aElement.attr("href");
 
-			URL posterimgURL = new URL(posterimgUrl);
+			String posterUrl = "https://moviemaps.org" + hrefposter;
 
-			URLConnection posterimgURLConnection = posterimgURL.openConnection();
+			org.jsoup.Connection posterUrlConnection = Jsoup.connect(posterUrl);
+			Response posterUrlResponse = posterUrlConnection.execute();
+			int posterUrlStatusCode = posterUrlResponse.statusCode();
 
-			if (posterimgURLConnection instanceof HttpURLConnection) {
-				HttpURLConnection posterimgURLHttpConnection = (HttpURLConnection) posterimgURLConnection;
-				int posterimgURLStatusCode = posterimgURLHttpConnection.getResponseCode();
-				System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
+			if (posterUrlStatusCode == 200) {
+				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
 
-				if (posterimgURLStatusCode != 200) {
-					System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
-					System.out.println("Error message:	" + posterimgURLHttpConnection.getResponseMessage());
+				Document posterdocument = posterUrlResponse.parse();
+
+				Element posterElement = posterdocument.select("figure img").first();
+				if (posterElement == null) {
+
+					throw new ElementNotFoundException(
+							posterUrl + "\nElement posterElement = posterdocument.select(\"figure img\").first();");
 				}
-				InputStream posterinputStream = posterimgURLConnection.getInputStream();
 
-				gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
+				String posterimgUrl = posterElement.attr("abs:src");
 
-				posterinputStream.close();
+				URL posterimgURL = new URL(posterimgUrl);
 
-				System.out.println(title + " movie 테이블 추가 성공");
+				URLConnection posterimgURLConnection = posterimgURL.openConnection();
 
-				Count.incrementInsertMovieCount();
-				return true;
+				if (posterimgURLConnection instanceof HttpURLConnection) {
+					HttpURLConnection posterimgURLHttpConnection = (HttpURLConnection) posterimgURLConnection;
+					int posterimgURLStatusCode = posterimgURLHttpConnection.getResponseCode();
+					System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
+
+					if (posterimgURLStatusCode != 200) {
+						System.out.println("posterimgURLStatusCode:	" + posterimgURLStatusCode);
+						System.out.println("Error message:	" + posterimgURLHttpConnection.getResponseMessage());
+					}
+					InputStream posterinputStream = posterimgURLConnection.getInputStream();
+
+					gmap_Movie_DAO.insertIntoMovie(title, posterinputStream, conn);
+
+					posterinputStream.close();
+
+					System.out.println(title + " movie 테이블 추가 성공");
+
+					Count.incrementInsertMovieCount();
+					return true;
+				}
+
+			} else {
+				System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
 			}
-
-		} else {
-			System.out.println("posterUrlStatusCode:	" + posterUrlStatusCode);
-		}
-		}catch (ElementNotFoundException e) {
+		} catch (ElementNotFoundException e) {
 			ExceptionHandler.ElementNotFoundExceptionToFile(e);
 			e.printStackTrace();
 		}
@@ -289,172 +284,167 @@ public class MovieMapsScraper implements Runnable {
 //  한개의 영화에 딸린 장소들을 삽입하는 메서드 
 
 	public static void activateInsertLocation(String movieUrl, Document document, String title, Connection conn)
-			throws IOException, InterruptedException, ApiException{
-			
-			
-		
-		
+			throws IOException, InterruptedException, ApiException {
 
 		int movie_no = gmap_Movie_DAO.getMovie_noWithTitle(title, conn);
 		Elements articles = document.select("article");
 
-
-		for(int i=1;i<=articles.size();i++) {
+		for (int i = 1; i <= articles.size(); i++) {
 			try {
-			Element article = articles.get(i-1);
-			if(article == null) {
-				throw new ElementNotFoundException(
-						movieUrl + "\nElement article = articles.get(i);\n"
-								+ i + "번째 article IN "+articles.size());
-				
-			}
-			int count = gmap_Movie_DAO.getCountByTitle(conn, title);
-
-			if (count < 30) {
-
-				Count.incrementTryInsertLocationCount();
-				System.out.println(title + " location 테이블 추가 시도");
-				Element h4Link = article.select("h4 > a[href^='/locations/']").first();
-				if (h4Link == null) {
-					throw new ElementNotFoundException(
-							movieUrl + "\nElement h4Link = article.select(\"h4 > a[href^='/locations/']\").first();\n"
-									+ i +  "번째 article IN "+articles.size());
+				Element article = articles.get(i - 1);
+				if (article == null) {
+					throw new ElementNotFoundException(movieUrl + "\nElement article = articles.get(i);\n" + i
+							+ "번째 article IN " + articles.size());
 
 				}
-				Element tinyThumbnailInFigureTag = article.selectFirst("figure.tiny.thumbnail");
+				int count = gmap_Movie_DAO.getCountByTitle(conn, title);
 
-				if (tinyThumbnailInFigureTag == null) {
-					throw new ElementNotFoundException(movieUrl
-							+ "\nElement tinyThumbnailInFigureTag = article.selectFirst(\"figure.tiny.thumbnail\");\n"
-							+ i +  "번째 article IN "+articles.size());
+				if (count < 30) {
 
-				}
-
-				Element a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst("a");
-
-				if (a_tagInTinythumbnail == null) {
-
-					throw new ElementNotFoundException(
-							movieUrl + "\nElement a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst(\"a\");"
-									+ "\n" + i +  "번째 article IN "+articles.size());
-
-				}
-
-				String imagehrefInA_tag = a_tagInTinythumbnail.attr("href");
-				String placeImageUrl = "https://moviemaps.org" + imagehrefInA_tag;
-
-				org.jsoup.Connection placeImageUrlConnection = Jsoup.connect(placeImageUrl);
-
-				Response placeImageresponse = placeImageUrlConnection.execute();
-
-				int placeImageStatusCode = placeImageresponse.statusCode();
-
-				if (placeImageStatusCode == 200) {
-					System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
-					Document placeImagedocument = placeImageresponse.parse();
-					Element movieLink = placeImagedocument.selectFirst("section#description a[href^=/locations/]");
-
-					if (movieLink == null) {
-						throw new ElementNotFoundException(placeImageUrl + "\nElement movieLink = placeImagedocument\n"
-								+ "									.selectFirst(\"section#description a[href^=/locations/]\");"
-								+ "\n" + i +  "번째 article IN "+articles.size());
+					Count.incrementTryInsertLocationCount();
+					System.out.println(title + " location 테이블 추가 시도");
+					Element h4Link = article.select("h4 > a[href^='/locations/']").first();
+					if (h4Link == null) {
+						throw new ElementNotFoundException(movieUrl
+								+ "\nElement h4Link = article.select(\"h4 > a[href^='/locations/']\").first();\n" + i
+								+ "번째 article IN " + articles.size());
 
 					}
-					String placeDetailhref = movieLink.attr("href");
-					String placeDetailUrl = "https://moviemaps.org" + placeDetailhref;
+					Element tinyThumbnailInFigureTag = article.selectFirst("figure.tiny.thumbnail");
 
-					org.jsoup.Connection placeDetailUrlConnection = Jsoup.connect(placeDetailUrl);
-					Response placeDetailUrlresponse = placeDetailUrlConnection.execute();
+					if (tinyThumbnailInFigureTag == null) {
+						throw new ElementNotFoundException(movieUrl
+								+ "\nElement tinyThumbnailInFigureTag = article.selectFirst(\"figure.tiny.thumbnail\");\n"
+								+ i + "번째 article IN " + articles.size());
 
-					int placeDetailUrlStatusCode = placeDetailUrlresponse.statusCode();
-					if (placeDetailUrlStatusCode == 200) {
-						System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
-						Document placeDetaildocument = placeDetailUrlresponse.parse();
-						Element addressElement = placeDetaildocument.select("address").first();
+					}
 
-						if (addressElement == null) {
-							throw new ElementNotFoundException(placeDetailUrl
-									+ "\nElement addressElement = placeDetaildocument.select(\"address\").first();"
-									+ "\n" + i +  "번째 article IN "+articles.size());
+					Element a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst("a");
 
-						}
-						String address = addressElement.text();
+					if (a_tagInTinythumbnail == null) {
 
-						GeoApiContext context = getInstance();
+						throw new ElementNotFoundException(movieUrl
+								+ "\nElement a_tagInTinythumbnail = tinyThumbnailInFigureTag.selectFirst(\"a\");" + "\n"
+								+ i + "번째 article IN " + articles.size());
 
-						GeocodingResult[] results = GeocodingApi.geocode(context, address).await();
+					}
 
-						if (results == null || results.length == 0) {
+					String imagehrefInA_tag = a_tagInTinythumbnail.attr("href");
+					String placeImageUrl = "https://moviemaps.org" + imagehrefInA_tag;
 
-							throw new GeocodingException(placeDetailUrl
-									+ "\nGeocodingResult[] results = GeocodingApi.geocode(context, address).await();"
-									+ "\n" + i +  "번째 article IN "+articles.size());
-						}
-						System.out.println("Latitude: " + results[0].geometry.location.lat);
-						System.out.println("Longitude: " + results[0].geometry.location.lng);
-						Double lat = results[0].geometry.location.lat;
-						Double lng = results[0].geometry.location.lng;
+					org.jsoup.Connection placeImageUrlConnection = Jsoup.connect(placeImageUrl);
 
-						Element imgElement = placeImagedocument.select("figure img").first();
+					Response placeImageresponse = placeImageUrlConnection.execute();
 
-						if (imgElement == null) {
+					int placeImageStatusCode = placeImageresponse.statusCode();
+
+					if (placeImageStatusCode == 200) {
+						System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
+						Document placeImagedocument = placeImageresponse.parse();
+						Element movieLink = placeImagedocument.selectFirst("section#description a[href^=/locations/]");
+
+						if (movieLink == null) {
 							throw new ElementNotFoundException(placeImageUrl
-									+ "\nElement imgElement = placeImagedocument.select(\"figure img\").first();" + "\n"
-									+ i +  "번째 article IN "+articles.size());
+									+ "\nElement movieLink = placeImagedocument\n"
+									+ "									.selectFirst(\"section#description a[href^=/locations/]\");"
+									+ "\n" + i + "번째 article IN " + articles.size());
 
 						}
-						String imgUrl = imgElement.attr("abs:src");
-						URL imgURL = new URL(imgUrl);
+						String placeDetailhref = movieLink.attr("href");
+						String placeDetailUrl = "https://moviemaps.org" + placeDetailhref;
 
-						URLConnection imgUrlConnection = imgURL.openConnection();
+						org.jsoup.Connection placeDetailUrlConnection = Jsoup.connect(placeDetailUrl);
+						Response placeDetailUrlresponse = placeDetailUrlConnection.execute();
 
-						if (imgUrlConnection instanceof HttpURLConnection) {
-							HttpURLConnection imgUrlHttpConnection = (HttpURLConnection) imgUrlConnection;
-							int imgUrlStatusCode = imgUrlHttpConnection.getResponseCode();
-							System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
+						int placeDetailUrlStatusCode = placeDetailUrlresponse.statusCode();
+						if (placeDetailUrlStatusCode == 200) {
+							System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
+							Document placeDetaildocument = placeDetailUrlresponse.parse();
+							Element addressElement = placeDetaildocument.select("address").first();
 
-							if (imgUrlStatusCode != 200) {
+							if (addressElement == null) {
+								throw new ElementNotFoundException(placeDetailUrl
+										+ "\nElement addressElement = placeDetaildocument.select(\"address\").first();"
+										+ "\n" + i + "번째 article IN " + articles.size());
 
+							}
+							String address = addressElement.text();
+
+							GeoApiContext context = getInstance();
+
+							GeocodingResult[] results = GeocodingApi.geocode(context, address).await();
+
+							if (results == null || results.length == 0) {
+
+								throw new GeocodingException(placeDetailUrl
+										+ "\nGeocodingResult[] results = GeocodingApi.geocode(context, address).await();"
+										+ "\n" + i + "번째 article IN " + articles.size());
+							}
+							System.out.println("Latitude: " + results[0].geometry.location.lat);
+							System.out.println("Longitude: " + results[0].geometry.location.lng);
+							Double lat = results[0].geometry.location.lat;
+							Double lng = results[0].geometry.location.lng;
+
+							Element imgElement = placeImagedocument.select("figure img").first();
+
+							if (imgElement == null) {
+								throw new ElementNotFoundException(placeImageUrl
+										+ "\nElement imgElement = placeImagedocument.select(\"figure img\").first();"
+										+ "\n" + i + "번째 article IN " + articles.size());
+
+							}
+							String imgUrl = imgElement.attr("abs:src");
+							URL imgURL = new URL(imgUrl);
+
+							URLConnection imgUrlConnection = imgURL.openConnection();
+
+							if (imgUrlConnection instanceof HttpURLConnection) {
+								HttpURLConnection imgUrlHttpConnection = (HttpURLConnection) imgUrlConnection;
+								int imgUrlStatusCode = imgUrlHttpConnection.getResponseCode();
 								System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
-								System.out.println("Error message:	" + imgUrlHttpConnection.getResponseMessage());
+
+								if (imgUrlStatusCode != 200) {
+
+									System.out.println("imgUrlStatusCode:	" + imgUrlStatusCode);
+									System.out.println("Error message:	" + imgUrlHttpConnection.getResponseMessage());
+								}
+
 							}
 
+							InputStream inputStream = imgUrlConnection.getInputStream();
+
+							try {
+								int result = gmap_Movie_DAO.insertIntoLocation(movie_no, address, lat, lng, inputStream,
+										conn);
+							} catch (SQLIntegrityConstraintViolationException e) {
+								System.out.println(movie_no);
+								e.printStackTrace();
+							}
+
+							System.out.println(title + " location 테이블 추가 성공");
+
+							Count.incrementLocationInsertCount();
+
+							inputStream.close();
+						} else {
+							System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
 						}
-
-						InputStream inputStream = imgUrlConnection.getInputStream();
-
-						try {
-							int result = gmap_Movie_DAO.insertIntoLocation(movie_no, address, lat, lng, inputStream,
-									conn);
-						} catch (SQLIntegrityConstraintViolationException e) {
-							System.out.println(movie_no);
-							e.printStackTrace();
-						}
-
-						System.out.println(title + " location 테이블 추가 성공");
-
-						Count.incrementLocationInsertCount();
-
-						inputStream.close();
 					} else {
-						System.out.println("placeDetailUrlStatusCode:	" + placeDetailUrlStatusCode);
+						System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
 					}
+
 				} else {
-					System.out.println("placeImageStatusCode:	" + placeImageStatusCode);
+					return;
 				}
 
-			} else {
-				return;
-			}
-			
-			}catch (ElementNotFoundException e) {
+			} catch (ElementNotFoundException e) {
 				ExceptionHandler.ElementNotFoundExceptionToFile(e);
 				e.printStackTrace();
 			} catch (GeocodingException e) {
 				ExceptionHandler.GeocodingExceptionToFile(e);
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 }

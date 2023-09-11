@@ -1,10 +1,19 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="java.util.Properties"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+Properties prop = new Properties();
+InputStream input = getServletContext().getResourceAsStream("/WEB-INF/secret.properties");
+prop.load(input);
+String googleMapsAPIKey = prop.getProperty("google.maps.api.key");
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
     <title>Hotel Map</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNge2_byHqG4LIuVu1Vg7RUZRYs3CvjYA&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= googleMapsAPIKey %>=places"></script>
 </head>
 <body>
     <div id="map" style="height: 500px;"></div>

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dbutil.DBUtil;
-import gmap.DistanceCalculator;
+import gmap.DistanceCalculator_old;
 import movie.MovieInformationDAO;
 import object.Location;
 import object.SelectPath;
@@ -105,12 +105,12 @@ public class PathServlet extends HttpServlet {
 
 	    }
 
-	    List<Location> firstLocationList = DistanceCalculator.getFirstLocation(selectedLocation);
+	    List<Location> firstLocationList = DistanceCalculator_old.getFirstLocation(selectedLocation);
 
-	    List<Location> secondLocationList = DistanceCalculator.getSecondLocation(firstLocationList,
+	    List<Location> secondLocationList = DistanceCalculator_old.getSecondLocation(firstLocationList,
 		    entireSelectedList);
 
-	    List<Location> thirdLocationList = DistanceCalculator.getThirdLocation(firstLocationList,
+	    List<Location> thirdLocationList = DistanceCalculator_old.getThirdLocation(firstLocationList,
 		    secondLocationList, entireSelectedList);
 
 	    System.out.println("firstLocationList의 크기" + firstLocationList.size());

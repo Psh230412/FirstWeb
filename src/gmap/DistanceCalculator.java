@@ -37,13 +37,13 @@ import object.Location;
 public class DistanceCalculator implements Runnable {
 	private Location destination;
 	private Location originLocation;
-	private String API_KEY;
 	private List<Distance> distances = new ArrayList();
 
-	public DistanceCalculator(Location originLocation, Location destination, String API_KEY) {
+	private static final double EARTH_RADIUS = 6371.0;
+
+	public DistanceCalculator(Location originLocation, Location destination) {
 		this.destination = destination;
 		this.originLocation = originLocation;
-		this.API_KEY = API_KEY;
 	}
 
 	public List<Distance> getDistances() {
@@ -52,74 +52,28 @@ public class DistanceCalculator implements Runnable {
 
 	@Override
 	public void run() {
-		try {
 
-			ObjectMapper mapper = new ObjectMapper();
 
-			String destinationLatitude = String.valueOf(destination.getLatitude());
-			String destinationLongitude = String.valueOf(destination.getLongitude());
-			String originLatitude = String.valueOf(originLocation.getLatitude());
-			String originLongitude = String.valueOf(originLocation.getLongitude());
+		if (!destination.equals(originLocation)) {
+			
+			double deltaLat = Math.toRadians(destination.getLatitude() - originLocation.getLatitude());
+	        double deltaLon = Math.toRadians(destination.getLongitude() - originLocation.getLongitude());
 
-			if (!destination.equals(originLocation)) {
+			double a = Math.pow(Math.sin(deltaLat / 2), 2) + Math.cos(Math.toRadians(originLocation.getLatitude()))
+					* Math.cos(Math.toRadians(destination.getLatitude())) * Math.pow(Math.sin(deltaLon / 2), 2);
 
-				URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + originLatitude
-						+ "%2C" + originLongitude + "&destinations=" + destinationLatitude + "%2C"
-						+ destinationLongitude + "&key=" + API_KEY);
+			double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-				HttpURLConnection Httpconn = (HttpURLConnection) url.openConnection();
-				Httpconn.setRequestMethod("GET");
+			
+			int distanceValue = (int) (EARTH_RADIUS * c);
+			if (distanceValue >= 100) {
 
-				int responseCode = Httpconn.getResponseCode();
-				String responseMessage = Httpconn.getResponseMessage();
-
-				System.out.println("구글 googleapis 응답 코드:	" + responseCode);
-				System.out.println("구글 googleapis 응답 메시지:	" + responseMessage);
-
-				BufferedReader in = new BufferedReader(new InputStreamReader(Httpconn.getInputStream()));
-				String inputLine;
-				StringBuilder content = new StringBuilder();
-				while ((inputLine = in.readLine()) != null) {
-					content.append(inputLine);
-				}
-
-				String jsonString = content.toString();
-				JsonNode rootNode = mapper.readTree(jsonString);
-
-				JsonNode rowsNode = rootNode.path("rows");
-
-				for (JsonNode row : rowsNode) {
-					JsonNode elementsNode = row.path("elements");
-					for (JsonNode element : elementsNode) {
-						String elementStatus = element.path("status").asText();
-
-//                  Test.counter.incrementAndGet();
-						if (elementStatus.equals("OK")) {
-
-							JsonNode distanceNode = element.path("distance");
-
-							int distanceValue = distanceNode.path("value").asInt(); // distance의 value 값을 가져옵니다.
-
-//                     System.out.println("Response Content: " + content.toString());
-//                     System.out.println(distanceValue);
-
-							if (distanceValue >= 100) {
-
-								distances.add(new Distance(distanceValue, destination, originLocation));
-							}
-
-							System.out.println(distances.size());
-
-						}
-					}
-				}
-				in.close();
-				Httpconn.disconnect();
+				distances.add(new Distance(distanceValue, destination, originLocation));
 			}
+			
 
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+
 	}
 
 	public static List<Distance> distanceCalculate(Location originLocation, List<Location> entireSelectedList) {
@@ -127,13 +81,11 @@ public class DistanceCalculator implements Runnable {
 		int cores = Runtime.getRuntime().availableProcessors();
 		ExecutorService executor = Executors.newFixedThreadPool(cores * 2);
 
-		String API_KEY = "";
-
 		List<Distance> allDistances = new ArrayList<>();
 		List<DistanceCalculator> workers = new ArrayList<>();
 
 		for (Location destination : entireSelectedList) {
-			DistanceCalculator worker = new DistanceCalculator(originLocation, destination, API_KEY);
+			DistanceCalculator worker = new DistanceCalculator(originLocation, destination);
 			workers.add(worker);
 			executor.execute(worker);
 		}
